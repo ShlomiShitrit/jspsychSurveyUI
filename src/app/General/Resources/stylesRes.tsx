@@ -1,0 +1,10 @@
+export const STYLES_MODE_DARK = "dark";
+export const STYLES_PRIMARY_MAIN = "#90caf9";
+export const STYLES_SECONDARY_MAIN = "#f48fb1";
+export const STYLES_SUCCESS_MAIN = "#4caf50";
+export const STYLE_DISPLAY = { xs: "none", md: "block" };
+export const STYLE_FFF_COLOR = "#fff";
+export const STYLE_M_20PX = "20px";
+export const STYLE_M_15PX = "15px";
+export const STYLE_M_10PX = "10px";
+export const STYLE_WIDTH_20_PRECENT = "20%";
