@@ -1,6 +1,6 @@
 "use client";
 import { Grid } from "@/app/General/muiComponents";
-import OptionInput from "@/app/Components/Wizard/Step2Comp/Form/OptionInput";
+import InputTextField from "@/app/Components/Wizard/Step2Comp/Form/InputTextField";
 import { OptionsGridProps } from "@/app/General/interfaces";
 import {
     GRID_CONT_SPAC_2,
@@ -8,7 +8,10 @@ import {
     GRID_ITEM_6,
     GRID_ITEM_4,
 } from "@/app/General/constants";
-import { OPTIONS_GRID_EMPTY_STR } from "@/app/General/Resources/Step2FormRes";
+import {
+    OPTIONS_GRID_EMPTY_STR,
+    OPTIONS_GRID_INPUT_TYPE,
+} from "@/app/General/Resources/Step2FormRes";
 
 function OptionsGrid({
     optionsQ = [],
@@ -26,11 +29,12 @@ function OptionsGrid({
                     md={GRID_ITEM_4}
                     key={optionIndex}
                 >
-                    <OptionInput
+                    <InputTextField
                         labelText={labelText}
                         id={optionIndex}
                         state={optionsQ[optionIndex]}
                         stateHandler={optionsQChangeHandler(optionIndex)}
+                        inputType={OPTIONS_GRID_INPUT_TYPE}
                     />
                 </Grid>
             ))}

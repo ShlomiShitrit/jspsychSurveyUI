@@ -3,10 +3,9 @@ import { useState, ChangeEvent, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 
-import PromptInput from "@/app/Components/Wizard/Step2Comp/Form/PromptInput";
-import NameInput from "@/app/Components/Wizard/Step2Comp/Form/NameInput";
 import OptionsGrid from "@/app/Components/Wizard/Step2Comp/Form/OptionsGrid";
 import AddOptionBtn from "@/app/Components/Wizard/Step2Comp/Form/AddOptionBtn";
+import InputTextField from "@/app/Components/Wizard/Step2Comp/Form/InputTextField";
 import SwitchLabel from "@/app/Components/Wizard/Step2Comp/Form/SwitchLabel";
 import { RootState } from "@/app/store/index";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
@@ -25,12 +24,16 @@ import {
     OPTION_OPTION_GRID_LABEL,
     REQUIRED_SWITCH_LABEL,
     HORIZONTAL_SWITCH_LABEL,
+    INPUT_TYPE_NAME,
+    INPUT_TYPE_PROMPT,
+    LABEL_PROMPT,
+    LABEL_NAME,
 } from "@/app/General/Resources/Step2SurveyTypeRes";
 
 function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
     const [promptQ, setPromptQ] = useState(EMPTY_STRING);
-    const [nameQ, setnameQ] = useState(EMPTY_STRING);
-    const [optionsQ, setOptionsQ] = useState<string[]>([]);
+    const [nameQ, setNameQ] = useState(EMPTY_STRING);
+    const [optionsArrQ, setOptionsArrQ] = useState<string[]>([]);
     const [optionsCount, setOptionsCount] = useState(SURVEY_TYPE_STATE_2);
     const [optionsArray, setOptionsArray] = useState<number[]>(
         SURVEY_TYPE_STATE_NUM_ARR
@@ -41,17 +44,18 @@ function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
         (state: RootState) => state.stype.surveyType
     );
 
-    const inputChangeHandler =
-        (setState: (value: React.SetStateAction<string>) => void) =>
-        (e: ChangeEvent<HTMLInputElement>) => {
-            setState(e.target.value);
-        };
+    const promptQChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setPromptQ(e.target.value);
+    };
+    const nameQChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setNameQ(e.target.value);
+    };
 
-    const optionsQChangeHandler =
+    const optionsQArrChangeHandler =
         (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
-            const updatedOptions = [...optionsQ];
+            const updatedOptions = [...optionsArrQ];
             updatedOptions[index] = `'${e.target.value}'`;
-            setOptionsQ(updatedOptions);
+            setOptionsArrQ(updatedOptions);
         };
 
     const addOption = () => {
@@ -59,23 +63,57 @@ function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
         setOptionsArray([...optionsArray, optionsCount]);
     };
 
-    const switchChangeHandler =
-        (setState: (value: React.SetStateAction<boolean>) => void) =>
-        (e: ChangeEvent<HTMLInputElement>) => {
-            setState(e.target.checked);
-        };
+    const requiredSwitchChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setRequired(e.target.checked);
+    };
+
+    const horizontalSwitchChangeHandler = (
+        e: ChangeEvent<HTMLInputElement>
+    ) => {
+        setHorizontal(e.target.checked);
+    };
 
     useEffect(() => {
         const QuestionData = {
             index: SURVEY_TYPE_INDEX_0,
             promptQ: promptQ,
             nameQ: nameQ,
-            optionsQ: optionsQ,
+            optionsQ: optionsArrQ,
             required: required,
             horizontal: horizontal,
         };
         onSurveyParams(QuestionData);
-    });
+    }, []);
+
+    const switchLabelArr = [
+        {
+            state: required,
+            stateHandler: requiredSwitchChangeHandler,
+            text: REQUIRED_SWITCH_LABEL,
+        },
+        {
+            state: horizontal,
+            stateHandler: horizontalSwitchChangeHandler,
+            text: HORIZONTAL_SWITCH_LABEL,
+        },
+    ];
+
+    const inputFieldArr = [
+        {
+            id: SURVEY_TYPE_ID_0,
+            state: promptQ,
+            stateHandler: promptQChangeHandler,
+            labelText: LABEL_PROMPT,
+            inputType: INPUT_TYPE_PROMPT,
+        },
+        {
+            id: SURVEY_TYPE_ID_0,
+            state: nameQ,
+            stateHandler: nameQChangeHandler,
+            labelText: LABEL_NAME,
+            inputType: INPUT_TYPE_NAME,
+        },
+    ];
 
     return (
         <Box sx={matgin10Style}>
@@ -84,34 +122,30 @@ function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
                     {FIRST_FORM_LABEL} {surveyType}
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{SECOND_FORM_LABEL}</FormLabel>
-                <PromptInput
-                    id={SURVEY_TYPE_ID_0}
-                    state={promptQ}
-                    stateHandler={inputChangeHandler(setPromptQ)}
-                />
-                <NameInput
-                    id={SURVEY_TYPE_ID_0}
-                    state={nameQ}
-                    stateHandler={inputChangeHandler(setnameQ)}
-                />
+                {inputFieldArr.map((inputField, index) => (
+                    <InputTextField
+                        key={index}
+                        id={inputField.id}
+                        state={inputField.state}
+                        stateHandler={inputField.stateHandler}
+                        labelText={inputField.labelText}
+                    />
+                ))}
                 <OptionsGrid
                     labelText={OPTION_OPTION_GRID_LABEL}
-                    optionsQ={optionsQ}
-                    optionsQChangeHandler={optionsQChangeHandler}
+                    optionsQ={optionsArrQ}
+                    optionsQChangeHandler={optionsQArrChangeHandler}
                     optionsArray={optionsArray}
                 />
                 <AddOptionBtn addOption={addOption} />
-
-                <SwitchLabel
-                    isState={required}
-                    stateHandler={switchChangeHandler(setRequired)}
-                    labelText={REQUIRED_SWITCH_LABEL}
-                />
-                <SwitchLabel
-                    isState={horizontal}
-                    stateHandler={switchChangeHandler(setHorizontal)}
-                    labelText={HORIZONTAL_SWITCH_LABEL}
-                />
+                {switchLabelArr.map((switchLabel, index) => (
+                    <SwitchLabel
+                        key={index}
+                        isState={switchLabel.state}
+                        stateHandler={switchLabel.stateHandler}
+                        labelText={switchLabel.text}
+                    />
+                ))}
             </FormControl>
         </Box>
     );

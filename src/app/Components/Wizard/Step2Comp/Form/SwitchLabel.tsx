@@ -1,13 +1,13 @@
 import { FormControlLabel, Switch } from "@/app/General/muiComponents";
 import { switchLabelStyle } from "@/app/General/styles";
-import { NameInputProps } from "@/app/General/interfaces";
+import { InputTextFieldProps } from "@/app/General/interfaces";
 import { EMPTY_STRING } from "@/app/General/Resources/Step2FormRes";
 
 function SwitchLabel({
     isState = false,
     stateHandler = () => null,
     labelText = EMPTY_STRING,
-}: NameInputProps) {
+}: InputTextFieldProps) {
     return (
         <FormControlLabel
             sx={switchLabelStyle}
