@@ -32,7 +32,6 @@ function WelcomeMessage({ wizradHandler = () => null }: WelcomeMessageProps) {
                 <br />
                 <br />
                 <Typography
-                    component={TYP_COMP_H1}
                     variant={TYP_VAR_H2}
                     align={TYP_ALIGN_CENTER}
                     color={TYP_COLOR_PRIME}
@@ -44,7 +43,6 @@ function WelcomeMessage({ wizradHandler = () => null }: WelcomeMessageProps) {
                     variant={TYP_VAR_H5}
                     align={TYP_ALIGN_CENTER}
                     color={TYP_COLOR_SEC}
-                    paragraph
                 >
                     {SEC_WELCOME_MSG}
                 </Typography>
