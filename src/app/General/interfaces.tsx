@@ -48,9 +48,10 @@ export interface AddOptionBtnProps {
     addOption: () => void;
 }
 
-export interface NameInputProps {
+export interface InputTextFieldProps {
     state?: string;
     stateHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+    inputType?: string;
     id?: number;
     labelText?: string;
     isState?: boolean;

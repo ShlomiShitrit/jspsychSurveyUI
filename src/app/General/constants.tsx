@@ -25,5 +25,4 @@ export const SURVEY_TYPE_COUNTER_PLUS_1 = 1;
 export const SURVEY_TYPE_INDEX_0 = 0;
 export const SURVEY_TYPE_ID_0 = 0;
 
-
-export const STORE_INDEX_0 = 0;
+export const OBJECTS_INDEX_0 = 0;
