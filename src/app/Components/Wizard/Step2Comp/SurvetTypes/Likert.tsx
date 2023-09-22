@@ -72,16 +72,17 @@ function Likert({ onSurveyParams = () => null }: LikertProps) {
         setRandomQ(e.target.checked);
     };
 
+    const QuestionData = {
+        index: SURVEY_TYPE_INDEX_0,
+        promptQ: promptsQ,
+        nameQ: namesQ,
+        optionsQ: optionsQ,
+        randomQ: randomQ,
+    };
+
     useEffect(() => {
-        const QuestionData = {
-            index: SURVEY_TYPE_INDEX_0,
-            promptQ: promptsQ,
-            nameQ: namesQ,
-            optionsQ: optionsQ,
-            randomQ: randomQ,
-        };
         onSurveyParams(QuestionData);
-    });
+    }, [QuestionData]);
 
     return (
         <Box sx={matgin10Style}>

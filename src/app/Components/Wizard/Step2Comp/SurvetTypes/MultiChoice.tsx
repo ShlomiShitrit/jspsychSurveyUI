@@ -73,17 +73,18 @@ function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
         setHorizontal(e.target.checked);
     };
 
+    const QuestionData = {
+        index: SURVEY_TYPE_INDEX_0,
+        promptQ: promptQ,
+        nameQ: nameQ,
+        optionsQ: optionsArrQ,
+        required: required,
+        horizontal: horizontal,
+    };
+
     useEffect(() => {
-        const QuestionData = {
-            index: SURVEY_TYPE_INDEX_0,
-            promptQ: promptQ,
-            nameQ: nameQ,
-            optionsQ: optionsArrQ,
-            required: required,
-            horizontal: horizontal,
-        };
         onSurveyParams(QuestionData);
-    }, []);
+    }, [QuestionData]);
 
     const switchLabelArr = [
         {
