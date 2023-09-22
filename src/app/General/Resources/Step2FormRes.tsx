@@ -8,6 +8,7 @@ export const LIKERT_STYPE = "Likert";
 export const EMPTY_STRING = "";
 export const ERROR_SURVEY_TYPE_MSG = "Invalid Survey Type";
 export const TEXTFIELD_VARIANT = "outlined";
+export const INPUT_TYPE_OPTIONSQ = "optionsQ";
 
 // SwitchLabel.tsx
 export const FORM_CONTROL_LABEL_MARGIN = "10px";
