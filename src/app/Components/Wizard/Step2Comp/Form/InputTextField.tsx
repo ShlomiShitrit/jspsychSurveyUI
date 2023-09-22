@@ -21,6 +21,7 @@ import {
     LIKERT_STYPE,
     ERROR_SURVEY_TYPE_MSG,
     TEXTFIELD_VARIANT,
+    INPUT_TYPE_OPTIONSQ,
 } from "@/app/General/Resources/Step2FormRes";
 
 function InputTextField({
@@ -56,9 +57,9 @@ function InputTextField({
             throw new Error(ERROR_SURVEY_TYPE_MSG);
     }
 
-    let stateRep = EMPTY_STRING;
-    if (state) {
-        stateRep = replaceFirstAndLast(state, EMPTY_STRING, EMPTY_STRING);
+    let newState = state;
+    if (inputType === INPUT_TYPE_OPTIONSQ || surveyType === LIKERT_STYPE) {
+        newState = replaceFirstAndLast(state, EMPTY_STRING, EMPTY_STRING);
     }
 
     return (
@@ -67,7 +68,7 @@ function InputTextField({
             id={id.toString()}
             label={`${labelText} ${id + FORM_INPUT_ID_PLUS_1}`}
             variant={TEXTFIELD_VARIANT}
-            value={stateRep ? stateRep : stateQ}
+            value={newState}
             onChange={stateHandler}
             fullWidth
         />
