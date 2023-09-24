@@ -32,7 +32,7 @@ export interface LikertQuestion {
 }
 
 export interface Step2Props {
-    onMCParams: (params: MultiChoiceQuestion) => void;
+    onMCParams: (params: MultiChoiceQuestion[]) => void;
     onLikertParams: (params: LikertQuestion) => void;
 }
 
@@ -85,5 +85,13 @@ export interface LikertProps {
 }
 
 export interface MultiChoiceProps {
-    onSurveyParams: (params: MultiChoiceQuestion) => void;
+    onSurveyParams: (params: MultiChoiceQuestion[]) => void;
+}
+
+export interface MultiChoiceFormProps {
+    questionsChangeHandler: (
+        index: number,
+        question: MultiChoiceQuestion
+    ) => void;
+    id: number;
 }

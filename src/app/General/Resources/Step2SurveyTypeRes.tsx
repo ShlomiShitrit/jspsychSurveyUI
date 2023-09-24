@@ -7,11 +7,5 @@ export const LABEL_OPTION_GRID_LABEL = "Label";
 export const RANDOM_SWITCH_LABEL = "Randomize question order";
 
 // MultiChoice.tsx
-export const EMPTY_STRING = "";
-export const OPTION_OPTION_GRID_LABEL = "Option";
-export const REQUIRED_SWITCH_LABEL = "Required";
-export const HORIZONTAL_SWITCH_LABEL = "Horizontal";
-export const INPUT_TYPE_NAME = "nameQ";
-export const INPUT_TYPE_PROMPT = "promptQ";
-export const LABEL_PROMPT = "Prompt";
-export const LABEL_NAME = "Name";
+export const ADD_BTN_VARIANT = "contained";
+export const ADD_BTN_TXT = "Add Form";
