@@ -9,7 +9,8 @@ export const STYPE_LIKERT = "Likert";
 export const ERR_MSG_STYPE = "Invalid survey type";
 
 // ErrorStep.tsx
-export const ERROR_STEP_VARIANT = "h6";
+export const ERROR_STEP_VARIANT_H6 = "h6";
+export const ERROR_STEP_VARIANT_H4 = "h4";
 export const ERROR_STEP_ALIGN = "center";
 export const ERROR_STEP_FIRST_MSG = "Error";
 export const ERROR_STEP_SEC_MSG =

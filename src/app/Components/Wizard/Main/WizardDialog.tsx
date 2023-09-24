@@ -61,6 +61,9 @@ function WizardDialog({
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
+    const [isError, setIsError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState(EMPTY_STRING);
+
     const dispatch = useDispatch();
     const addMultiChoiceQuestion = (question: MultiChoiceQuestion) => {
         dispatch(multiChoiceActions.addQuestion(question));
@@ -90,7 +93,15 @@ function WizardDialog({
         closeWizard();
     };
 
+    const errorHandler = (msg: string) => {
+        setIsError(true);
+        setErrorMsg(msg);
+    };
+
     function GetStepContent(step: number) {
+        if (isError) {
+            return <ErrorStep error={errorMsg} />;
+        }
         switch (step) {
             case WIZRAD_DIALOG_STEP_0:
                 return <Step1 />;
@@ -158,7 +169,10 @@ function WizardDialog({
                             {NEXT_BTN_TEXT}
                         </Button>
                         {activeStep === WIZRAD_DIALOG_STEP_2 && (
-                            <DownloadBtn fileName={fileName} />
+                            <DownloadBtn
+                                fileName={fileName}
+                                errorHandler={errorHandler}
+                            />
                         )}
                     </DialogActions>
                 )}

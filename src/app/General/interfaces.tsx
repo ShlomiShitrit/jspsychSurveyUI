@@ -7,6 +7,7 @@ export interface WelcomeMessageProps {
 
 export interface DownloadBtnProps {
     fileName: string;
+    errorHandler: (error: string) => void;
 }
 
 export interface ErrorStepProps {

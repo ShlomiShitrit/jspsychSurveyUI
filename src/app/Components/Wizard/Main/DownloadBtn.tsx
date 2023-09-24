@@ -4,6 +4,7 @@ import { Button } from "@/app/General/muiComponents";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import { replaceFirstAndLast } from "@/app/General/utils";
+import ErrorStep from "@/app/Components/Wizard/Main/ErrorStep";
 import {
     DownloadBtnProps,
     MultiChoiceQuestion,
@@ -20,18 +21,20 @@ import {
     ERR_MSG_STYPE,
 } from "@/app/General/Resources/WizardMainRes";
 
-function DownloadBtn({ fileName = DOWNLOAD_BTN_EMPTY_STR }: DownloadBtnProps) {
+function DownloadBtn({
+    fileName = DOWNLOAD_BTN_EMPTY_STR,
+    errorHandler = () => null,
+}: DownloadBtnProps) {
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
-
     const surveyParams = useSelector((state: RootState) => {
         if (surveyType === STYPE_MULTI_CHOICE) {
             return state.multiChoice;
         } else if (surveyType === STYPE_LIKERT) {
             return state.likert;
         } else {
-            throw new Error(ERR_MSG_STYPE);
+            errorHandler(ERR_MSG_STYPE);
         }
     });
 
@@ -86,7 +89,7 @@ function DownloadBtn({ fileName = DOWNLOAD_BTN_EMPTY_STR }: DownloadBtnProps) {
         };
       `;
     } else {
-        throw new Error(ERR_MSG_STYPE);
+        errorHandler(ERR_MSG_STYPE);
     }
 
     const fileContents = `
