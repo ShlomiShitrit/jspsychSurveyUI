@@ -4,6 +4,9 @@ export const DOWNLOAD_BTN_TEXT = "Download";
 export const DOWNLOAD_BTN_COLOR = "primary";
 export const DOWNLOAD_BTN_VARIANT = "contained";
 export const DOWNLOAD_BTN_EMPTY_STR = "";
+export const STYPE_MULTI_CHOICE = "Multi Choice";
+export const STYPE_LIKERT = "Likert";
+export const ERR_MSG_STYPE = "Invalid survey type";
 
 // ErrorStep.tsx
 export const ERROR_STEP_VARIANT = "h6";

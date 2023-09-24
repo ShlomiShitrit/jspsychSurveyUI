@@ -15,6 +15,9 @@ import {
     DOWNLOAD_BTN_COLOR,
     DOWNLOAD_BTN_VARIANT,
     DOWNLOAD_BTN_EMPTY_STR,
+    STYPE_LIKERT,
+    STYPE_MULTI_CHOICE,
+    ERR_MSG_STYPE,
 } from "@/app/General/Resources/WizardMainRes";
 
 function DownloadBtn({ fileName = DOWNLOAD_BTN_EMPTY_STR }: DownloadBtnProps) {
@@ -22,20 +25,18 @@ function DownloadBtn({ fileName = DOWNLOAD_BTN_EMPTY_STR }: DownloadBtnProps) {
         (state: RootState) => state.stype.surveyType
     );
 
-    // TODO: move to resources
     const surveyParams = useSelector((state: RootState) => {
-        if (surveyType === "Multi Choice") {
+        if (surveyType === STYPE_MULTI_CHOICE) {
             return state.multiChoice;
-        } else if (surveyType === "Likert") {
+        } else if (surveyType === STYPE_LIKERT) {
             return state.likert;
         } else {
-            throw new Error("Invalid survey type");
+            throw new Error(ERR_MSG_STYPE);
         }
     });
 
-    // TODO: move to resources
-    let trial: string = "";
-    if (surveyType === "Multi Choice") {
+    let trial: string = DOWNLOAD_BTN_EMPTY_STR;
+    if (surveyType === STYPE_MULTI_CHOICE) {
         const params = surveyParams as MultiChoiceQuestion[];
         trial = `
       const trial = {
@@ -51,21 +52,31 @@ function DownloadBtn({ fileName = DOWNLOAD_BTN_EMPTY_STR }: DownloadBtnProps) {
           ],
         };
       `;
-    } else if (surveyType === "Likert") {
+    } else if (surveyType === STYPE_LIKERT) {
         const params = surveyParams as LikertQuestion[];
         const questions = params[0].promptQ.map((prompt, index) => {
             return `{prompt: "${replaceFirstAndLast(
                 prompt,
-                "",
-                ""
+                DOWNLOAD_BTN_EMPTY_STR,
+                DOWNLOAD_BTN_EMPTY_STR
             )}", name: "${replaceFirstAndLast(
                 params[0].nameQ[index],
-                "",
-                ""
-            )}", labels: [${params[0].optionsQ}]}`;
+                DOWNLOAD_BTN_EMPTY_STR,
+                DOWNLOAD_BTN_EMPTY_STR
+            )}", labels: labels}`;
+        });
+
+        const replacedLabels = params[0].optionsQ.map((option) => {
+            const replacedOption = replaceFirstAndLast(
+                option,
+                DOWNLOAD_BTN_EMPTY_STR,
+                DOWNLOAD_BTN_EMPTY_STR
+            );
+            return `'<p style="margin:30px">${replacedOption}</p>'`;
         });
 
         trial = `
+        const labels = [${replacedLabels}];
       const trial = {
           type: jsPsychSurveyLikert,
           questions: [
@@ -75,7 +86,7 @@ function DownloadBtn({ fileName = DOWNLOAD_BTN_EMPTY_STR }: DownloadBtnProps) {
         };
       `;
     } else {
-        throw new Error("Invalid survey type");
+        throw new Error(ERR_MSG_STYPE);
     }
 
     const fileContents = `
