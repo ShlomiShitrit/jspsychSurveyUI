@@ -41,17 +41,16 @@ function DownloadBtn({
     let trial: string = DOWNLOAD_BTN_EMPTY_STR;
     if (surveyType === STYPE_MULTI_CHOICE) {
         const params = surveyParams as MultiChoiceQuestion[];
+
+        const questions = params.map((question) => {
+            return `{prompt: "${question.promptQ}", name: "${question.nameQ}", options: [${question.optionsQ}], required: ${question.required}, horizontal: ${question.horizontal}}`;
+        });
+
         trial = `
       const trial = {
           type: jsPsychSurveyMultiChoice,
           questions: [
-            {
-              prompt: "${params[0].promptQ}", 
-              name: "${params[0].nameQ}", 
-              options: [${params[0].optionsQ}], 
-              required: ${params[0].required},
-              horizontal: ${params[0].horizontal},
-            }, 
+            ${questions}
           ],
         };
       `;

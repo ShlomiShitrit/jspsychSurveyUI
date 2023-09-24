@@ -53,8 +53,9 @@ function WizardDialog({
     closeWizard = () => null,
 }: CreateWizardProps) {
     const [activeStep, setActiveStep] = useState(WIZRAD_DIALOG_STEP_0);
-    const [multiChoiceParams, setMultiChoiceParams] =
-        useState<MultiChoiceQuestion>(mcParamsObj);
+    const [multiChoiceParams, setMultiChoiceParams] = useState<
+        MultiChoiceQuestion[]
+    >([mcParamsObj]);
     const [likertParams, setLikertParams] =
         useState<LikertQuestion>(likertParamsObj);
     const [fileName, setFileName] = useState(EMPTY_STRING);
@@ -76,7 +77,7 @@ function WizardDialog({
         setActiveStep(activeStep - WIZRAD_DIALOG_STEP_1);
     };
 
-    const multiChiceParamsHandler = (params: MultiChoiceQuestion) => {
+    const multiChiceParamsHandler = (params: MultiChoiceQuestion[]) => {
         setMultiChoiceParams(params);
     };
 
@@ -122,15 +123,15 @@ function WizardDialog({
     const handleNext = () => {
         setActiveStep(activeStep + WIZRAD_DIALOG_STEP_1);
         if (surveyType === MULTI_CHOICE_STYPE) {
-            addMultiChoiceQuestion(multiChoiceParams as MultiChoiceQuestion);
+            multiChoiceParams.forEach((question) => {
+                addMultiChoiceQuestion(question);
+            });
         } else if (surveyType === LIKERT_STYPE) {
             addLikertQuestion(likertParams as LikertQuestion);
         }
     };
 
-    const test = () => {
-        console.log(surveyType);
-    };
+    const test = () => null;
 
     return (
         <ThemeProvider theme={darkTheme}>
