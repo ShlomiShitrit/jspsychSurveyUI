@@ -23,7 +23,7 @@ import {
     TXT_FIELD_LABEL,
     TXT_FIELD_VAR,
     EMPTY_STR,
-} from "@/app/General/Resources/DownloadDialogRes";
+} from "@/app/General/Resources/FormsRes";
 
 function DownloadDialog({
     open = false,

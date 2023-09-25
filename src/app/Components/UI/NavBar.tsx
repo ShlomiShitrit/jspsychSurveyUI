@@ -20,7 +20,7 @@ import {
     DOCS_BTN_TEXT,
     EXTRA_BTN_TEXT,
     CREATE_SURVEY_TEXT,
-} from "@/app/General/Resources/UIResources";
+} from "@/app/General/Resources/UIRes";
 
 function NavBar() {
     const btnArr = [

@@ -1,7 +1,7 @@
 import { FormControlLabel, Switch } from "@/app/General/muiComponents";
 import { switchLabelStyle } from "@/app/General/styles";
 import { InputTextFieldProps } from "@/app/General/interfaces";
-import { EMPTY_STRING } from "@/app/General/Resources/Step2FormRes";
+import { EMPTY_STRING } from "@/app/General/Resources/FormsRes";
 
 function SwitchLabel({
     isState = false,

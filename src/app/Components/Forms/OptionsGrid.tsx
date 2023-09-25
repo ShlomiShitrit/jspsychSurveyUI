@@ -11,7 +11,7 @@ import {
 import {
     OPTIONS_GRID_EMPTY_STR,
     OPTIONS_GRID_INPUT_TYPE,
-} from "@/app/General/Resources/Step2FormRes";
+} from "@/app/General/Resources/FormsRes";
 
 function OptionsGrid({
     optionsQ = [],

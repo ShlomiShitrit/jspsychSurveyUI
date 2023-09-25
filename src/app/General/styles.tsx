@@ -18,7 +18,7 @@ import {
     STYLE_CENTER,
     STYLE_M_200PX,
     STYLE_M_50PX,
-} from "@/app/General/Resources/stylesRes";
+} from "@/app/General/Resources/OtherRes";
 
 import {
     STYLE_NAVBAR_BLUE,

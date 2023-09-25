@@ -16,7 +16,7 @@ import {
     CREATE_DOWNLOAF_BTN_TXT,
     CREATE_BTN_COLOR,
     CREATE_BTN_VARIANT,
-} from "@/app/General/Resources/UIResources";
+} from "@/app/General/Resources/PagesRes";
 
 function CreatePage() {
     const [openWizrad, setOpenWizrad] = useState(false);

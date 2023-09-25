@@ -1,7 +1,7 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialLikertSurveyState } from "@/app/General/Objects";
-import { LIKERT_SLICE_NAME } from "@/app/General/Resources/StoreRes";
+import { LIKERT_SLICE_NAME } from "@/app/General/Resources/OtherRes";
 import { LikertQuestion } from "@/app/General/interfaces";
 
 export const likertSlice = createSlice({

@@ -14,7 +14,7 @@ import {
     LIKERT_SURVEY_TYPE,
     MULTI_SELECT_SURVEY_TYPE,
     ERROR_STEP_MSG,
-} from "@/app/General/Resources/WizardMainRes";
+} from "@/app/General/Resources/WizardRes";
 
 function Step2({
     onMCParams = () => null,

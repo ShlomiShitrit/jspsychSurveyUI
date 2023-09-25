@@ -19,7 +19,7 @@ import {
     STYPE_LIKERT,
     STYPE_MULTI_CHOICE,
     ERR_MSG_STYPE,
-} from "@/app/General/Resources/WizardMainRes";
+} from "@/app/General/Resources/FormsRes";
 
 function DownloadBtn({
     fileName = DOWNLOAD_BTN_EMPTY_STR,

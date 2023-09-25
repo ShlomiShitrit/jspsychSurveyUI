@@ -14,15 +14,14 @@ import {
     ThemeProvider,
 } from "@/app/General/muiComponents";
 
-import Step1 from "@/app/Components/Wizard/Main/Step1";
-import Step2 from "@/app/Components/Wizard/Main/Step2";
-import Step3 from "@/app/Components/Wizard/Main/Step3";
+import Step1 from "@/app/Components/Wizard/Step1";
+import Step2 from "@/app/Components/Wizard/Step2";
+import Step3 from "@/app/Components/Wizard/Step3";
 import { multiChoiceActions } from "@/app/store/multiChoiceSlice";
 import { likertActions } from "@/app/store/likertSlice";
 import { surveyListActions } from "@/app/store/surveyListSlice";
-import DownloadBtn from "@/app/Components/Wizard/Main/DownloadBtn";
 import AddSurveyBtn from "@/app/Components/Wizard/AddSurveyBtn";
-import ErrorStep from "@/app/Components/Wizard/Main/ErrorStep";
+import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import { RootState } from "@/app/store/index";
 import { darkTheme, wizradDialogDialogStyle } from "@/app/General/styles";
 import { mcParamsObj, likertParamsObj } from "@/app/General/Objects";
@@ -51,8 +50,7 @@ import {
     STYPE_MULTI_CHOICE,
     STYPE_LIKERT,
     ERR_MSG_STYPE,
-} from "@/app/General/Resources/WizardMainRes";
-import MultiChoice from "../Step2Comp/SurvetTypes/MultiChoice";
+} from "@/app/General/Resources/WizardRes";
 
 function WizardDialog({
     open = false,

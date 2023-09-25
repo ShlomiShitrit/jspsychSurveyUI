@@ -9,7 +9,7 @@ import {
     SEC_WELCOME_MSG,
     BTN_TXT,
     CREATE_ROUTE,
-} from "@/app/General/Resources/UIResources";
+} from "@/app/General/Resources/PagesRes";
 
 function HomePage() {
     const router = useRouter();

@@ -22,7 +22,7 @@ import {
     MULTI_CHOICE_CONTROL_LABEL,
     MULTI_SELECT_CONTROL_LABEL,
     LIKERT_CONTROL_LABEL,
-} from "@/app/General/Resources/WizardMainRes";
+} from "@/app/General/Resources/WizardRes";
 
 function Step1() {
     const dispatch = useDispatch();

@@ -11,7 +11,7 @@ import {
 import {
     ADD_BTN_VARIANT,
     ADD_BTN_TXT,
-} from "@/app/General/Resources/Step2SurveyTypeRes";
+} from "@/app/General/Resources/SurveyTypesRes";
 import { LikertProps, LikertQuestion } from "@/app/General/interfaces";
 import LikertForm from "@/app/Components/Forms/LikertForm";
 

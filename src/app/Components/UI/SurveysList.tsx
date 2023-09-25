@@ -21,7 +21,7 @@ import {
     EDGE_START,
     ICON_ARIA_LABEL,
     LIST_ITEN_PRIM,
-} from "@/app/General/Resources/SurveysListRes";
+} from "@/app/General/Resources/UIRes";
 import {
     INDEX_0,
     COUNTER_MINUS_1,

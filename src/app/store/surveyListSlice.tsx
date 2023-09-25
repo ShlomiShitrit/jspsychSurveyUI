@@ -1,7 +1,7 @@
 "use client";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ListItemObj } from "@/app/General/interfaces";
-import { SURVEY_LIST_SLICE_NAME } from "@/app/General/Resources/StoreRes";
+import { SURVEY_LIST_SLICE_NAME } from "@/app/General/Resources/OtherRes";
 import { COUNTER_1 } from "@/app/General/constants";
 
 export const surveyListSlice = createSlice({

@@ -6,11 +6,7 @@ import {
     ThemeProvider,
 } from "@/app/General/muiComponents";
 
-import {
-    darkTheme,
-    welcomeMsgStackStyle,
-    darkNavyBlueTheme,
-} from "@/app/General/styles";
+import { welcomeMsgStackStyle, darkNavyBlueTheme } from "@/app/General/styles";
 import { WelcomeMessageProps } from "@/app/General/interfaces";
 
 import {
@@ -25,7 +21,7 @@ import {
     BTN_VARIANT_CONTAINED,
     EMPTY_STR,
     COLOR_SUCCESS,
-} from "@/app/General/Resources/UIResources";
+} from "@/app/General/Resources/UIRes";
 
 function WelcomeMessage({
     clickHandler = () => null,

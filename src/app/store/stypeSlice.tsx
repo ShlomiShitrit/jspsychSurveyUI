@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
     STYPE_SLICE_NAME,
     STYPE_INIT_STATE,
-} from "@/app/General/Resources/StoreRes";
+} from "@/app/General/Resources/OtherRes";
 
 const initialStypeState = { surveyType: STYPE_INIT_STATE };
 

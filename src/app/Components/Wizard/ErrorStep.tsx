@@ -9,7 +9,7 @@ import {
     ERROR_STEP_FIRST_MSG,
     ERROR_STEP_SEC_MSG,
     ERROR_STEP_EMPTY_STR,
-} from "@/app/General/Resources/WizardMainRes";
+} from "@/app/General/Resources/WizardRes";
 
 function ErrorStep({ error = ERROR_STEP_EMPTY_STR }: ErrorStepProps) {
     return (

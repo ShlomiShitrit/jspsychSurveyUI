@@ -14,14 +14,13 @@ import {
     SURVEY_TYPE_STATE_NUM_ARR,
     SURVEY_TYPE_STATE_2,
     SURVEY_TYPE_COUNTER_PLUS_1,
-    SURVEY_TYPE_INDEX_0,
 } from "@/app/General/constants";
 import {
     FIRST_FORM_LABEL,
     SECOND_FORM_LABEL,
     LABEL_OPTION_GRID_LABEL,
     RANDOM_SWITCH_LABEL,
-} from "@/app/General/Resources/Step2SurveyTypeRes";
+} from "@/app/General/Resources/FormsRes";
 
 function LikertForm({
     questionsChangeHandler = () => null,

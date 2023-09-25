@@ -22,7 +22,7 @@ import {
     ERROR_SURVEY_TYPE_MSG,
     TEXTFIELD_VARIANT,
     INPUT_TYPE_OPTIONSQ,
-} from "@/app/General/Resources/Step2FormRes";
+} from "@/app/General/Resources/FormsRes";
 
 function InputTextField({
     state = EMPTY_STRING,

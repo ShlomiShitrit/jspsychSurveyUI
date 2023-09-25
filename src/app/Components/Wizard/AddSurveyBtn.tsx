@@ -4,7 +4,7 @@ import {
     ADD_SURVEY_BTN_TEXT,
     ADD_SURVEY_BTN_VARIANT,
     ADD_SURVEY_BTN_COLOR,
-} from "@/app/General/Resources/WizardMainRes";
+} from "@/app/General/Resources/WizardRes";
 
 function AddSurveyBtn({ addSurveyHandler = () => null }: AddSurveyBtnProps) {
     return (

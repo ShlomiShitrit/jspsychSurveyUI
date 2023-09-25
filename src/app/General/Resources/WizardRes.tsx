@@ -1,13 +1,3 @@
-// DownLoadBtn.tsx
-export const BLOB_TYPE = "text/html;charset=utf-8";
-export const DOWNLOAD_BTN_TEXT = "Download";
-export const DOWNLOAD_BTN_COLOR = "primary";
-export const DOWNLOAD_BTN_VARIANT = "contained";
-export const DOWNLOAD_BTN_EMPTY_STR = "";
-export const STYPE_MULTI_CHOICE = "Multi Choice";
-export const STYPE_LIKERT = "Likert";
-export const ERR_MSG_STYPE = "Invalid survey type";
-
 // ErrorStep.tsx
 export const ERROR_STEP_VARIANT_H6 = "h6";
 export const ERROR_STEP_VARIANT_H4 = "h4";
@@ -56,6 +46,9 @@ export const NEXT_BTN_TEXT = "Next";
 export const TEST_BTN_TEXT = "Test";
 export const NEXT_BTN_VARIANT = "contained";
 export const EMPTY_STRING = "";
+export const STYPE_MULTI_CHOICE = "Multi Choice";
+export const STYPE_LIKERT = "Likert";
+export const ERR_MSG_STYPE = "Invalid survey type";
 
 // AddSurrveyBtn.tsx
 export const ADD_SURVEY_BTN_TEXT = "Add Survey";

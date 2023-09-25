@@ -5,7 +5,7 @@ import { addOptionBtnStyle } from "@/app/General/styles";
 import {
     ADD_BTN_VARIANT,
     ADD_BTN_TXT,
-} from "@/app/General/Resources/Step2FormRes";
+} from "@/app/General/Resources/FormsRes";
 
 function AddOptionBtn({ addOption = () => null }: AddOptionBtnProps) {
     return (

@@ -28,7 +28,7 @@ import {
     INPUT_TYPE_PROMPT,
     LABEL_PROMPT,
     LABEL_NAME,
-} from "@/app/General/Resources/Step2FormRes";
+} from "@/app/General/Resources/FormsRes";
 
 function MultiChoiceForm({
     questionsChangeHandler = () => null,

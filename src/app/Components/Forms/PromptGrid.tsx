@@ -7,7 +7,7 @@ import {
     PROMPT_GRID_INPUT_TYPE_PROMPT,
     PROMPT_GRID_LABEL_PROMPT,
     PROMPT_GRID_LABEL_NAME,
-} from "@/app/General/Resources/Step2FormRes";
+} from "@/app/General/Resources/FormsRes";
 import {
     GRID_CONT_SPAC_2,
     GRID_ITEM_12,

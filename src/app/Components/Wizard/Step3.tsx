@@ -12,7 +12,7 @@ import {
     STEP3_TYP1_TXT,
     STEP3_TYP2_TXT,
     STEP3_TXT_FIELD_LAB,
-} from "@/app/General/Resources/WizardMainRes";
+} from "@/app/General/Resources/WizardRes";
 
 function Step3({ surveyNameHandler = () => null }: Step3Props) {
     return (

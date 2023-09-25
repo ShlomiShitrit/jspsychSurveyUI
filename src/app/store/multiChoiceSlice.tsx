@@ -2,7 +2,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialMultiChoiceSurveyState } from "@/app/General/Objects";
 import { MultiChoiceQuestion } from "@/app/General/interfaces";
-import { MC_SLICE_NAME } from "@/app/General/Resources/StoreRes";
+import { MC_SLICE_NAME } from "@/app/General/Resources/OtherRes";
 
 export const multiChoiceSlice = createSlice({
     name: MC_SLICE_NAME,

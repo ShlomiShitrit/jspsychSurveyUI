@@ -4,7 +4,7 @@ import {
     WIZRAD_DIALOG_INDEX_0,
     OBJECTS_INDEX_0,
 } from "@/app/General/constants";
-import { EMPTY_STRING } from "@/app/General/Resources/ObjectsRes";
+import { EMPTY_STRING } from "@/app/General/Resources/OtherRes";
 
 export const mcParamsObj: MultiChoiceQuestion = {
     index: WIZRAD_DIALOG_INDEX_0,
