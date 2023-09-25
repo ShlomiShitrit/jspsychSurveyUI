@@ -3,10 +3,10 @@ import { Fragment, useState } from "react";
 import { ThemeProvider, Button, Container } from "@/app/General/muiComponents";
 import { darkNavyBlueTheme, createPageBtnStyle } from "@/app/General/styles";
 import { Provider } from "react-redux";
-import SurveysList from "@/app/Components/SurveysList/SurveysList";
-import WizardDialog from "@/app/Components/Wizard/Main/WizardDialog";
+import SurveysList from "@/app/Components/UI/SurveysList";
+import WizardDialog from "@/app/Components/Wizard/WizardDialog";
 import WelcomeMessage from "@/app/Components/UI/WelcomeMsg";
-import DownloadDialog from "@/app/Components/DownloadDialog/DownloadDialog";
+import DownloadDialog from "@/app/Components/Forms/DownloadDialog";
 import store from "@/app/store/index";
 import {
     CREATE_TXT1,

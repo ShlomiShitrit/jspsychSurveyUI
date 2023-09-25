@@ -5,7 +5,7 @@ import {
     MultiChoiceProps,
     MultiChoiceQuestion,
 } from "@/app/General/interfaces";
-import MultiChoiceForm from "@/app/Components/Wizard/Step2Comp/Form/MultiChoiceForm";
+import MultiChoiceForm from "@/app/Components/Forms/MultiChoiceForm";
 import {
     ADD_BTN_TXT,
     ADD_BTN_VARIANT,

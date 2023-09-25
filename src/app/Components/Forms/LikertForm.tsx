@@ -3,11 +3,11 @@ import React, { useState, ChangeEvent, useEffect } from "react";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 import { useSelector } from "react-redux";
 
-import OptionsGrid from "@/app/Components/Wizard/Step2Comp/Form/OptionsGrid";
-import AddOptionBtn from "@/app/Components/Wizard/Step2Comp/Form/AddOptionBtn";
-import PromptGrid from "@/app/Components/Wizard/Step2Comp/Form/PromptGrid";
+import OptionsGrid from "@/app/Components/Forms/OptionsGrid";
+import AddOptionBtn from "@/app/Components/Forms/AddOptionBtn";
+import PromptGrid from "@/app/Components/Forms/PromptGrid";
 import { RootState } from "@/app/store/index";
-import SwitchLabel from "@/app/Components/Wizard/Step2Comp/Form/SwitchLabel";
+import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { LikertFormProps } from "@/app/General/interfaces";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
 import {

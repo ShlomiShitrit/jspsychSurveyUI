@@ -14,7 +14,7 @@ import {
     darkTheme,
     downloadDialogTxtFieldStyle,
 } from "@/app/General/styles";
-import DownloadBtn from "@/app/Components/Wizard/Main/DownloadBtn";
+import DownloadBtn from "@/app/Components/Forms/DownloadBtn";
 import {
     DIALOG_TITLE,
     TYP_VAR,

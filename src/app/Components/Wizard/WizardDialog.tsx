@@ -21,7 +21,7 @@ import { multiChoiceActions } from "@/app/store/multiChoiceSlice";
 import { likertActions } from "@/app/store/likertSlice";
 import { surveyListActions } from "@/app/store/surveyListSlice";
 import DownloadBtn from "@/app/Components/Wizard/Main/DownloadBtn";
-import AddSurveyBtn from "@/app/Components/Wizard/Main/AddSurveyBtn";
+import AddSurveyBtn from "@/app/Components/Wizard/AddSurveyBtn";
 import ErrorStep from "@/app/Components/Wizard/Main/ErrorStep";
 import { RootState } from "@/app/store/index";
 import { darkTheme, wizradDialogDialogStyle } from "@/app/General/styles";

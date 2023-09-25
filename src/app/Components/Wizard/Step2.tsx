@@ -2,12 +2,12 @@
 import { useSelector } from "react-redux";
 
 import { RootState } from "@/app/store/index";
-import MultiChoice from "@/app/Components/Wizard/Step2Comp/SurvetTypes/MultiChoice";
-import TextSurvey from "@/app/Components/Wizard/Step2Comp/SurvetTypes/TextSurvey";
-import Likert from "@/app/Components/Wizard/Step2Comp/SurvetTypes/Likert";
-import MultiSelect from "@/app/Components/Wizard/Step2Comp/SurvetTypes/MultiSelect";
+import MultiChoice from "@/app/Components/SurveyTypes/MultiChoice";
+import TextSurvey from "@/app/Components/SurveyTypes/TextSurvey";
+import Likert from "@/app/Components/SurveyTypes/Likert";
+import MultiSelect from "@/app/Components/SurveyTypes/MultiSelect";
 import { Step2Props } from "@/app/General/interfaces";
-import ErrorStep from "@/app/Components/Wizard/Main/ErrorStep";
+import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import {
     MULTI_CHOICE_SURVEY_TYPE,
     TEXT_SURVEY_TYPE,

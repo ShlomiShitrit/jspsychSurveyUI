@@ -13,7 +13,7 @@ import {
     ADD_BTN_TXT,
 } from "@/app/General/Resources/Step2SurveyTypeRes";
 import { LikertProps, LikertQuestion } from "@/app/General/interfaces";
-import LikertForm from "@/app/Components/Wizard/Step2Comp/Form/LikertForm";
+import LikertForm from "@/app/Components/Forms/LikertForm";
 
 function Likert({ onSurveyParams = () => null }: LikertProps) {
     const [questions, setQuestions] = useState<LikertQuestion[]>([]);

@@ -3,10 +3,10 @@ import { useState, ChangeEvent, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 
-import OptionsGrid from "@/app/Components/Wizard/Step2Comp/Form/OptionsGrid";
-import AddOptionBtn from "@/app/Components/Wizard/Step2Comp/Form/AddOptionBtn";
-import InputTextField from "@/app/Components/Wizard/Step2Comp/Form/InputTextField";
-import SwitchLabel from "@/app/Components/Wizard/Step2Comp/Form/SwitchLabel";
+import OptionsGrid from "@/app/Components/Forms/OptionsGrid";
+import AddOptionBtn from "@/app/Components/Forms/AddOptionBtn";
+import InputTextField from "@/app/Components/Forms/InputTextField";
+import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { RootState } from "@/app/store/index";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
 import { MultiChoiceFormProps } from "@/app/General/interfaces";

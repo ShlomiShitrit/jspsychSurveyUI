@@ -4,7 +4,7 @@ import { Button } from "@/app/General/muiComponents";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import { replaceFirstAndLast } from "@/app/General/utils";
-import ErrorStep from "@/app/Components/Wizard/Main/ErrorStep";
+import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import {
     DownloadBtnProps,
     MultiChoiceQuestion,

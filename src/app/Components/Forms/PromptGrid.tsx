@@ -1,6 +1,6 @@
 "use client";
 import { Grid, Box } from "@/app/General/muiComponents";
-import InputTextField from "@/app/Components/Wizard/Step2Comp/Form/InputTextField";
+import InputTextField from "@/app/Components/Forms/InputTextField";
 import { PromptsGridProps } from "@/app/General/interfaces";
 import {
     PROMPT_GRID_INPUT_TYPE_NAME,

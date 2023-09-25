@@ -1,6 +1,6 @@
 "use client";
 import { Grid } from "@/app/General/muiComponents";
-import InputTextField from "@/app/Components/Wizard/Step2Comp/Form/InputTextField";
+import InputTextField from "@/app/Components/Forms/InputTextField";
 import { OptionsGridProps } from "@/app/General/interfaces";
 import {
     GRID_CONT_SPAC_2,
