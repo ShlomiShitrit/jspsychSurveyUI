@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -19,7 +19,9 @@ import Step2 from "@/app/Components/Wizard/Main/Step2";
 import Step3 from "@/app/Components/Wizard/Main/Step3";
 import { multiChoiceActions } from "@/app/store/multiChoiceSlice";
 import { likertActions } from "@/app/store/likertSlice";
+import { surveyListActions } from "@/app/store/surveyListSlice";
 import DownloadBtn from "@/app/Components/Wizard/Main/DownloadBtn";
+import AddSurveyBtn from "@/app/Components/Wizard/Main/AddSurveyBtn";
 import ErrorStep from "@/app/Components/Wizard/Main/ErrorStep";
 import { RootState } from "@/app/store/index";
 import { darkTheme, wizradDialogDialogStyle } from "@/app/General/styles";
@@ -46,6 +48,9 @@ import {
     TEST_BTN_TEXT,
     NEXT_BTN_VARIANT,
     EMPTY_STRING,
+    STYPE_MULTI_CHOICE,
+    STYPE_LIKERT,
+    ERR_MSG_STYPE,
 } from "@/app/General/Resources/WizardMainRes";
 
 function WizardDialog({
@@ -58,7 +63,7 @@ function WizardDialog({
     >([mcParamsObj]);
     const [likertParams, setLikertParams] =
         useState<LikertQuestion>(likertParamsObj);
-    const [fileName, setFileName] = useState(EMPTY_STRING);
+    const [surveyName, setSurveyName] = useState(EMPTY_STRING);
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
@@ -85,8 +90,8 @@ function WizardDialog({
         setLikertParams(params);
     };
 
-    const fileNameHandler = (name: string) => {
-        setFileName(name);
+    const surveyNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setSurveyName(e.target.value);
     };
 
     const closeForm = () => {
@@ -114,7 +119,7 @@ function WizardDialog({
                     />
                 );
             case WIZRAD_DIALOG_STEP_2:
-                return <Step3 fileNameHandler={fileNameHandler} />;
+                return <Step3 surveyNameHandler={surveyNameHandler} />;
             default:
                 return <ErrorStep error={ERROR_STEP_MESSAGE} />;
         }
@@ -129,6 +134,18 @@ function WizardDialog({
         } else if (surveyType === LIKERT_STYPE) {
             addLikertQuestion(likertParams as LikertQuestion);
         }
+    };
+    const index = useSelector((state: RootState) => state.surveyList.length);
+
+    const addSurveyHandler = () => {
+        dispatch(
+            surveyListActions.addSurvey({
+                index: index,
+                name: surveyName,
+                stype: surveyType,
+            })
+        );
+        closeForm();
     };
 
     const test = () => null;
@@ -170,10 +187,7 @@ function WizardDialog({
                             {NEXT_BTN_TEXT}
                         </Button>
                         {activeStep === WIZRAD_DIALOG_STEP_2 && (
-                            <DownloadBtn
-                                fileName={fileName}
-                                errorHandler={errorHandler}
-                            />
+                            <AddSurveyBtn addSurveyHandler={addSurveyHandler} />
                         )}
                     </DialogActions>
                 )}
