@@ -9,7 +9,7 @@ import MultiChoiceForm from "@/app/Components/Wizard/Step2Comp/Form/MultiChoiceF
 import {
     ADD_BTN_TXT,
     ADD_BTN_VARIANT,
-} from "@/app/General/Resources/Step2FormRes";
+} from "@/app/General/Resources/Step2SurveyTypeRes";
 import {
     GRID_ITEM_12,
     GRID_CONT_SPAC_2,
