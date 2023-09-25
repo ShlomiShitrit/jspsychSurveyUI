@@ -1,26 +1,31 @@
 "use client";
-import { useState, Fragment } from "react";
+import { Fragment } from "react";
+import { useRouter } from "next/navigation";
 import { Provider } from "react-redux";
 import WelcomeMessage from "@/app/Components/UI/WelcomeMsg";
-import WizardDialog from "@/app/Components/Wizard/Main/WizardDialog";
 import store from "@/app/store/index";
+import {
+    FIRST_WELCOME_MSG,
+    SEC_WELCOME_MSG,
+    BTN_TXT,
+    CREATE_ROUTE,
+} from "@/app/General/Resources/UIResources";
 
 function HomePage() {
-    const [open, setOpen] = useState(false);
-
-    const openWizard = () => {
-        setOpen(true);
-    };
-
-    const closeWizard = () => {
-        setOpen(false);
+    const router = useRouter();
+    const changeRouteToCreate = () => {
+        router.push(CREATE_ROUTE);
     };
 
     return (
         <Provider store={store}>
             <Fragment>
-                <WizardDialog open={open} closeWizard={closeWizard} />
-                <WelcomeMessage wizradHandler={openWizard} />
+                <WelcomeMessage
+                    clickHandler={changeRouteToCreate}
+                    text1={FIRST_WELCOME_MSG}
+                    text2={SEC_WELCOME_MSG}
+                    btnText={BTN_TXT}
+                />
             </Fragment>
         </Provider>
     );
