@@ -19,6 +19,8 @@ import {
 function Step2({
     onMCParams = () => null,
     onLikertParams = () => null,
+    onMSParams = () => null,
+    onTextParams = () => null,
 }: Step2Props) {
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -27,11 +29,11 @@ function Step2({
         case MULTI_CHOICE_SURVEY_TYPE:
             return <MultiChoice onSurveyParams={onMCParams} />;
         case TEXT_SURVEY_TYPE:
-            return <TextSurvey />;
+            return <TextSurvey onSurveyParams={onTextParams} />;
         case LIKERT_SURVEY_TYPE:
             return <Likert onSurveyParams={onLikertParams} />;
         case MULTI_SELECT_SURVEY_TYPE:
-            return <MultiSelect />;
+            return <MultiSelect onSurveyParams={onMSParams} />;
         default:
             return <ErrorStep error={ERROR_STEP_MSG} />;
     }

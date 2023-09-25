@@ -9,6 +9,7 @@ import {
     DownloadBtnProps,
     MultiChoiceQuestion,
     LikertQuestion,
+    TextSurveyQuestion,
 } from "@/app/General/interfaces";
 import {
     BLOB_TYPE,
@@ -19,6 +20,10 @@ import {
     STYPE_LIKERT,
     STYPE_MULTI_CHOICE,
     ERR_MSG_STYPE,
+    STYPE_MULTI_SELECT,
+    TYPE_OF_SURVEY_MULTI_CHOICE,
+    TYPE_OF_SURVEY_MULTI_SELECT,
+    STYPE_TEXT,
 } from "@/app/General/Resources/FormsRes";
 
 function DownloadBtn({
@@ -30,7 +35,14 @@ function DownloadBtn({
     const trialsList: string[] = [];
     surveysList.forEach((survey, index) => {
         let trial: string = DOWNLOAD_BTN_EMPTY_STR;
-        if (survey.stype === STYPE_MULTI_CHOICE) {
+        if (
+            survey.stype === STYPE_MULTI_CHOICE ||
+            survey.stype === STYPE_MULTI_SELECT
+        ) {
+            let typeOfSurvey: string = TYPE_OF_SURVEY_MULTI_CHOICE;
+            if (survey.stype === STYPE_MULTI_SELECT) {
+                typeOfSurvey = TYPE_OF_SURVEY_MULTI_SELECT;
+            }
             const params = survey.questions as MultiChoiceQuestion[];
 
             const questions = params.map((question) => {
@@ -39,7 +51,7 @@ function DownloadBtn({
 
             trial = `
       const trial${index} = {
-          type: jsPsychSurveyMultiChoice,
+          type: ${typeOfSurvey},
           questions: [
             ${questions}
           ],
@@ -81,6 +93,22 @@ function DownloadBtn({
         };
         timeline.push(trial${index});
       `;
+            trialsList.push(trial);
+        } else if (survey.stype === STYPE_TEXT) {
+            const params = survey.questions as TextSurveyQuestion[];
+            const questions = params.map((question) => {
+                return `{prompt: "${question.promptQ}", name: "${question.nameQ}", placeholder: "${question.placeHolder}", required: ${question.required}}`;
+            });
+
+            trial = `
+        const trial${index} = {
+            type: jsPsychSurveyText,
+            questions: [
+              ${questions}
+            ],
+            };
+            timeline.push(trial${index});
+            `;
             trialsList.push(trial);
         } else {
             errorHandler(ERR_MSG_STYPE);

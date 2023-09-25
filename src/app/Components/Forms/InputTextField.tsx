@@ -6,6 +6,7 @@ import {
     InputTextFieldProps,
     MultiChoiceQuestion,
     LikertQuestion,
+    TextSurveyQuestion,
 } from "@/app/General/interfaces";
 import { formTxtFieldStyle } from "@/app/General/styles";
 import { RootState } from "@/app/store/index";
@@ -22,6 +23,8 @@ import {
     ERROR_SURVEY_TYPE_MSG,
     TEXTFIELD_VARIANT,
     INPUT_TYPE_OPTIONSQ,
+    MULTI_SELECT_STYPE,
+    TEXT_STYPE,
 } from "@/app/General/Resources/FormsRes";
 
 function InputTextField({
@@ -52,6 +55,22 @@ function InputTextField({
                 ] as string[];
                 return stateArr[id];
             });
+            break;
+        case MULTI_SELECT_STYPE:
+            stateQ = useSelector(
+                (state: RootState) =>
+                    state.multiSelect[FORM_INPUT_INDEX_0][
+                        inputType as keyof MultiChoiceQuestion
+                    ] as string
+            );
+            break;
+        case TEXT_STYPE:
+            stateQ = useSelector(
+                (state: RootState) =>
+                    state.text[FORM_INPUT_INDEX_0][
+                        inputType as keyof TextSurveyQuestion
+                    ] as string
+            );
             break;
         default:
             throw new Error(ERROR_SURVEY_TYPE_MSG);

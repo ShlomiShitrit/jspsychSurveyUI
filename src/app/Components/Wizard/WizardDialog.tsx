@@ -18,17 +18,24 @@ import Step1 from "@/app/Components/Wizard/Step1";
 import Step2 from "@/app/Components/Wizard/Step2";
 import Step3 from "@/app/Components/Wizard/Step3";
 import { multiChoiceActions } from "@/app/store/multiChoiceSlice";
+import { multiSelectActions } from "@/app/store/multiSelectSlice";
 import { likertActions } from "@/app/store/likertSlice";
 import { surveyListActions } from "@/app/store/surveyListSlice";
+import { textActions } from "@/app/store/textSlice";
 import AddSurveyBtn from "@/app/Components/Wizard/AddSurveyBtn";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import { RootState } from "@/app/store/index";
 import { darkTheme, wizradDialogDialogStyle } from "@/app/General/styles";
-import { mcParamsObj, likertParamsObj } from "@/app/General/Objects";
+import {
+    mcParamsObj,
+    likertParamsObj,
+    textParamsObj,
+} from "@/app/General/Objects";
 import {
     MultiChoiceQuestion,
     LikertQuestion,
     CreateWizardProps,
+    TextSurveyQuestion,
 } from "@/app/General/interfaces";
 import {
     WIZRAD_DIALOG_STEP_0,
@@ -50,6 +57,8 @@ import {
     STYPE_MULTI_CHOICE,
     STYPE_LIKERT,
     ERR_MSG_STYPE,
+    STYPE_MS,
+    STYPE_TEXT,
 } from "@/app/General/Resources/WizardRes";
 
 function WizardDialog({
@@ -62,6 +71,12 @@ function WizardDialog({
     >([mcParamsObj]);
     const [likertParams, setLikertParams] = useState<LikertQuestion[]>([
         likertParamsObj,
+    ]);
+    const [multiSelectParams, setMultiSelectParams] = useState<
+        MultiChoiceQuestion[]
+    >([mcParamsObj]);
+    const [textParams, setTextParams] = useState<TextSurveyQuestion[]>([
+        textParamsObj,
     ]);
     const [surveyName, setSurveyName] = useState(EMPTY_STRING);
     const surveyType = useSelector(
@@ -78,6 +93,10 @@ function WizardDialog({
         dispatch(likertActions.addQuestion(question));
     };
 
+    const addMultiSelectQuestion = (question: MultiChoiceQuestion) => {
+        dispatch(multiSelectActions.addQuestion(question));
+    };
+
     const handleBack = () => {
         setActiveStep(activeStep - WIZRAD_DIALOG_STEP_1);
     };
@@ -85,9 +104,16 @@ function WizardDialog({
     const multiChiceParamsHandler = (params: MultiChoiceQuestion[]) => {
         setMultiChoiceParams(params);
     };
+    const multiSelectParamsHandler = (params: MultiChoiceQuestion[]) => {
+        setMultiSelectParams(params);
+    };
 
     const likertParamsHandler = (params: LikertQuestion[]) => {
         setLikertParams(params);
+    };
+
+    const textParamsHandler = (params: TextSurveyQuestion[]) => {
+        setTextParams(params);
     };
 
     const surveyNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -116,6 +142,8 @@ function WizardDialog({
                     <Step2
                         onMCParams={multiChiceParamsHandler}
                         onLikertParams={likertParamsHandler}
+                        onMSParams={multiSelectParamsHandler}
+                        onTextParams={textParamsHandler}
                     />
                 );
             case WIZRAD_DIALOG_STEP_2:
@@ -135,16 +163,31 @@ function WizardDialog({
             likertParams.forEach((question) => {
                 addLikertQuestion(question);
             });
+        } else if (surveyType === STYPE_MS) {
+            multiSelectParams.forEach((question) => {
+                addMultiSelectQuestion(question);
+            });
+        } else if (surveyType === STYPE_TEXT) {
+            textParams.forEach((question) => {
+                dispatch(textActions.addQuestion(question));
+            });
         }
     };
     const index = useSelector((state: RootState) => state.surveyList.length);
 
     const addSurveyHandler = () => {
-        let questions: LikertQuestion[] | MultiChoiceQuestion[] = [];
+        let questions:
+            | LikertQuestion[]
+            | MultiChoiceQuestion[]
+            | TextSurveyQuestion[] = [];
         if (surveyType === STYPE_MULTI_CHOICE) {
             questions = multiChoiceParams;
         } else if (surveyType === STYPE_LIKERT) {
             questions = likertParams;
+        } else if (surveyType === STYPE_MS) {
+            questions = multiSelectParams;
+        } else if (surveyType === STYPE_TEXT) {
+            questions = textParams;
         }
         dispatch(
             surveyListActions.addSurvey({
