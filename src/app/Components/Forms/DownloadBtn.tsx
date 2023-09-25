@@ -25,72 +25,67 @@ function DownloadBtn({
     fileName = DOWNLOAD_BTN_EMPTY_STR,
     errorHandler = () => null,
 }: DownloadBtnProps) {
-    const surveyType = useSelector(
-        (state: RootState) => state.stype.surveyType
-    );
-    const surveyParams = useSelector((state: RootState) => {
-        if (surveyType === STYPE_MULTI_CHOICE) {
-            return state.multiChoice;
-        } else if (surveyType === STYPE_LIKERT) {
-            return state.likert;
-        } else {
-            errorHandler(ERR_MSG_STYPE);
-        }
-    });
+    const surveysList = useSelector((state: RootState) => state.surveyList);
 
-    let trial: string = DOWNLOAD_BTN_EMPTY_STR;
-    if (surveyType === STYPE_MULTI_CHOICE) {
-        const params = surveyParams as MultiChoiceQuestion[];
+    const trialsList: string[] = [];
+    surveysList.forEach((survey, index) => {
+        let trial: string = DOWNLOAD_BTN_EMPTY_STR;
+        if (survey.stype === STYPE_MULTI_CHOICE) {
+            const params = survey.questions as MultiChoiceQuestion[];
 
-        const questions = params.map((question) => {
-            return `{prompt: "${question.promptQ}", name: "${question.nameQ}", options: [${question.optionsQ}], required: ${question.required}, horizontal: ${question.horizontal}}`;
-        });
+            const questions = params.map((question) => {
+                return `{prompt: "${question.promptQ}", name: "${question.nameQ}", options: [${question.optionsQ}], required: ${question.required}, horizontal: ${question.horizontal}}`;
+            });
 
-        trial = `
-      const trial = {
+            trial = `
+      const trial${index} = {
           type: jsPsychSurveyMultiChoice,
           questions: [
             ${questions}
           ],
         };
+        timeline.push(trial${index});
       `;
-    } else if (surveyType === STYPE_LIKERT) {
-        const params = surveyParams as LikertQuestion[];
-        const questions = params[0].promptQ.map((prompt, index) => {
-            return `{prompt: "${replaceFirstAndLast(
-                prompt,
-                DOWNLOAD_BTN_EMPTY_STR,
-                DOWNLOAD_BTN_EMPTY_STR
-            )}", name: "${replaceFirstAndLast(
-                params[0].nameQ[index],
-                DOWNLOAD_BTN_EMPTY_STR,
-                DOWNLOAD_BTN_EMPTY_STR
-            )}", labels: labels}`;
-        });
+            trialsList.push(trial);
+        } else if (survey.stype === STYPE_LIKERT) {
+            const params = survey.questions as LikertQuestion[];
+            const questions = params[0].promptQ.map((prompt, index) => {
+                return `{prompt: "${replaceFirstAndLast(
+                    prompt,
+                    DOWNLOAD_BTN_EMPTY_STR,
+                    DOWNLOAD_BTN_EMPTY_STR
+                )}", name: "${replaceFirstAndLast(
+                    params[0].nameQ[index],
+                    DOWNLOAD_BTN_EMPTY_STR,
+                    DOWNLOAD_BTN_EMPTY_STR
+                )}", labels: labels}`;
+            });
 
-        const replacedLabels = params[0].optionsQ.map((option) => {
-            const replacedOption = replaceFirstAndLast(
-                option,
-                DOWNLOAD_BTN_EMPTY_STR,
-                DOWNLOAD_BTN_EMPTY_STR
-            );
-            return `'<p style="margin:30px">${replacedOption}</p>'`;
-        });
+            const replacedLabels = params[0].optionsQ.map((option) => {
+                const replacedOption = replaceFirstAndLast(
+                    option,
+                    DOWNLOAD_BTN_EMPTY_STR,
+                    DOWNLOAD_BTN_EMPTY_STR
+                );
+                return `'<p style="margin:30px">${replacedOption}</p>'`;
+            });
 
-        trial = `
+            trial = `
         const labels = [${replacedLabels}];
-      const trial = {
+      const trial${index} = {
           type: jsPsychSurveyLikert,
           questions: [
             ${questions} 
           ],
           randomize_question_order: ${params[0].randomQ},
         };
+        timeline.push(trial${index});
       `;
-    } else {
-        errorHandler(ERR_MSG_STYPE);
-    }
-
+            trialsList.push(trial);
+        } else {
+            errorHandler(ERR_MSG_STYPE);
+        }
+    });
     const fileContents = `
     <!DOCTYPE html>
     <html lang="en">
@@ -111,9 +106,8 @@ function DownloadBtn({
         const jsPsych = initJsPsych();
         const timeline = [];
 
-        ${trial}
+        ${trialsList.join("\n")}
 
-        timeline.push(trial);
     
         jsPsych.run(timeline);
         </script>
