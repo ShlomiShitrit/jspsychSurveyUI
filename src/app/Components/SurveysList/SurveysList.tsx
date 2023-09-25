@@ -1,7 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ListItemObj } from "@/app/General/interfaces";
+import { surveyListActions } from "@/app/store/surveyListSlice";
 import {
     List,
     ListItem,
@@ -37,6 +38,7 @@ import {
 function SurveysList() {
     const [checked, setChecked] = useState([INDEX_0]);
     const surveysList = useSelector((state: any) => state.surveyList);
+    const dispatch = useDispatch();
 
     const handleToggle = (value: number) => () => {
         const currentIndex = checked.indexOf(value);
@@ -51,7 +53,11 @@ function SurveysList() {
         setChecked(newChecked);
     };
 
-    const handleDelete = () => console.log("Delete");
+    const handleDelete = () => {
+        checked.forEach((value: number) => {
+            dispatch(surveyListActions.removeSurvey(value));
+        });
+    };
 
     return (
         <ThemeProvider theme={darkNavyBlueTheme}>
