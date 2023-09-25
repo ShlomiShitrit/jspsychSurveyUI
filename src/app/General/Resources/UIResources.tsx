@@ -1,10 +1,10 @@
 // NavBar.tsx
 export const APP_BAR_POSITION = "relative";
-export const BTN_HREF = { default: "/", docs: "DocsPage", extra: "ExtraPage" };
+export const BTN_HREF = { default: "/", docs: "DocsPage", extra: "ExtraPage", create: "CreatePage" };
 export const HOME_BTN_TEXT = "Home";
 export const DOCS_BTN_TEXT = "Docs";
 export const EXTRA_BTN_TEXT = "Extra";
-export const CREATE_SURVEY_BTN_TEXT = "Create Survey";
+export const CREATE_SURVEY_TEXT = "Create Survey";
 
 // WelcomeMsg.tsx
 export const CONTAINER_MAX_WIDTH = "sm";
