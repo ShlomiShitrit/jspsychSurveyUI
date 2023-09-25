@@ -33,10 +33,19 @@ export interface LikertQuestion {
     optionsQ: string[];
     randomQ: boolean;
 }
+export interface TextSurveyQuestion {
+    index: number;
+    promptQ: string;
+    nameQ: string;
+    placeHolder: string;
+    required: boolean;
+}
 
 export interface Step2Props {
     onMCParams: (params: MultiChoiceQuestion[]) => void;
     onLikertParams: (params: LikertQuestion[]) => void;
+    onMSParams: (params: MultiChoiceQuestion[]) => void;
+    onTextParams: (params: TextSurveyQuestion[]) => void;
 }
 
 export interface Step3Props {
@@ -95,11 +104,21 @@ export interface LikertFormProps {
 export interface MultiChoiceProps {
     onSurveyParams: (params: MultiChoiceQuestion[]) => void;
 }
+export interface TextSurveyProps {
+    onSurveyParams: (params: TextSurveyQuestion[]) => void;
+}
 
 export interface MultiChoiceFormProps {
     questionsChangeHandler: (
         index: number,
         question: MultiChoiceQuestion
+    ) => void;
+    id: number;
+}
+export interface TextSurveyFormProps {
+    questionsChangeHandler: (
+        index: number,
+        question: TextSurveyQuestion
     ) => void;
     id: number;
 }
@@ -112,7 +131,7 @@ export interface ListItemObj {
     index: number;
     stype: string;
     name: string;
-    questions: MultiChoiceQuestion[] | LikertQuestion[];
+    questions: MultiChoiceQuestion[] | LikertQuestion[] | TextSurveyQuestion[];
 }
 export interface DownloadDialogProps {
     open: boolean;

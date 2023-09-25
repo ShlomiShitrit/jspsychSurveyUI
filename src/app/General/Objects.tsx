@@ -1,4 +1,8 @@
-import { MultiChoiceQuestion, LikertQuestion } from "@/app/General/interfaces";
+import {
+    MultiChoiceQuestion,
+    LikertQuestion,
+    TextSurveyQuestion,
+} from "@/app/General/interfaces";
 
 import {
     WIZRAD_DIALOG_INDEX_0,
@@ -22,6 +26,14 @@ export const likertParamsObj: LikertQuestion = {
     randomQ: false,
 };
 
+export const textParamsObj: TextSurveyQuestion = {
+    index: OBJECTS_INDEX_0,
+    promptQ: EMPTY_STRING,
+    nameQ: EMPTY_STRING,
+    required: false,
+    placeHolder: EMPTY_STRING,
+};
+
 export const initialMultiChoiceSurveyState = [
     {
         index: OBJECTS_INDEX_0,
@@ -42,3 +54,13 @@ export const initialLikertSurveyState = [
         randomQ: false,
     },
 ] as LikertQuestion[];
+
+export const initialTextSurveyState = [
+    {
+        index: OBJECTS_INDEX_0,
+        promptQ: EMPTY_STRING,
+        nameQ: EMPTY_STRING,
+        required: false,
+        placeHolder: EMPTY_STRING,
+    },
+] as TextSurveyQuestion[];

@@ -48,6 +48,8 @@ export const NEXT_BTN_VARIANT = "contained";
 export const EMPTY_STRING = "";
 export const STYPE_MULTI_CHOICE = "Multi Choice";
 export const STYPE_LIKERT = "Likert";
+export const STYPE_MS = "Multi Select";
+export const STYPE_TEXT = "Text";
 export const ERR_MSG_STYPE = "Invalid survey type";
 
 // AddSurrveyBtn.tsx

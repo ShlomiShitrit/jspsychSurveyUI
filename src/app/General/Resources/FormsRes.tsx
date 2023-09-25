@@ -5,8 +5,12 @@ export const DOWNLOAD_BTN_COLOR = "primary";
 export const DOWNLOAD_BTN_VARIANT = "contained";
 export const DOWNLOAD_BTN_EMPTY_STR = "";
 export const STYPE_MULTI_CHOICE = "Multi Choice";
+export const STYPE_MULTI_SELECT = "Multi Select";
 export const STYPE_LIKERT = "Likert";
+export const STYPE_TEXT = "Text";
 export const ERR_MSG_STYPE = "Invalid survey type";
+export const TYPE_OF_SURVEY_MULTI_CHOICE = "jsPsychSurveyMultiChoice";
+export const TYPE_OF_SURVEY_MULTI_SELECT = "jsPsychSurveyMultiSelect";
 
 
 // DownloadDialog.tsx
@@ -24,7 +28,9 @@ export const ADD_BTN_TXT = "+";
 
 // InputTextField.tsx
 export const MULTI_CHOICE_STYPE = "Multi Choice";
+export const MULTI_SELECT_STYPE = "Multi Select";
 export const LIKERT_STYPE = "Likert";
+export const TEXT_STYPE = "Text";
 export const EMPTY_STRING = "";
 export const ERROR_SURVEY_TYPE_MSG = "Invalid Survey Type";
 export const TEXTFIELD_VARIANT = "outlined";
@@ -58,3 +64,18 @@ export const LABEL_NAME = "Name";
 // LikertForm.tsx
 export const LABEL_OPTION_GRID_LABEL = "Label";
 export const RANDOM_SWITCH_LABEL = "Randomize question order";
+
+// MultiSelectForm.tsx
+export const MS_EMPTY_STRING = "";
+
+// TextSurveyForm.tsx
+export const TEXT_PROMPT_LABEL = "Prompt";
+export const TEXT_NAME_LABEL = "Name";
+export const TEXT_PLACEHOLDER_LABEL = "PlaceHolder";
+export const TEXT_PROMPTQ = "promptQ";
+export const TEXT_NAMEQ = "nameQ";
+export const TEXT_FORM_TITLE = "Survey Type:";
+export const TEXT_FORM_LABEL = "Entet question parameters:";
+export const TEXT_SWITCH_LABEL = "Required";
+
+

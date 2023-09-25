@@ -7,6 +7,8 @@ export const MC_SLICE_NAME = "multiChoiceSurvey";
 export const STYPE_SLICE_NAME = "stype";
 export const STYPE_INIT_STATE = "Text";
 export const SURVEY_LIST_SLICE_NAME = "surveyList";
+export const MS_SLICE_NAME = "multiSelect";
+export const TEXT_SLICE_NAME = "text";
 
 // styles.tsx
 export const STYLES_MODE_DARK = "dark";
