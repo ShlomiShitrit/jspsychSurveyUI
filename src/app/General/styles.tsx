@@ -11,6 +11,13 @@ import {
     STYLE_WIDTH_20_PRECENT,
     STYLE_M_10PX,
     STYLE_M_15PX,
+    M_AUTO,
+    WIDTH_100_PRECENT,
+    STYLE_NAVY_BLUE_THEME,
+    STYLE_M_150PX,
+    STYLE_CENTER,
+    STYLE_M_200PX,
+    STYLE_M_50PX,
 } from "@/app/General/Resources/stylesRes";
 
 import {
@@ -18,6 +25,7 @@ import {
     STYLE_PT_4,
     STYLE_PT_3,
     STYLE_PB_5,
+    STYLE_MAX_WIDTH,
 } from "@/app/General/constants";
 
 export const darkTheme = createTheme({
@@ -32,6 +40,37 @@ export const darkTheme = createTheme({
         success: {
             main: STYLES_SUCCESS_MAIN,
         },
+    },
+});
+
+export const darkNavyBlueTheme = createTheme({
+    palette: {
+        primary: {
+            main: STYLE_NAVY_BLUE_THEME.primary,
+        },
+        secondary: {
+            main: STYLE_NAVY_BLUE_THEME.secondary,
+        },
+        success: {
+            main: STYLE_NAVY_BLUE_THEME.success,
+        },
+        background: {
+            default: STYLE_NAVY_BLUE_THEME.background.default,
+            paper: STYLE_NAVY_BLUE_THEME.background.paper,
+        },
+        text: {
+            primary: STYLE_NAVY_BLUE_THEME.text.primary,
+            secondary: STYLE_NAVY_BLUE_THEME.text.primary,
+        },
+        action: {
+            active: STYLE_NAVY_BLUE_THEME.action.active,
+            hover: STYLE_NAVY_BLUE_THEME.action.hover,
+            selected: STYLE_NAVY_BLUE_THEME.action.selected,
+            disabled: STYLE_NAVY_BLUE_THEME.action.disabled,
+        },
+    },
+    typography: {
+        fontFamily: STYLE_NAVY_BLUE_THEME.typography,
     },
 });
 
@@ -58,9 +97,28 @@ export const welcomeMsgStackStyle = {
 export const step1BoxStyle = { margin: STYLE_M_20PX };
 
 export const wizradDialogDialogStyle = { pt: STYLE_PT_3, pb: STYLE_PB_5 };
+export const downloadDialogDialogStyle = { pt: STYLE_PT_3, pb: STYLE_PB_5 };
 
 export const addOptionBtnStyle = { width: STYLE_WIDTH_20_PRECENT };
 export const formTxtFieldStyle = { margin: STYLE_M_10PX };
 export const switchLabelStyle = { margin: STYLE_M_10PX };
 export const matgin10Style = { margin: STYLE_M_10PX };
 export const margin15Style = { margin: STYLE_M_15PX };
+
+export const surveysListStyle = {
+    width: WIDTH_100_PRECENT,
+    maxWidth: STYLE_MAX_WIDTH,
+    margin: M_AUTO,
+    backgroundColor: darkNavyBlueTheme.palette.background.default,
+};
+
+export const downloadDialogTxtFieldStyle = {
+    ml: STYLE_M_150PX,
+    mt: STYLE_M_20PX,
+};
+
+export const surveyListListItemStyle = { textAlign: STYLE_CENTER };
+export const step3TypStyle = { mb: STYLE_M_20PX };
+export const step3TxtFieldStyle = { ml: STYLE_M_150PX };
+
+export const createPageBtnStyle = { ml: STYLE_M_200PX, mt: STYLE_M_50PX };

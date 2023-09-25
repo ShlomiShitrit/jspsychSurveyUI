@@ -6,12 +6,15 @@ import {
     ThemeProvider,
 } from "@/app/General/muiComponents";
 
-import { darkTheme, welcomeMsgStackStyle } from "@/app/General/styles";
+import {
+    darkTheme,
+    welcomeMsgStackStyle,
+    darkNavyBlueTheme,
+} from "@/app/General/styles";
 import { WelcomeMessageProps } from "@/app/General/interfaces";
 
 import {
     CONTAINER_MAX_WIDTH,
-    TYP_COMP_H1,
     TYP_VAR_H2,
     TYP_ALIGN_CENTER,
     TYP_COLOR_PRIME,
@@ -20,14 +23,18 @@ import {
     STACK_DIRECTION_ROW,
     STACK_JUSTIFY_CENTER,
     BTN_VARIANT_CONTAINED,
-    FIRST_WELCOME_MSG,
-    SEC_WELCOME_MSG,
-    CREATE_BTN_TEXT,
+    EMPTY_STR,
+    COLOR_SUCCESS,
 } from "@/app/General/Resources/UIResources";
 
-function WelcomeMessage({ wizradHandler = () => null }: WelcomeMessageProps) {
+function WelcomeMessage({
+    clickHandler = () => null,
+    text1 = EMPTY_STR,
+    text2 = EMPTY_STR,
+    btnText = EMPTY_STR,
+}: WelcomeMessageProps) {
     return (
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={darkNavyBlueTheme}>
             <Container maxWidth={CONTAINER_MAX_WIDTH}>
                 <br />
                 <br />
@@ -37,14 +44,14 @@ function WelcomeMessage({ wizradHandler = () => null }: WelcomeMessageProps) {
                     color={TYP_COLOR_PRIME}
                     gutterBottom
                 >
-                    {FIRST_WELCOME_MSG}
+                    {text1}
                 </Typography>
                 <Typography
                     variant={TYP_VAR_H5}
                     align={TYP_ALIGN_CENTER}
                     color={TYP_COLOR_SEC}
                 >
-                    {SEC_WELCOME_MSG}
+                    {text2}
                 </Typography>
                 <Stack
                     sx={welcomeMsgStackStyle}
@@ -54,9 +61,10 @@ function WelcomeMessage({ wizradHandler = () => null }: WelcomeMessageProps) {
                 >
                     <Button
                         variant={BTN_VARIANT_CONTAINED}
-                        onClick={wizradHandler}
+                        color={COLOR_SUCCESS}
+                        onClick={clickHandler}
                     >
-                        {CREATE_BTN_TEXT}
+                        {btnText}
                     </Button>
                 </Stack>
             </Container>

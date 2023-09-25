@@ -2,7 +2,10 @@
 import { ChangeEvent } from "react";
 
 export interface WelcomeMessageProps {
-    wizradHandler: () => void;
+    clickHandler: () => void;
+    text1: string;
+    text2: string;
+    btnText: string;
 }
 
 export interface DownloadBtnProps {
@@ -37,7 +40,7 @@ export interface Step2Props {
 }
 
 export interface Step3Props {
-    fileNameHandler: (name: string) => void;
+    surveyNameHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface CreateWizardProps {
@@ -94,4 +97,18 @@ export interface MultiChoiceFormProps {
         question: MultiChoiceQuestion
     ) => void;
     id: number;
+}
+
+export interface AddSurveyBtnProps {
+    addSurveyHandler: () => void;
+}
+
+export interface ListItemObj {
+    index: number;
+    stype: string;
+    name: string;
+}
+export interface DownloadDialogProps {
+    open: boolean;
+    closeDialogHandler: () => void;
 }

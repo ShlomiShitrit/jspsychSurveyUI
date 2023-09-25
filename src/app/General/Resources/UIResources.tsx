@@ -21,3 +21,17 @@ export const FIRST_WELCOME_MSG = "Welcome to SurveyUI";
 export const SEC_WELCOME_MSG =
     "Here you can create all sort of Surveys using JSPsych library";
 export const CREATE_BTN_TEXT = "Create custom survey";
+export const EMPTY_STR = "";
+export const COLOR_SUCCESS = "success";
+
+// page.tsx
+export const BTN_TXT = "Go to Create Page";
+export const CREATE_ROUTE = "/CreatePage";
+
+// CreatePage.tsx
+export const CREATE_TXT1 = "Welcome to the Survey Wizard!";
+export const CREATE_TXT2 = "Click the button below to get started";
+export const CREATE_BTN_TXT = "Create a Survey";
+export const CREATE_BTN_VARIANT = "contained";
+export const CREATE_BTN_COLOR = "success";
+export const CREATE_DOWNLOAF_BTN_TXT = "Download file";

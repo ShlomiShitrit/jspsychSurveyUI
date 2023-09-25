@@ -2,6 +2,7 @@ export const STYLE_NAVBAR_BLUE = 800;
 export const STYLE_PT_4 = 4;
 export const STYLE_PT_3 = 3;
 export const STYLE_PB_5 = 5;
+export const STYLE_MAX_WIDTH = 360;
 
 export const WIZRAD_DIALOG_STEP_0 = 0;
 export const WIZRAD_DIALOG_STEP_1 = 1;
@@ -27,6 +28,11 @@ export const SURVEY_TYPE_ID_0 = 0;
 
 export const OBJECTS_INDEX_0 = 0;
 export const COUNTER_PLUS_1 = 1;
+export const COUNTER_MINUS_1 = -1;
 export const COUNTER_1 = 1;
 export const INDEX_0 = 0;
+
+export const LENGTH_1 = 1;
+export const LENGTH_0 = 0;
+
 

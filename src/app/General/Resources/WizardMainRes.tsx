@@ -35,8 +35,14 @@ export const TEXT_SURVEY_TYPE = "Text";
 export const ERROR_STEP_MSG = "Invalid Survey Type";
 
 // Step3.tsx
-export const TEXTFIELD_LABEL = "File Name";
 export const TEXTFIELD_VARIANT = "outlined";
+export const STEP3_TYP1_VAR = "h4";
+export const STEP3_TYP2_VAR = "h5";
+export const STEP3_TYP_ALIGN = "center";
+export const STEP3_TYP1_TXT = "Your survey is ready!";
+export const STEP3_TYP2_TXT =
+    "Please enter a name for the survey, and click the button to add it to the list";
+export const STEP3_TXT_FIELD_LAB = "Survey Name";
 
 // WizardDialog.tsx
 export const STEPS = ["Step 1", "Step 2", "Step 3"];
@@ -50,3 +56,8 @@ export const NEXT_BTN_TEXT = "Next";
 export const TEST_BTN_TEXT = "Test";
 export const NEXT_BTN_VARIANT = "contained";
 export const EMPTY_STRING = "";
+
+// AddSurrveyBtn.tsx
+export const ADD_SURVEY_BTN_TEXT = "Add Survey";
+export const ADD_SURVEY_BTN_VARIANT = "contained";
+export const ADD_SURVEY_BTN_COLOR = "success";
