@@ -36,7 +36,7 @@ export interface LikertQuestion {
 
 export interface Step2Props {
     onMCParams: (params: MultiChoiceQuestion[]) => void;
-    onLikertParams: (params: LikertQuestion) => void;
+    onLikertParams: (params: LikertQuestion[]) => void;
 }
 
 export interface Step3Props {
@@ -84,7 +84,12 @@ export interface PromptsGridProps {
 }
 
 export interface LikertProps {
-    onSurveyParams: (params: LikertQuestion) => void;
+    onSurveyParams: (params: LikertQuestion[]) => void;
+}
+
+export interface LikertFormProps {
+    questionsChangeHandler: (index: number, question: LikertQuestion) => void;
+    id: number;
 }
 
 export interface MultiChoiceProps {
@@ -107,6 +112,7 @@ export interface ListItemObj {
     index: number;
     stype: string;
     name: string;
+    questions: MultiChoiceQuestion[] | LikertQuestion[];
 }
 export interface DownloadDialogProps {
     open: boolean;

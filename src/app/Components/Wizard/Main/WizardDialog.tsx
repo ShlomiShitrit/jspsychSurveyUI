@@ -52,6 +52,7 @@ import {
     STYPE_LIKERT,
     ERR_MSG_STYPE,
 } from "@/app/General/Resources/WizardMainRes";
+import MultiChoice from "../Step2Comp/SurvetTypes/MultiChoice";
 
 function WizardDialog({
     open = false,
@@ -61,8 +62,9 @@ function WizardDialog({
     const [multiChoiceParams, setMultiChoiceParams] = useState<
         MultiChoiceQuestion[]
     >([mcParamsObj]);
-    const [likertParams, setLikertParams] =
-        useState<LikertQuestion>(likertParamsObj);
+    const [likertParams, setLikertParams] = useState<LikertQuestion[]>([
+        likertParamsObj,
+    ]);
     const [surveyName, setSurveyName] = useState(EMPTY_STRING);
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -86,7 +88,7 @@ function WizardDialog({
         setMultiChoiceParams(params);
     };
 
-    const likertParamsHandler = (params: LikertQuestion) => {
+    const likertParamsHandler = (params: LikertQuestion[]) => {
         setLikertParams(params);
     };
 
@@ -132,17 +134,26 @@ function WizardDialog({
                 addMultiChoiceQuestion(question);
             });
         } else if (surveyType === LIKERT_STYPE) {
-            addLikertQuestion(likertParams as LikertQuestion);
+            likertParams.forEach((question) => {
+                addLikertQuestion(question);
+            });
         }
     };
     const index = useSelector((state: RootState) => state.surveyList.length);
 
     const addSurveyHandler = () => {
+        let questions: LikertQuestion[] | MultiChoiceQuestion[] = [];
+        if (surveyType === STYPE_MULTI_CHOICE) {
+            questions = multiChoiceParams;
+        } else if (surveyType === STYPE_LIKERT) {
+            questions = likertParams;
+        }
         dispatch(
             surveyListActions.addSurvey({
                 index: index,
                 name: surveyName,
                 stype: surveyType,
+                questions: questions,
             })
         );
         closeForm();
