@@ -39,6 +39,7 @@ export const darkTheme = createTheme({
         },
         success: {
             main: STYLES_SUCCESS_MAIN,
+            
         },
     },
 });
