@@ -41,6 +41,7 @@ import {
     WIZRAD_DIALOG_STEP_0,
     WIZRAD_DIALOG_STEP_1,
     WIZRAD_DIALOG_STEP_2,
+    INDEX_MINUS_1,
 } from "@/app/General/constants";
 import {
     STEPS,
@@ -84,6 +85,12 @@ function WizardDialog({
     );
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState(EMPTY_STRING);
+    const [isInputError, setIsInputError] = useState(false);
+    const [inputErrors, setInputErrors] = useState<{ [key: string]: string }[]>(
+        []
+    );
+
+    const [newErrors, setNewErrors] = useState<{ [key: string]: string }[]>([]);
 
     const dispatch = useDispatch();
     const addMultiChoiceQuestion = (question: MultiChoiceQuestion) => {
@@ -130,6 +137,39 @@ function WizardDialog({
         setErrorMsg(msg);
     };
 
+    const inputErrorsHandler = (key: string, value: string) => {
+        setInputErrors((prevInputErrors) => {
+            const existingIndex = prevInputErrors.findIndex(
+                (error) => error[key] === value
+            );
+
+            if (existingIndex !== INDEX_MINUS_1) {
+                const updatedErrors = [...prevInputErrors];
+                updatedErrors[existingIndex] = {
+                    ...updatedErrors[existingIndex],
+                    [key]: value,
+                };
+                return updatedErrors;
+            } else {
+                const newObject = { [key]: value };
+
+                return [...prevInputErrors, newObject];
+            }
+        });
+    };
+
+    const isInputErrorHanlder = (value: boolean) => {
+        setIsInputError(value);
+    };
+
+    const setInputErrorsToEmpty = () => {
+        setInputErrors([]);
+    };
+
+    const setNewErrorsToEmpty = () => {
+        setNewErrors([]);
+    };
+
     function GetStepContent(step: number) {
         if (isError) {
             return <ErrorStep error={errorMsg} />;
@@ -144,6 +184,11 @@ function WizardDialog({
                         onLikertParams={likertParamsHandler}
                         onMSParams={multiSelectParamsHandler}
                         onTextParams={textParamsHandler}
+                        inputErrorsHandler={inputErrorsHandler}
+                        newErrors={newErrors}
+                        isInputErrorHandler={isInputErrorHanlder}
+                        emptyInputErrors={setInputErrorsToEmpty}
+                        emptyNewErrors={setNewErrorsToEmpty}
                     />
                 );
             case WIZRAD_DIALOG_STEP_2:
@@ -154,25 +199,40 @@ function WizardDialog({
     }
 
     const handleNext = () => {
-        setActiveStep(activeStep + WIZRAD_DIALOG_STEP_1);
-        if (surveyType === MULTI_CHOICE_STYPE) {
-            multiChoiceParams.forEach((question) => {
-                addMultiChoiceQuestion(question);
-            });
-        } else if (surveyType === LIKERT_STYPE) {
-            likertParams.forEach((question) => {
-                addLikertQuestion(question);
-            });
-        } else if (surveyType === STYPE_MS) {
-            multiSelectParams.forEach((question) => {
-                addMultiSelectQuestion(question);
-            });
-        } else if (surveyType === STYPE_TEXT) {
-            textParams.forEach((question) => {
-                dispatch(textActions.addQuestion(question));
-            });
+        if (activeStep === WIZRAD_DIALOG_STEP_1) {
+            switch (surveyType) {
+                case MULTI_CHOICE_STYPE:
+                    multiChoiceParams.forEach((question) => {
+                        addMultiChoiceQuestion(question);
+                    });
+                    break;
+                case LIKERT_STYPE:
+                    likertParams.forEach((question) => {
+                        addLikertQuestion(question);
+                    });
+                    break;
+                case STYPE_MS:
+                    multiSelectParams.forEach((question) => {
+                        addMultiSelectQuestion(question);
+                    });
+                    break;
+                case STYPE_TEXT:
+                    textParams.forEach((question) => {
+                        dispatch(textActions.addQuestion(question));
+                    });
+                    break;
+                default:
+                    errorHandler(ERR_MSG_STYPE);
+                    break;
+            }
+        }
+        if (isInputError && activeStep === WIZRAD_DIALOG_STEP_1) {
+            setNewErrors(inputErrors);
+        } else {
+            setActiveStep(activeStep + WIZRAD_DIALOG_STEP_1);
         }
     };
+
     const index = useSelector((state: RootState) => state.surveyList.length);
 
     const addSurveyHandler = () => {
@@ -200,8 +260,7 @@ function WizardDialog({
         closeForm();
     };
 
-    const test = () => null;
-
+    const test = () => console.log(inputErrors);
     return (
         <ThemeProvider theme={darkTheme}>
             <Dialog

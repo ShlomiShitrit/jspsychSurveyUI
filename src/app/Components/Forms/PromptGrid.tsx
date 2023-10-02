@@ -7,6 +7,7 @@ import {
     PROMPT_GRID_INPUT_TYPE_PROMPT,
     PROMPT_GRID_LABEL_PROMPT,
     PROMPT_GRID_LABEL_NAME,
+    PROMPT_GRID_EMPTY_STR,
 } from "@/app/General/Resources/FormsRes";
 import {
     GRID_CONT_SPAC_2,
@@ -21,7 +22,8 @@ function PromptGrid({
     promptsArray = [],
     namesQ = [],
     nameQChangeHandler = () => () => null,
-    nameArray = [],
+    errorId = { prompt: PROMPT_GRID_EMPTY_STR, name: PROMPT_GRID_EMPTY_STR },
+    newErrors = [],
 }: PromptsGridProps) {
     return (
         <Grid container spacing={GRID_CONT_SPAC_2}>
@@ -35,6 +37,8 @@ function PromptGrid({
                 >
                     <Box>
                         <InputTextField
+                            newErrors={newErrors}
+                            errorId={errorId.prompt}
                             id={promptIndex}
                             state={promptsQ[promptIndex]}
                             stateHandler={promptsQChangeHandler(promptIndex)}
@@ -42,6 +46,8 @@ function PromptGrid({
                             labelText={PROMPT_GRID_LABEL_PROMPT}
                         />
                         <InputTextField
+                            newErrors={newErrors}
+                            errorId={errorId.name}
                             id={promptIndex}
                             state={namesQ[promptIndex]}
                             stateHandler={nameQChangeHandler(promptIndex)}

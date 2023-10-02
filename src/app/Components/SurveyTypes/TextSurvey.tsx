@@ -14,7 +14,14 @@ import {
     INDEX_0,
 } from "@/app/General/constants";
 
-function TextSurvey({ onSurveyParams = () => null }: TextSurveyProps) {
+function TextSurvey({
+    onSurveyParams = () => null,
+    inputErrorsHandler = () => null,
+    newErrors = [],
+    isInputErrorHandler = () => null,
+    emptyInputErrors = () => null,
+    emptyNewErrors = () => null,
+}: TextSurveyProps) {
     const [questions, setQuestions] = useState<TextSurveyQuestion[]>([]);
     const [formsCount, setFormsCount] = useState(COUNTER_1);
     const [formsArray, setFormsArray] = useState<number[]>([INDEX_0]);
@@ -51,6 +58,11 @@ function TextSurvey({ onSurveyParams = () => null }: TextSurveyProps) {
                         <TextSurveyForm
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}
+                            inputErrorsHandler={inputErrorsHandler}
+                            newErrors={newErrors}
+                            isInputErrorHandler={isInputErrorHandler}
+                            emptyInputErrors={emptyInputErrors}
+                            emptyNewErrors={emptyNewErrors}
                         />
                     </Grid>
                 ))}

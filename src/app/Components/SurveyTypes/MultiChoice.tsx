@@ -18,7 +18,14 @@ import {
     INDEX_0,
 } from "@/app/General/constants";
 
-function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
+function MultiChoice({
+    onSurveyParams = () => null,
+    inputErrorsHandler = () => null,
+    newErrors = [],
+    isInputErrorHandler = () => null,
+    emptyInputErrors = () => null,
+    emptyNewErrors = () => null,
+}: MultiChoiceProps) {
     const [questions, setQuestions] = useState<MultiChoiceQuestion[]>([]);
     const [formsCount, setFormsCount] = useState(COUNTER_1);
     const [formsArray, setFormsArray] = useState<number[]>([INDEX_0]);
@@ -53,8 +60,13 @@ function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
                         key={optionIndex}
                     >
                         <MultiChoiceForm
+                            isInputErrorHandler={isInputErrorHandler}
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}
+                            inputErrorsHandler={inputErrorsHandler}
+                            newErrors={newErrors}
+                            emptyInputErrors={emptyInputErrors}
+                            emptyNewErrors={emptyNewErrors}
                         />
                     </Grid>
                 ))}

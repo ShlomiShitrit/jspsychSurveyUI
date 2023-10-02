@@ -21,19 +21,60 @@ function Step2({
     onLikertParams = () => null,
     onMSParams = () => null,
     onTextParams = () => null,
+    inputErrorsHandler = () => null,
+    newErrors = [],
+    isInputErrorHandler = () => null,
+    emptyInputErrors = () => null,
+    emptyNewErrors = () => null,
 }: Step2Props) {
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
     switch (surveyType) {
         case MULTI_CHOICE_SURVEY_TYPE:
-            return <MultiChoice onSurveyParams={onMCParams} />;
+            return (
+                <MultiChoice
+                    onSurveyParams={onMCParams}
+                    inputErrorsHandler={inputErrorsHandler}
+                    newErrors={newErrors}
+                    isInputErrorHandler={isInputErrorHandler}
+                    emptyInputErrors={emptyInputErrors}
+                    emptyNewErrors={emptyNewErrors}
+                />
+            );
         case TEXT_SURVEY_TYPE:
-            return <TextSurvey onSurveyParams={onTextParams} />;
+            return (
+                <TextSurvey
+                    onSurveyParams={onTextParams}
+                    inputErrorsHandler={inputErrorsHandler}
+                    newErrors={newErrors}
+                    isInputErrorHandler={isInputErrorHandler}
+                    emptyInputErrors={emptyInputErrors}
+                    emptyNewErrors={emptyNewErrors}
+                />
+            );
         case LIKERT_SURVEY_TYPE:
-            return <Likert onSurveyParams={onLikertParams} />;
+            return (
+                <Likert
+                    onSurveyParams={onLikertParams}
+                    inputErrorsHandler={inputErrorsHandler}
+                    newErrors={newErrors}
+                    isInputErrorHandler={isInputErrorHandler}
+                    emptyInputErrors={emptyInputErrors}
+                    emptyNewErrors={emptyNewErrors}
+                />
+            );
         case MULTI_SELECT_SURVEY_TYPE:
-            return <MultiSelect onSurveyParams={onMSParams} />;
+            return (
+                <MultiSelect
+                    onSurveyParams={onMSParams}
+                    inputErrorsHandler={inputErrorsHandler}
+                    newErrors={newErrors}
+                    isInputErrorHandler={isInputErrorHandler}
+                    emptyInputErrors={emptyInputErrors}
+                    emptyNewErrors={emptyNewErrors}
+                />
+            );
         default:
             return <ErrorStep error={ERROR_STEP_MSG} />;
     }

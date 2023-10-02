@@ -15,7 +15,14 @@ import {
 import { LikertProps, LikertQuestion } from "@/app/General/interfaces";
 import LikertForm from "@/app/Components/Forms/LikertForm";
 
-function Likert({ onSurveyParams = () => null }: LikertProps) {
+function Likert({
+    onSurveyParams = () => null,
+    inputErrorsHandler = () => null,
+    newErrors = [],
+    isInputErrorHandler = () => null,
+    emptyInputErrors = () => null,
+    emptyNewErrors = () => null,
+}: LikertProps) {
     const [questions, setQuestions] = useState<LikertQuestion[]>([]);
     const [formsCount, setFormsCount] = useState(COUNTER_1);
     const [formsArray, setFormsArray] = useState<number[]>([INDEX_0]);
@@ -52,6 +59,11 @@ function Likert({ onSurveyParams = () => null }: LikertProps) {
                         <LikertForm
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}
+                            inputErrorsHandler={inputErrorsHandler}
+                            newErrors={newErrors}
+                            isInputErrorHandler={isInputErrorHandler}
+                            emptyInputErrors={emptyInputErrors}
+                            emptyNewErrors={emptyNewErrors}
                         />
                     </Grid>
                 ))}
