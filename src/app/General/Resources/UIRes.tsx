@@ -33,3 +33,6 @@ export const EDGE_END = "end";
 export const EDGE_START = "start";
 export const ICON_ARIA_LABEL = "delete";
 export const LIST_ITEN_PRIM = "No surveys to show";
+export const SURVEY_LIST_TOOLTIP = `A list for all surveys.
+ You can create a new survey and add it to this list.
+  You can also delete a survey from this list.`;

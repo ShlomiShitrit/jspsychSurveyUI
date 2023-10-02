@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ListItemObj } from "@/app/General/interfaces";
 import { surveyListActions } from "@/app/store/surveyListSlice";
+import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
     List,
     ListItem,
@@ -14,6 +15,7 @@ import {
     DeleteIcon,
     ThemeProvider,
     Container,
+    Box,
 } from "@/app/General/muiComponents";
 import {
     CONTAINER_MAX_WIDTH,
@@ -21,6 +23,7 @@ import {
     EDGE_START,
     ICON_ARIA_LABEL,
     LIST_ITEN_PRIM,
+    SURVEY_LIST_TOOLTIP,
 } from "@/app/General/Resources/UIRes";
 import {
     INDEX_0,
@@ -33,6 +36,8 @@ import {
     darkNavyBlueTheme,
     surveysListStyle,
     surveyListListItemStyle,
+    surveyListBox1Style,
+    surveyListBox2Style,
 } from "@/app/General/styles";
 
 function SurveysList() {
@@ -62,61 +67,75 @@ function SurveysList() {
     return (
         <ThemeProvider theme={darkNavyBlueTheme}>
             <Container maxWidth={CONTAINER_MAX_WIDTH}>
-                <List sx={surveysListStyle}>
-                    {surveysList.length === LENGTH_0 && (
-                        <ListItem>
-                            <ListItemText
-                                primary={LIST_ITEN_PRIM}
-                                sx={surveyListListItemStyle}
-                            />
-                        </ListItem>
-                    )}
-                    {surveysList.length >= LENGTH_1 &&
-                        surveysList.map((value: ListItemObj, index: number) => {
-                            const labelId = `${index}`;
+                <Box sx={surveyListBox1Style}>
+                    <Box sx={surveyListBox2Style}>
+                        <CustomTooltip title={SURVEY_LIST_TOOLTIP} />
+                    </Box>
+                    <br />
+                    <br />
+                    <List sx={surveysListStyle}>
+                        {surveysList.length === LENGTH_0 && (
+                            <ListItem>
+                                <ListItemText
+                                    primary={LIST_ITEN_PRIM}
+                                    sx={surveyListListItemStyle}
+                                />
+                            </ListItem>
+                        )}
+                        {surveysList.length >= LENGTH_1 &&
+                            surveysList.map(
+                                (value: ListItemObj, index: number) => {
+                                    const labelId = `${index}`;
 
-                            return (
-                                <ListItem
-                                    key={index}
-                                    secondaryAction={
-                                        <IconButton
-                                            edge={EDGE_END}
-                                            aria-label={ICON_ARIA_LABEL}
-                                            onClick={handleDelete}
+                                    return (
+                                        <ListItem
+                                            key={index}
+                                            secondaryAction={
+                                                <IconButton
+                                                    edge={EDGE_END}
+                                                    aria-label={ICON_ARIA_LABEL}
+                                                    onClick={handleDelete}
+                                                >
+                                                    <DeleteIcon />
+                                                </IconButton>
+                                            }
+                                            disablePadding
                                         >
-                                            <DeleteIcon />
-                                        </IconButton>
-                                    }
-                                    disablePadding
-                                >
-                                    <ListItemButton
-                                        role={undefined}
-                                        onClick={handleToggle(index)}
-                                        dense
-                                    >
-                                        <ListItemIcon>
-                                            <Checkbox
-                                                edge={EDGE_START}
-                                                checked={
-                                                    checked.indexOf(index) !==
-                                                    COUNTER_MINUS_1
-                                                }
-                                                tabIndex={COUNTER_MINUS_1}
-                                                disableRipple
-                                                inputProps={{
-                                                    "aria-labelledby": labelId,
-                                                }}
-                                            />
-                                        </ListItemIcon>
-                                        <ListItemText
-                                            id={labelId}
-                                            primary={`${value.name}: ${value.stype} `}
-                                        />
-                                    </ListItemButton>
-                                </ListItem>
-                            );
-                        })}
-                </List>
+                                            <ListItemButton
+                                                role={undefined}
+                                                onClick={handleToggle(index)}
+                                                dense
+                                            >
+                                                <ListItemIcon>
+                                                    <Checkbox
+                                                        edge={EDGE_START}
+                                                        checked={
+                                                            checked.indexOf(
+                                                                index
+                                                            ) !==
+                                                            COUNTER_MINUS_1
+                                                        }
+                                                        tabIndex={
+                                                            COUNTER_MINUS_1
+                                                        }
+                                                        disableRipple
+                                                        inputProps={{
+                                                            "aria-labelledby":
+                                                                labelId,
+                                                        }}
+                                                    />
+                                                </ListItemIcon>
+                                                <ListItemText
+                                                    id={labelId}
+                                                    primary={`${value.name}: ${value.stype} `}
+                                                />
+                                            </ListItemButton>
+                                        </ListItem>
+                                    );
+                                }
+                            )}
+                    </List>
+                </Box>
             </Container>
         </ThemeProvider>
     );
