@@ -46,6 +46,11 @@ export interface Step2Props {
     onLikertParams: (params: LikertQuestion[]) => void;
     onMSParams: (params: MultiChoiceQuestion[]) => void;
     onTextParams: (params: TextSurveyQuestion[]) => void;
+    inputErrorsHandler: (key: string, value: string) => void;
+    newErrors: { [key: string]: string }[];
+    isInputErrorHandler: (value: boolean) => void;
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
 }
 
 export interface Step3Props {
@@ -62,12 +67,19 @@ export interface AddOptionBtnProps {
 }
 
 export interface InputTextFieldProps {
-    state?: string;
+    state: string;
     stateHandler: (e: ChangeEvent<HTMLInputElement>) => void;
-    inputType?: string;
-    id?: number;
-    labelText?: string;
-    isState?: boolean;
+    inputType: string;
+    id: number;
+    labelText: string;
+    newErrors: { [key: string]: string }[];
+    errorId: string;
+}
+
+export interface SwitchLabelProps {
+    isState: boolean;
+    stateHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+    labelText: string;
 }
 
 export interface OptionsGridProps {
@@ -77,6 +89,8 @@ export interface OptionsGridProps {
     ) => (e: ChangeEvent<HTMLInputElement>) => void;
     optionsArray: number[];
     labelText: string;
+    errorId: string;
+    newErrors: { [key: string]: string }[];
 }
 
 export interface PromptsGridProps {
@@ -90,22 +104,47 @@ export interface PromptsGridProps {
         index: number
     ) => (e: ChangeEvent<HTMLInputElement>) => void;
     nameArray: number[];
+    errorId: {
+        prompt: string;
+        name: string;
+    };
+    newErrors: { [key: string]: string }[];
 }
 
 export interface LikertProps {
     onSurveyParams: (params: LikertQuestion[]) => void;
+    inputErrorsHandler: (key: string, value: string) => void;
+    isInputErrorHandler: (value: boolean) => void;
+    newErrors: { [key: string]: string }[];
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
 }
 
 export interface LikertFormProps {
     questionsChangeHandler: (index: number, question: LikertQuestion) => void;
     id: number;
+    inputErrorsHandler: (key: string, value: string) => void;
+    isInputErrorHandler: (value: boolean) => void;
+    newErrors: { [key: string]: string }[];
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
 }
 
 export interface MultiChoiceProps {
     onSurveyParams: (params: MultiChoiceQuestion[]) => void;
+    inputErrorsHandler: (key: string, value: string) => void;
+    isInputErrorHandler: (value: boolean) => void;
+    newErrors: { [key: string]: string }[];
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
 }
 export interface TextSurveyProps {
     onSurveyParams: (params: TextSurveyQuestion[]) => void;
+    inputErrorsHandler: (key: string, value: string) => void;
+    isInputErrorHandler: (value: boolean) => void;
+    newErrors: { [key: string]: string }[];
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
 }
 
 export interface MultiChoiceFormProps {
@@ -114,6 +153,11 @@ export interface MultiChoiceFormProps {
         question: MultiChoiceQuestion
     ) => void;
     id: number;
+    inputErrorsHandler: (key: string, value: string) => void;
+    newErrors: { [key: string]: string }[];
+    isInputErrorHandler: (value: boolean) => void;
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
 }
 export interface TextSurveyFormProps {
     questionsChangeHandler: (
@@ -121,6 +165,11 @@ export interface TextSurveyFormProps {
         question: TextSurveyQuestion
     ) => void;
     id: number;
+    inputErrorsHandler: (key: string, value: string) => void;
+    isInputErrorHandler: (value: boolean) => void;
+    newErrors: { [key: string]: string }[];
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
 }
 
 export interface AddSurveyBtnProps {
@@ -136,4 +185,8 @@ export interface ListItemObj {
 export interface DownloadDialogProps {
     open: boolean;
     closeDialogHandler: () => void;
+}
+
+export interface NewError {
+    [key: string]: string;
 }

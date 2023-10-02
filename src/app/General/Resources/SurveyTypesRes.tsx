@@ -7,4 +7,3 @@ export const ADD_BTN_TXT = "Add Form";
 // Likert.tsx
 export const LABEL_OPTION_GRID_LABEL = "Label";
 export const RANDOM_SWITCH_LABEL = "Randomize question order";
-
