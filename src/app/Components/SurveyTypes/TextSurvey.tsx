@@ -1,7 +1,8 @@
 import { Fragment, useState, useEffect } from "react";
 import TextSurveyForm from "@/app/Components/Forms/TextSurveyForm";
 import { Grid, Button } from "@/app/General/muiComponents";
-import { TextSurveyQuestion, TextSurveyProps } from "@/app/General/interfaces";
+import { TextSurveyQuestion, SurveyTypeProps } from "@/app/General/interfaces";
+import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
 import {
     ADD_BTN_TXT,
     ADD_BTN_VARIANT,
@@ -21,21 +22,14 @@ function TextSurvey({
     isInputErrorHandler = () => null,
     emptyInputErrors = () => null,
     emptyNewErrors = () => null,
-}: TextSurveyProps) {
-    const [questions, setQuestions] = useState<TextSurveyQuestion[]>([]);
+}: SurveyTypeProps) {
     const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
     const [formsArray, setFormsArray] = useState<number[]>(
         STYPE_ARRAY_STATE_DEFAULT_0
     );
 
-    const questionsChangeHandler = (
-        index: number,
-        question: TextSurveyQuestion
-    ) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index] = question;
-        setQuestions(updatedQuestions);
-    };
+    const { questions, questionsChangeHandler } =
+        useQuestionsChangeHandler<TextSurveyQuestion>([]);
 
     const addForm = () => {
         setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
@@ -57,7 +51,7 @@ function TextSurvey({
                         md={GRID_ITEM_12}
                         key={optionIndex}
                     >
-                        <TextSurveyForm
+                        <TextSurveyForm<TextSurveyQuestion>
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}
                             inputErrorsHandler={inputErrorsHandler}

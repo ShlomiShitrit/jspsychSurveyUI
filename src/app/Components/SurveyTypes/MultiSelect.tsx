@@ -1,10 +1,8 @@
 "use client";
 import { useState, useEffect, Fragment } from "react";
 import { Grid, Button } from "@/app/General/muiComponents";
-import {
-    MultiChoiceProps,
-    MultiChoiceQuestion,
-} from "@/app/General/interfaces";
+import { SurveyTypeProps, MultiChoiceQuestion } from "@/app/General/interfaces";
+import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
 import MultiChoiceForm from "@/app/Components/Forms/MultiChoiceForm";
 import {
     ADD_BTN_TXT,
@@ -25,21 +23,14 @@ function MultiSelect({
     isInputErrorHandler = () => null,
     emptyInputErrors = () => null,
     emptyNewErrors = () => null,
-}: MultiChoiceProps) {
-    const [questions, setQuestions] = useState<MultiChoiceQuestion[]>([]);
+}: SurveyTypeProps) {
     const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
     const [formsArray, setFormsArray] = useState<number[]>(
         STYPE_ARRAY_STATE_DEFAULT_0
     );
 
-    const questionsChangeHandler = (
-        index: number,
-        question: MultiChoiceQuestion
-    ) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index] = question;
-        setQuestions(updatedQuestions);
-    };
+    const { questions, questionsChangeHandler } =
+        useQuestionsChangeHandler<MultiChoiceQuestion>([]);
 
     const addForm = () => {
         setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
@@ -61,7 +52,7 @@ function MultiSelect({
                         md={GRID_ITEM_12}
                         key={optionIndex}
                     >
-                        <MultiChoiceForm
+                        <MultiChoiceForm<MultiChoiceQuestion>
                             isInputErrorHandler={isInputErrorHandler}
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}

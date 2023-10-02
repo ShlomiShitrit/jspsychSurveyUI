@@ -12,8 +12,13 @@ import {
     ADD_BTN_VARIANT,
     ADD_BTN_TXT,
 } from "@/app/General/Resources/SurveyTypesRes";
-import { LikertProps, LikertQuestion } from "@/app/General/interfaces";
+import {
+    SurveyTypeProps,
+    LikertQuestion,
+    QuestionTypeArr,
+} from "@/app/General/interfaces";
 import LikertForm from "@/app/Components/Forms/LikertForm";
+import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
 
 function Likert({
     onSurveyParams = () => null,
@@ -22,19 +27,14 @@ function Likert({
     isInputErrorHandler = () => null,
     emptyInputErrors = () => null,
     emptyNewErrors = () => null,
-}: LikertProps) {
-    const [questions, setQuestions] = useState<LikertQuestion[]>([]);
+}: SurveyTypeProps) {
     const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
-    const [formsArray, setFormsArray] = useState<number[]>(STYPE_ARRAY_STATE_DEFAULT_0);
+    const [formsArray, setFormsArray] = useState<number[]>(
+        STYPE_ARRAY_STATE_DEFAULT_0
+    );
 
-    const questionsChangeHandler = (
-        index: number,
-        question: LikertQuestion
-    ) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index] = question;
-        setQuestions(updatedQuestions);
-    };
+    const { questions, questionsChangeHandler } =
+        useQuestionsChangeHandler<LikertQuestion>([]);
 
     const addForm = () => {
         setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
@@ -56,7 +56,7 @@ function Likert({
                         md={GRID_ITEM_12}
                         key={optionIndex}
                     >
-                        <LikertForm
+                        <LikertForm<LikertQuestion>
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}
                             inputErrorsHandler={inputErrorsHandler}

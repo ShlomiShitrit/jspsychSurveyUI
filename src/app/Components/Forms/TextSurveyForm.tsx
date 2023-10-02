@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/index";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
-import { TextSurveyFormProps } from "@/app/General/interfaces";
+import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import useInputError from "@/app/hooks/use-input-error";
@@ -21,7 +21,7 @@ import {
 } from "@/app/General/Resources/FormsRes";
 import { FORM_ID_PROP_DEFAULT_0 } from "@/app/General/constants";
 
-function TextSurveyForm({
+function TextSurveyForm<T extends QuestionType>({
     id = FORM_ID_PROP_DEFAULT_0,
     questionsChangeHandler = () => null,
     inputErrorsHandler = () => null,
@@ -29,7 +29,7 @@ function TextSurveyForm({
     isInputErrorHandler = () => null,
     emptyInputErrors = () => null,
     emptyNewErrors = () => null,
-}: TextSurveyFormProps) {
+}: SurveyFormProps<T>) {
     const [prompt, setPrompt] = useState(EMPTY_STR);
     const [placeHolder, setPlaceHolder] = useState(EMPTY_STR);
     const [name, setName] = useState(EMPTY_STR);
@@ -61,7 +61,7 @@ function TextSurveyForm({
     };
 
     useEffect(() => {
-        questionsChangeHandler(id, QuestionData);
+        questionsChangeHandler(id, QuestionData as T);
     }, [QuestionData]);
 
     useInputError(

@@ -9,7 +9,7 @@ import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { RootState } from "@/app/store/index";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
-import { MultiChoiceFormProps } from "@/app/General/interfaces";
+import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import useInputError from "@/app/hooks/use-input-error";
 import {
     FORM_NUM_ARR_STATE_DEFAULT,
@@ -32,7 +32,7 @@ import {
     MULTI_CHOICE_STYPE,
 } from "@/app/General/Resources/FormsRes";
 
-function MultiChoiceForm({
+function MultiChoiceForm<T extends QuestionType>({
     questionsChangeHandler = () => null,
     id = FORM_ID_PROP_DEFAULT_0,
     inputErrorsHandler = () => null,
@@ -40,7 +40,7 @@ function MultiChoiceForm({
     isInputErrorHandler = () => null,
     emptyInputErrors = () => null,
     emptyNewErrors = () => null,
-}: MultiChoiceFormProps) {
+}: SurveyFormProps<T>) {
     const [promptQ, setPromptQ] = useState(MC_EMPTY_STRING);
     const [nameQ, setNameQ] = useState(MC_EMPTY_STRING);
     const [optionsArrQ, setOptionsArrQ] = useState<string[]>([]);
@@ -95,7 +95,7 @@ function MultiChoiceForm({
     };
 
     useEffect(() => {
-        questionsChangeHandler(id, QuestionData);
+        questionsChangeHandler(id, QuestionData as T);
     }, [QuestionData]);
 
     useInputError(
