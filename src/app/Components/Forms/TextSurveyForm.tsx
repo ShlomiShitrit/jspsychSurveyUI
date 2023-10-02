@@ -6,6 +6,7 @@ import { matgin10Style, margin15Style } from "@/app/General/styles";
 import { TextSurveyFormProps } from "@/app/General/interfaces";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
+import useInputError from "@/app/hooks/use-input-error";
 import {
     EMPTY_STR,
     TEXT_NAMEQ,
@@ -16,10 +17,7 @@ import {
     TEXT_FORM_TITLE,
     TEXT_FORM_LABEL,
     TEXT_SWITCH_LABEL,
-    INPUT_ERR_ID_0,
-    INPUT_ERR_ID_1,
-    INPUT_ERR_ID_2,
-    INPUT_ERR_MSG_REQ,
+    TEXT_STYPE,
 } from "@/app/General/Resources/FormsRes";
 import { INDEX_0 } from "@/app/General/constants";
 
@@ -66,24 +64,17 @@ function TextSurveyForm({
         questionsChangeHandler(id, QuestionData);
     }, [QuestionData]);
 
-    useEffect(() => {
-        emptyInputErrors();
-        emptyNewErrors();
-        if (prompt.trim() === EMPTY_STR) {
-            isInputErrorHandler(true);
-            inputErrorsHandler(`${id}${INPUT_ERR_ID_0}`, INPUT_ERR_MSG_REQ);
-        } else if (placeHolder.trim() === EMPTY_STR) {
-            isInputErrorHandler(true);
-            inputErrorsHandler(`${id}${INPUT_ERR_ID_1}`, INPUT_ERR_MSG_REQ);
-        } else if (name.trim() === EMPTY_STR) {
-            isInputErrorHandler(true);
-            inputErrorsHandler(`${id}${INPUT_ERR_ID_2}`, INPUT_ERR_MSG_REQ);
-        } else {
-            isInputErrorHandler(false);
-            emptyInputErrors();
-            emptyNewErrors();
-        }
-    }, [prompt, name, placeHolder]);
+    useInputError(
+        emptyInputErrors,
+        emptyNewErrors,
+        isInputErrorHandler,
+        inputErrorsHandler,
+        prompt,
+        name,
+        placeHolder,
+        id,
+        TEXT_STYPE
+    );
 
     const inputArr = [
         {

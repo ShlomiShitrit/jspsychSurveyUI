@@ -5,8 +5,8 @@ import {
 
 export const replaceFirstAndLast = (
     inputString: string,
-    newFirstChar: string,
-    newLastChar: string
+    newFirstChar: string = "",
+    newLastChar: string = ""
 ) => {
     const replacedString =
         newFirstChar +

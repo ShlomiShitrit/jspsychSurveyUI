@@ -10,15 +10,11 @@ import { RootState } from "@/app/store/index";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { LikertFormProps } from "@/app/General/interfaces";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
-import { replaceFirstAndLast } from "@/app/General/utils";
+import useInputError from "@/app/hooks/use-input-error";
 import {
     SURVEY_TYPE_STATE_NUM_ARR,
     SURVEY_TYPE_STATE_2,
     SURVEY_TYPE_COUNTER_PLUS_1,
-    INDEX_0,
-    INDEX_1,
-    LENGTH_0,
-    LENGTH_2,
     COUNTER_1,
     ARR_0,
     ID_0,
@@ -28,13 +24,10 @@ import {
     SECOND_FORM_LABEL,
     LABEL_OPTION_GRID_LABEL,
     RANDOM_SWITCH_LABEL,
-    EMPTY_STRING,
     INPUT_ERR_ID_0,
     INPUT_ERR_ID_1,
     INPUT_ERR_ID_2,
-    INPUT_ERR_MSG_OPTIONS,
-    INPUT_ERR_MSG_PROMPT,
-    INPUT_ERR_MSG_NAME,
+    LIKERT_STYPE,
 } from "@/app/General/Resources/FormsRes";
 
 function LikertForm({
@@ -102,47 +95,17 @@ function LikertForm({
         questionsChangeHandler(id, QuestionData);
     }, [QuestionData]);
 
-    useEffect(() => {
-        emptyInputErrors();
-        emptyNewErrors();
-        if (
-            promptsQ.length === LENGTH_0 ||
-            replaceFirstAndLast(
-                promptsQ[INDEX_0],
-                EMPTY_STRING,
-                EMPTY_STRING
-            ) === EMPTY_STRING
-        ) {
-            isInputErrorHandler(true);
-            inputErrorsHandler(`${id}${INPUT_ERR_ID_0}`, INPUT_ERR_MSG_PROMPT);
-        } else if (
-            namesQ.length === LENGTH_0 ||
-            replaceFirstAndLast(namesQ[INDEX_0], EMPTY_STRING, EMPTY_STRING) ===
-                EMPTY_STRING
-        ) {
-            isInputErrorHandler(true);
-            inputErrorsHandler(`${id}${INPUT_ERR_ID_1}`, INPUT_ERR_MSG_NAME);
-        } else if (
-            optionsQ.length < LENGTH_2 ||
-            replaceFirstAndLast(
-                optionsQ[INDEX_0],
-                EMPTY_STRING,
-                EMPTY_STRING
-            ) === EMPTY_STRING ||
-            replaceFirstAndLast(
-                optionsQ[INDEX_1],
-                EMPTY_STRING,
-                EMPTY_STRING
-            ) === EMPTY_STRING
-        ) {
-            isInputErrorHandler(true);
-            inputErrorsHandler(`${id}${INPUT_ERR_ID_2}`, INPUT_ERR_MSG_OPTIONS);
-        } else {
-            isInputErrorHandler(false);
-            emptyInputErrors();
-            emptyNewErrors();
-        }
-    }, [promptsQ, namesQ, optionsQ]);
+    useInputError(
+        emptyInputErrors,
+        emptyNewErrors,
+        isInputErrorHandler,
+        inputErrorsHandler,
+        promptsQ,
+        namesQ,
+        optionsQ,
+        id,
+        LIKERT_STYPE
+    );
 
     const promptGridErrorIds = {
         prompt: `${id}${INPUT_ERR_ID_0}`,
