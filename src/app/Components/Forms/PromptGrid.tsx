@@ -17,9 +17,9 @@ import {
 } from "@/app/General/constants";
 
 function PromptGrid({
-    promptsQ = [],
-    promptsQChangeHandler = () => () => null,
-    promptsArray = [],
+    optionsQ = [],
+    optionsQChangeHandler = () => () => null,
+    optionsArray = [],
     namesQ = [],
     nameQChangeHandler = () => () => null,
     errorId = { prompt: PROMPT_GRID_EMPTY_STR, name: PROMPT_GRID_EMPTY_STR },
@@ -27,7 +27,7 @@ function PromptGrid({
 }: PromptsGridProps) {
     return (
         <Grid container spacing={GRID_CONT_SPAC_2}>
-            {promptsArray.map((promptIndex) => (
+            {optionsArray.map((promptIndex) => (
                 <Grid
                     item
                     xs={GRID_ITEM_12}
@@ -40,8 +40,8 @@ function PromptGrid({
                             newErrors={newErrors}
                             errorId={errorId.prompt}
                             id={promptIndex}
-                            state={promptsQ[promptIndex]}
-                            stateHandler={promptsQChangeHandler(promptIndex)}
+                            state={optionsQ[promptIndex]}
+                            stateHandler={optionsQChangeHandler(promptIndex)}
                             inputType={PROMPT_GRID_INPUT_TYPE_PROMPT}
                             labelText={PROMPT_GRID_LABEL_PROMPT}
                         />

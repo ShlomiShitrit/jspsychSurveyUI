@@ -108,8 +108,19 @@ function WizardDialog({
         setActiveStep(activeStep - WIZRAD_STEP_1);
     };
 
-    const multiChiceParamsHandler = (params: MultiChoiceQuestion[]) => {
-        setMultiChoiceParams(params);
+    const onSurveyParamsHandler = (
+        params: MultiChoiceQuestion[] | LikertQuestion[] | TextSurveyQuestion[]
+    ) => {
+        if (surveyType === STYPE_MULTI_CHOICE) {
+            setMultiChoiceParams(params as MultiChoiceQuestion[]);
+        } else if (surveyType === STYPE_LIKERT) {
+            setLikertParams(params as LikertQuestion[]);
+        } else if (surveyType === STYPE_MS) {
+            setMultiSelectParams(params as MultiChoiceQuestion[]);
+        } else if (surveyType === STYPE_TEXT) {
+            setTextParams(params as TextSurveyQuestion[]);
+        }
+        // setMultiChoiceParams(params);
     };
     const multiSelectParamsHandler = (params: MultiChoiceQuestion[]) => {
         setMultiSelectParams(params);
@@ -180,10 +191,7 @@ function WizardDialog({
             case WIZRAD_STEP_1:
                 return (
                     <Step2
-                        onMCParams={multiChiceParamsHandler}
-                        onLikertParams={likertParamsHandler}
-                        onMSParams={multiSelectParamsHandler}
-                        onTextParams={textParamsHandler}
+                        onSurveyParams={onSurveyParamsHandler}
                         inputErrorsHandler={inputErrorsHandler}
                         newErrors={newErrors}
                         isInputErrorHandler={isInputErrorHanlder}

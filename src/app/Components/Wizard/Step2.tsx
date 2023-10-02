@@ -6,7 +6,7 @@ import MultiChoice from "@/app/Components/SurveyTypes/MultiChoice";
 import TextSurvey from "@/app/Components/SurveyTypes/TextSurvey";
 import Likert from "@/app/Components/SurveyTypes/Likert";
 import MultiSelect from "@/app/Components/SurveyTypes/MultiSelect";
-import { Step2Props } from "@/app/General/interfaces";
+import { SurveyTypeProps, MultiChoiceQuestion } from "@/app/General/interfaces";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import {
     MULTI_CHOICE_SURVEY_TYPE,
@@ -17,16 +17,13 @@ import {
 } from "@/app/General/Resources/WizardRes";
 
 function Step2({
-    onMCParams = () => null,
-    onLikertParams = () => null,
-    onMSParams = () => null,
-    onTextParams = () => null,
+    onSurveyParams = () => null,
     inputErrorsHandler = () => null,
     newErrors = [],
     isInputErrorHandler = () => null,
     emptyInputErrors = () => null,
     emptyNewErrors = () => null,
-}: Step2Props) {
+}: SurveyTypeProps) {
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
@@ -34,7 +31,7 @@ function Step2({
         case MULTI_CHOICE_SURVEY_TYPE:
             return (
                 <MultiChoice
-                    onSurveyParams={onMCParams}
+                    onSurveyParams={onSurveyParams}
                     inputErrorsHandler={inputErrorsHandler}
                     newErrors={newErrors}
                     isInputErrorHandler={isInputErrorHandler}
@@ -45,7 +42,7 @@ function Step2({
         case TEXT_SURVEY_TYPE:
             return (
                 <TextSurvey
-                    onSurveyParams={onTextParams}
+                    onSurveyParams={onSurveyParams}
                     inputErrorsHandler={inputErrorsHandler}
                     newErrors={newErrors}
                     isInputErrorHandler={isInputErrorHandler}
@@ -56,7 +53,7 @@ function Step2({
         case LIKERT_SURVEY_TYPE:
             return (
                 <Likert
-                    onSurveyParams={onLikertParams}
+                    onSurveyParams={onSurveyParams}
                     inputErrorsHandler={inputErrorsHandler}
                     newErrors={newErrors}
                     isInputErrorHandler={isInputErrorHandler}
@@ -67,7 +64,7 @@ function Step2({
         case MULTI_SELECT_SURVEY_TYPE:
             return (
                 <MultiSelect
-                    onSurveyParams={onMSParams}
+                    onSurveyParams={onSurveyParams}
                     inputErrorsHandler={inputErrorsHandler}
                     newErrors={newErrors}
                     isInputErrorHandler={isInputErrorHandler}
