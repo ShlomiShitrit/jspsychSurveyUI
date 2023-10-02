@@ -23,11 +23,11 @@ import {
     LIST_ITEN_PRIM,
 } from "@/app/General/Resources/UIRes";
 import {
-    INDEX_0,
-    COUNTER_MINUS_1,
-    COUNTER_1,
-    LENGTH_1,
-    LENGTH_0,
+    UI_ARRAY_STATE_DEFAULT_0,
+    UI_INDEX_MINUS_1,
+    UI_INDEX_1,
+    UI_ARR_LEN_1,
+    UI_ARR_LEN_0,
 } from "@/app/General/constants";
 import {
     darkNavyBlueTheme,
@@ -36,7 +36,7 @@ import {
 } from "@/app/General/styles";
 
 function SurveysList() {
-    const [checked, setChecked] = useState([INDEX_0]);
+    const [checked, setChecked] = useState(UI_ARRAY_STATE_DEFAULT_0);
     const surveysList = useSelector((state: any) => state.surveyList);
     const dispatch = useDispatch();
 
@@ -44,10 +44,10 @@ function SurveysList() {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
 
-        if (currentIndex === COUNTER_MINUS_1) {
+        if (currentIndex === UI_INDEX_MINUS_1) {
             newChecked.push(value);
         } else {
-            newChecked.splice(currentIndex, COUNTER_1);
+            newChecked.splice(currentIndex, UI_INDEX_1);
         }
 
         setChecked(newChecked);
@@ -63,7 +63,7 @@ function SurveysList() {
         <ThemeProvider theme={darkNavyBlueTheme}>
             <Container maxWidth={CONTAINER_MAX_WIDTH}>
                 <List sx={surveysListStyle}>
-                    {surveysList.length === LENGTH_0 && (
+                    {surveysList.length === UI_ARR_LEN_0 && (
                         <ListItem>
                             <ListItemText
                                 primary={LIST_ITEN_PRIM}
@@ -71,7 +71,7 @@ function SurveysList() {
                             />
                         </ListItem>
                     )}
-                    {surveysList.length >= LENGTH_1 &&
+                    {surveysList.length >= UI_ARR_LEN_1 &&
                         surveysList.map((value: ListItemObj, index: number) => {
                             const labelId = `${index}`;
 
@@ -99,9 +99,9 @@ function SurveysList() {
                                                 edge={EDGE_START}
                                                 checked={
                                                     checked.indexOf(index) !==
-                                                    COUNTER_MINUS_1
+                                                    UI_INDEX_MINUS_1
                                                 }
-                                                tabIndex={COUNTER_MINUS_1}
+                                                tabIndex={UI_INDEX_MINUS_1}
                                                 disableRipple
                                                 inputProps={{
                                                     "aria-labelledby": labelId,

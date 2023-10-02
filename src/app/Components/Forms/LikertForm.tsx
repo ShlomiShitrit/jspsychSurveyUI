@@ -12,12 +12,12 @@ import { LikertFormProps } from "@/app/General/interfaces";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
 import useInputError from "@/app/hooks/use-input-error";
 import {
-    SURVEY_TYPE_STATE_NUM_ARR,
-    SURVEY_TYPE_STATE_2,
-    SURVEY_TYPE_COUNTER_PLUS_1,
-    COUNTER_1,
-    ARR_0,
-    ID_0,
+    FORM_NUM_ARR_STATE_DEFAULT,
+    FORM_COUNTER_STATE_DEFAULT_2,
+    FORM_COUNTER_PLUS_1,
+    FORM_COUNTER_STATE_DEFAULT_1,
+    FORM_ARRAY_STATE_DEFAULT_0,
+    FORM_ID_PROP_DEFAULT_0,
 } from "@/app/General/constants";
 import {
     FIRST_FORM_LABEL,
@@ -32,7 +32,7 @@ import {
 
 function LikertForm({
     questionsChangeHandler = () => null,
-    id = ID_0,
+    id = FORM_ID_PROP_DEFAULT_0,
     inputErrorsHandler = () => null,
     newErrors = [],
     isInputErrorHandler = () => null,
@@ -40,16 +40,16 @@ function LikertForm({
     emptyNewErrors = () => null,
 }: LikertFormProps) {
     const [optionsQ, setOptionsQ] = useState<string[]>([]);
-    const [optionsCount, setOptionsCount] = useState(SURVEY_TYPE_STATE_2);
+    const [optionsCount, setOptionsCount] = useState(FORM_COUNTER_STATE_DEFAULT_2);
     const [optionsArray, setOptionsArray] = useState<number[]>(
-        SURVEY_TYPE_STATE_NUM_ARR
+        FORM_NUM_ARR_STATE_DEFAULT
     );
     const [promptsQ, setPromptsQ] = useState<string[]>([]);
-    const [promptsCount, setPromptsCount] = useState(COUNTER_1);
-    const [promptsArray, setPromptsArray] = useState<number[]>(ARR_0);
+    const [promptsCount, setPromptsCount] = useState(FORM_COUNTER_STATE_DEFAULT_1);
+    const [promptsArray, setPromptsArray] = useState<number[]>(FORM_ARRAY_STATE_DEFAULT_0);
     const [namesQ, setNamesQ] = useState<string[]>([]);
-    const [nameCount, setNameCount] = useState(COUNTER_1);
-    const [nameArray, setNameArray] = useState<number[]>(ARR_0);
+    const [nameCount, setNameCount] = useState(FORM_COUNTER_STATE_DEFAULT_1);
+    const [nameArray, setNameArray] = useState<number[]>(FORM_ARRAY_STATE_DEFAULT_0);
     const [randomQ, setRandomQ] = useState(false);
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -69,12 +69,12 @@ function LikertForm({
 
     const addInput = (option: boolean = true) => {
         if (option) {
-            setOptionsCount(optionsCount + SURVEY_TYPE_COUNTER_PLUS_1);
+            setOptionsCount(optionsCount + FORM_COUNTER_PLUS_1);
             setOptionsArray([...optionsArray, optionsCount]);
         } else {
-            setPromptsCount(promptsCount + SURVEY_TYPE_COUNTER_PLUS_1);
+            setPromptsCount(promptsCount + FORM_COUNTER_PLUS_1);
             setPromptsArray([...promptsArray, promptsCount]);
-            setNameCount(nameCount + SURVEY_TYPE_COUNTER_PLUS_1);
+            setNameCount(nameCount + FORM_COUNTER_PLUS_1);
             setNameArray([...nameArray, nameCount]);
         }
     };

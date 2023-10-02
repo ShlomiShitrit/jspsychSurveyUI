@@ -38,10 +38,10 @@ import {
     TextSurveyQuestion,
 } from "@/app/General/interfaces";
 import {
-    WIZRAD_DIALOG_STEP_0,
-    WIZRAD_DIALOG_STEP_1,
-    WIZRAD_DIALOG_STEP_2,
-    INDEX_MINUS_1,
+    WIZRAD_STEP_0,
+    WIZRAD_STEP_1,
+    WIZRAD_STEP_2,
+    WIZARD_INDEX_MINUS_1,
 } from "@/app/General/constants";
 import {
     STEPS,
@@ -66,7 +66,7 @@ function WizardDialog({
     open = false,
     closeWizard = () => null,
 }: CreateWizardProps) {
-    const [activeStep, setActiveStep] = useState(WIZRAD_DIALOG_STEP_0);
+    const [activeStep, setActiveStep] = useState(WIZRAD_STEP_0);
     const [multiChoiceParams, setMultiChoiceParams] = useState<
         MultiChoiceQuestion[]
     >([mcParamsObj]);
@@ -105,7 +105,7 @@ function WizardDialog({
     };
 
     const handleBack = () => {
-        setActiveStep(activeStep - WIZRAD_DIALOG_STEP_1);
+        setActiveStep(activeStep - WIZRAD_STEP_1);
     };
 
     const multiChiceParamsHandler = (params: MultiChoiceQuestion[]) => {
@@ -128,7 +128,7 @@ function WizardDialog({
     };
 
     const closeForm = () => {
-        setActiveStep(WIZRAD_DIALOG_STEP_0);
+        setActiveStep(WIZRAD_STEP_0);
         closeWizard();
     };
 
@@ -143,7 +143,7 @@ function WizardDialog({
                 (error) => error[key] === value
             );
 
-            if (existingIndex !== INDEX_MINUS_1) {
+            if (existingIndex !== WIZARD_INDEX_MINUS_1) {
                 const updatedErrors = [...prevInputErrors];
                 updatedErrors[existingIndex] = {
                     ...updatedErrors[existingIndex],
@@ -175,9 +175,9 @@ function WizardDialog({
             return <ErrorStep error={errorMsg} />;
         }
         switch (step) {
-            case WIZRAD_DIALOG_STEP_0:
+            case WIZRAD_STEP_0:
                 return <Step1 />;
-            case WIZRAD_DIALOG_STEP_1:
+            case WIZRAD_STEP_1:
                 return (
                     <Step2
                         onMCParams={multiChiceParamsHandler}
@@ -191,7 +191,7 @@ function WizardDialog({
                         emptyNewErrors={setNewErrorsToEmpty}
                     />
                 );
-            case WIZRAD_DIALOG_STEP_2:
+            case WIZRAD_STEP_2:
                 return <Step3 surveyNameHandler={surveyNameHandler} />;
             default:
                 return <ErrorStep error={ERROR_STEP_MESSAGE} />;
@@ -199,7 +199,7 @@ function WizardDialog({
     }
 
     const handleNext = () => {
-        if (activeStep === WIZRAD_DIALOG_STEP_1) {
+        if (activeStep === WIZRAD_STEP_1) {
             switch (surveyType) {
                 case MULTI_CHOICE_STYPE:
                     multiChoiceParams.forEach((question) => {
@@ -226,10 +226,10 @@ function WizardDialog({
                     break;
             }
         }
-        if (isInputError && activeStep === WIZRAD_DIALOG_STEP_1) {
+        if (isInputError && activeStep === WIZRAD_STEP_1) {
             setNewErrors(inputErrors);
         } else {
-            setActiveStep(activeStep + WIZRAD_DIALOG_STEP_1);
+            setActiveStep(activeStep + WIZRAD_STEP_1);
         }
     };
 
@@ -280,24 +280,24 @@ function WizardDialog({
                     </Stepper>
                     {GetStepContent(activeStep)}
                 </DialogContent>
-                {activeStep <= WIZRAD_DIALOG_STEP_2 && (
+                {activeStep <= WIZRAD_STEP_2 && (
                     <DialogActions>
                         <Button onClick={closeWizard}>{CLOSE_BTN_TEXT}</Button>
                         <Button onClick={test}>{TEST_BTN_TEXT}</Button>
                         <Button
                             onClick={handleBack}
-                            disabled={activeStep === WIZRAD_DIALOG_STEP_0}
+                            disabled={activeStep === WIZRAD_STEP_0}
                         >
                             {BACK_BTN_TEXT}
                         </Button>
                         <Button
                             variant={NEXT_BTN_VARIANT}
                             onClick={handleNext}
-                            disabled={activeStep === WIZRAD_DIALOG_STEP_2}
+                            disabled={activeStep === WIZRAD_STEP_2}
                         >
                             {NEXT_BTN_TEXT}
                         </Button>
-                        {activeStep === WIZRAD_DIALOG_STEP_2 && (
+                        {activeStep === WIZRAD_STEP_2 && (
                             <AddSurveyBtn addSurveyHandler={addSurveyHandler} />
                         )}
                     </DialogActions>

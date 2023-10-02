@@ -19,10 +19,10 @@ import {
     TEXT_SWITCH_LABEL,
     TEXT_STYPE,
 } from "@/app/General/Resources/FormsRes";
-import { INDEX_0 } from "@/app/General/constants";
+import { FORM_ID_PROP_DEFAULT_0 } from "@/app/General/constants";
 
 function TextSurveyForm({
-    id = INDEX_0,
+    id = FORM_ID_PROP_DEFAULT_0,
     questionsChangeHandler = () => null,
     inputErrorsHandler = () => null,
     newErrors = [],

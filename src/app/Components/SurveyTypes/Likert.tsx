@@ -2,9 +2,9 @@
 import { useState, useEffect, Fragment } from "react";
 import { Grid, Button } from "@/app/General/muiComponents";
 import {
-    COUNTER_1,
-    INDEX_0,
-    COUNTER_PLUS_1,
+    STYPE_COUNTER_STATE_DEFAULT_1,
+    STYPE_ARRAY_STATE_DEFAULT_0,
+    STYPE_COUNTER_PLUS_1,
     GRID_CONT_SPAC_2,
     GRID_ITEM_12,
 } from "@/app/General/constants";
@@ -24,8 +24,8 @@ function Likert({
     emptyNewErrors = () => null,
 }: LikertProps) {
     const [questions, setQuestions] = useState<LikertQuestion[]>([]);
-    const [formsCount, setFormsCount] = useState(COUNTER_1);
-    const [formsArray, setFormsArray] = useState<number[]>([INDEX_0]);
+    const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
+    const [formsArray, setFormsArray] = useState<number[]>(STYPE_ARRAY_STATE_DEFAULT_0);
 
     const questionsChangeHandler = (
         index: number,
@@ -37,7 +37,7 @@ function Likert({
     };
 
     const addForm = () => {
-        setFormsCount((prevState) => prevState + COUNTER_PLUS_1);
+        setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
         setFormsArray([...formsArray, formsCount]);
     };
 

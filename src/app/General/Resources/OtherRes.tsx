@@ -48,3 +48,6 @@ export const STYLE_NAVY_BLUE_THEME = {
 };
 
 export const STYLE_CENTER = "center";
+
+// utils.tsx
+export const UTILS_EMPTY_STR = "";

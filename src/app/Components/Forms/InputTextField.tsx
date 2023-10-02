@@ -12,7 +12,7 @@ import { formTxtFieldStyle } from "@/app/General/styles";
 import { RootState } from "@/app/store/index";
 
 import {
-    FORM_INPUT_ID_PROP,
+    FORM_ID_PROP_DEFAULT_0,
     FORM_INPUT_INDEX_0,
     FORM_INPUT_ID_PLUS_1,
 } from "@/app/General/constants";
@@ -29,7 +29,7 @@ import {
 
 function InputTextField({
     state = EMPTY_STRING,
-    id = FORM_INPUT_ID_PROP,
+    id = FORM_ID_PROP_DEFAULT_0,
     labelText = EMPTY_STRING,
     inputType = EMPTY_STRING,
     stateHandler = () => null,

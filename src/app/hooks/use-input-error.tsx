@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { replaceFirstAndLast } from "@/app/General/utils";
 import {
-    INDEX_0,
-    INDEX_1,
-    INDEX_2,
-    LENGTH_0,
-    LENGTH_2,
+    HOOKS_INDEX_0,
+    HOOKS_INDEX_1,
+    HOOKS_INDEX_2,
+    HOOKS_ARR_LEN_0,
+    HOOKS_ARR_LEN_2,
 } from "@/app/General/constants";
 import {
     EMPTY_STRING,
@@ -50,9 +50,11 @@ function useInputError(
                 isState1Empty = state1S.trim() === EMPTY_STRING;
                 isState2Empty = state2S.trim() === EMPTY_STRING;
                 isState3Empty =
-                    state3L.length < LENGTH_2 ||
-                    replaceFirstAndLast(state3L[INDEX_0]) === EMPTY_STRING ||
-                    replaceFirstAndLast(state3L[INDEX_1]) === EMPTY_STRING;
+                    state3L.length < HOOKS_ARR_LEN_2 ||
+                    replaceFirstAndLast(state3L[HOOKS_INDEX_0]) ===
+                        EMPTY_STRING ||
+                    replaceFirstAndLast(state3L[HOOKS_INDEX_1]) ===
+                        EMPTY_STRING;
 
                 errorObj = {
                     [`${id}${INPUT_ERR_ID_0}`]: INPUT_ERR_MSG_REQ,
@@ -62,15 +64,19 @@ function useInputError(
                 break;
             case LIKERT_STYPE:
                 isState1Empty =
-                    state1L.length === LENGTH_0 ||
-                    replaceFirstAndLast(state1L[INDEX_0]) === EMPTY_STRING;
+                    state1L.length === HOOKS_ARR_LEN_0 ||
+                    replaceFirstAndLast(state1L[HOOKS_INDEX_0]) ===
+                        EMPTY_STRING;
                 isState2Empty =
-                    state2L.length === LENGTH_0 ||
-                    replaceFirstAndLast(state2L[INDEX_0]) === EMPTY_STRING;
+                    state2L.length === HOOKS_ARR_LEN_0 ||
+                    replaceFirstAndLast(state2L[HOOKS_INDEX_0]) ===
+                        EMPTY_STRING;
                 isState3Empty =
-                    state3L.length < LENGTH_2 ||
-                    replaceFirstAndLast(state3L[INDEX_0]) === EMPTY_STRING ||
-                    replaceFirstAndLast(state3L[INDEX_1]) === EMPTY_STRING;
+                    state3L.length < HOOKS_ARR_LEN_2 ||
+                    replaceFirstAndLast(state3L[HOOKS_INDEX_0]) ===
+                        EMPTY_STRING ||
+                    replaceFirstAndLast(state3L[HOOKS_INDEX_1]) ===
+                        EMPTY_STRING;
 
                 errorObj = {
                     [`${id}${INPUT_ERR_ID_0}`]: INPUT_ERR_MSG_PROMPT,
@@ -96,13 +102,22 @@ function useInputError(
         const errorObjValues = Object.values(errorObj);
         if (isState1Empty) {
             isInputErrorHandler(true);
-            inputErrorsHandler(errorObjKeys[INDEX_0], errorObjValues[INDEX_0]);
+            inputErrorsHandler(
+                errorObjKeys[HOOKS_INDEX_0],
+                errorObjValues[HOOKS_INDEX_0]
+            );
         } else if (isState2Empty) {
             isInputErrorHandler(true);
-            inputErrorsHandler(errorObjKeys[INDEX_1], errorObjValues[INDEX_1]);
+            inputErrorsHandler(
+                errorObjKeys[HOOKS_INDEX_1],
+                errorObjValues[HOOKS_INDEX_1]
+            );
         } else if (isState3Empty) {
             isInputErrorHandler(true);
-            inputErrorsHandler(errorObjKeys[INDEX_2], errorObjValues[INDEX_2]);
+            inputErrorsHandler(
+                errorObjKeys[HOOKS_INDEX_2],
+                errorObjValues[HOOKS_INDEX_2]
+            );
         } else {
             isInputErrorHandler(false);
             emptyInputErrors();
