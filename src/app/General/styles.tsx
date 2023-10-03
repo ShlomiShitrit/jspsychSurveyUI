@@ -31,7 +31,9 @@ import {
     STYLE_MAX_WIDTH_200,
     STYLE_FONT_SIZE_15,
     STYLE_TOP_0,
+    STYLE_BOTTOM_0,
     STYLE_RIGHT_65,
+    STYLE_LEFT_65,
 } from "@/app/General/constants";
 
 export const darkTheme = createTheme({
@@ -139,4 +141,9 @@ export const surveyListBox2Style = {
     position: STYLE_POSITION_ABS,
     top: STYLE_TOP_0,
     right: STYLE_RIGHT_65,
+};
+export const surveyListBox3Style = {
+    position: STYLE_POSITION_ABS,
+    bottom: STYLE_BOTTOM_0,
+    left: STYLE_LEFT_65,
 };

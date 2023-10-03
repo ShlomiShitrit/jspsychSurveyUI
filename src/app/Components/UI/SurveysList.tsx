@@ -26,7 +26,6 @@ import {
     SURVEY_LIST_TOOLTIP,
 } from "@/app/General/Resources/UIRes";
 import {
-    UI_ARRAY_STATE_DEFAULT_0,
     UI_INDEX_MINUS_1,
     UI_INDEX_1,
     UI_ARR_LEN_1,
@@ -38,10 +37,11 @@ import {
     surveyListListItemStyle,
     surveyListBox1Style,
     surveyListBox2Style,
+    surveyListBox3Style,
 } from "@/app/General/styles";
 
 function SurveysList() {
-    const [checked, setChecked] = useState(UI_ARRAY_STATE_DEFAULT_0);
+    const [checked, setChecked] = useState<number[]>([]);
     const surveysList = useSelector((state: any) => state.surveyList);
     const dispatch = useDispatch();
 
@@ -88,19 +88,7 @@ function SurveysList() {
                                     const labelId = `${index}`;
 
                                     return (
-                                        <ListItem
-                                            key={index}
-                                            secondaryAction={
-                                                <IconButton
-                                                    edge={EDGE_END}
-                                                    aria-label={ICON_ARIA_LABEL}
-                                                    onClick={handleDelete}
-                                                >
-                                                    <DeleteIcon />
-                                                </IconButton>
-                                            }
-                                            disablePadding
-                                        >
+                                        <ListItem key={index} disablePadding>
                                             <ListItemButton
                                                 role={undefined}
                                                 onClick={handleToggle(index)}
@@ -135,6 +123,19 @@ function SurveysList() {
                                 }
                             )}
                     </List>
+                    <br />
+                    <br />
+                    <br />
+                    <Box sx={surveyListBox3Style}>
+                        <IconButton
+                            edge={EDGE_END}
+                            aria-label={ICON_ARIA_LABEL}
+                            disabled={checked.length === UI_ARR_LEN_0}
+                            onClick={handleDelete}
+                        >
+                            <DeleteIcon />
+                        </IconButton>
+                    </Box>
                 </Box>
             </Container>
         </ThemeProvider>
