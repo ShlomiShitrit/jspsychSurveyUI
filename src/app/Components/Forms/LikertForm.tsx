@@ -10,6 +10,7 @@ import { RootState } from "@/app/store/index";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { LikertFormProps } from "@/app/General/interfaces";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
+import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
     SURVEY_TYPE_STATE_NUM_ARR,
     SURVEY_TYPE_STATE_2,
@@ -20,6 +21,7 @@ import {
     SECOND_FORM_LABEL,
     LABEL_OPTION_GRID_LABEL,
     RANDOM_SWITCH_LABEL,
+    TOOLTIP_TEXT,
 } from "@/app/General/Resources/FormsRes";
 
 function LikertForm({
@@ -32,15 +34,11 @@ function LikertForm({
         SURVEY_TYPE_STATE_NUM_ARR
     );
     const [promptsQ, setPromptsQ] = useState<string[]>([]);
-    const [promptsCount, setPromptsCount] = useState(SURVEY_TYPE_STATE_2);
-    const [promptsArray, setPromptsArray] = useState<number[]>(
-        SURVEY_TYPE_STATE_NUM_ARR
-    );
+    const [promptsCount, setPromptsCount] = useState(1);
+    const [promptsArray, setPromptsArray] = useState<number[]>([0]);
     const [namesQ, setNamesQ] = useState<string[]>([]);
-    const [nameCount, setNameCount] = useState(SURVEY_TYPE_STATE_2);
-    const [nameArray, setNameArray] = useState<number[]>(
-        SURVEY_TYPE_STATE_NUM_ARR
-    );
+    const [nameCount, setNameCount] = useState(1);
+    const [nameArray, setNameArray] = useState<number[]>([0]);
     const [randomQ, setRandomQ] = useState(false);
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -93,7 +91,7 @@ function LikertForm({
                     {FIRST_FORM_LABEL} {surveyType}
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{SECOND_FORM_LABEL}</FormLabel>
-
+                <CustomTooltip title={TOOLTIP_TEXT.labels} />
                 <OptionsGrid
                     labelText={LABEL_OPTION_GRID_LABEL}
                     optionsQ={optionsQ}
@@ -101,6 +99,8 @@ function LikertForm({
                     optionsArray={optionsArray}
                 />
                 <AddOptionBtn addOption={addInput} />
+                <br />
+                <CustomTooltip title={TOOLTIP_TEXT.promptName} />
                 <PromptGrid
                     promptsQ={promptsQ}
                     promptsQChangeHandler={stateQHandler(promptsQ, setPromptsQ)}
@@ -110,11 +110,15 @@ function LikertForm({
                     nameArray={nameArray}
                 />
                 <AddOptionBtn addOption={() => addInput(false)} />
-                <SwitchLabel
-                    labelText={RANDOM_SWITCH_LABEL}
-                    isState={randomQ}
-                    stateHandler={randomChangeHandler}
-                />
+                {/*  TODO: move to constants */}
+                <Box sx={{ flex: 1 }}>
+                    <SwitchLabel
+                        labelText={RANDOM_SWITCH_LABEL}
+                        isState={randomQ}
+                        stateHandler={randomChangeHandler}
+                    />
+                    <CustomTooltip title={TOOLTIP_TEXT.random} />
+                </Box>
             </FormControl>
         </Box>
     );
