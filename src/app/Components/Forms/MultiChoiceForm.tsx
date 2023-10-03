@@ -132,13 +132,9 @@ function MultiChoiceForm({
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{SECOND_FORM_LABEL}</FormLabel>
                 {inputFieldArr.map((inputField, index) => (
-                    <Fragment>
-                        <CustomTooltip
-                            key={index}
-                            title={inputField.tooltipText}
-                        />
+                    <Fragment key={index}>
+                        <CustomTooltip title={inputField.tooltipText} />
                         <InputTextField
-                            key={index}
                             id={inputField.id}
                             state={inputField.state}
                             stateHandler={inputField.stateHandler}
