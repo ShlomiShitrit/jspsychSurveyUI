@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/index";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
@@ -6,6 +6,7 @@ import { matgin10Style, margin15Style } from "@/app/General/styles";
 import { TextSurveyFormProps } from "@/app/General/interfaces";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
+import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
     EMPTY_STR,
     TEXT_NAMEQ,
@@ -16,6 +17,7 @@ import {
     TEXT_FORM_TITLE,
     TEXT_FORM_LABEL,
     TEXT_SWITCH_LABEL,
+    TOOLTIP_TEXT,
 } from "@/app/General/Resources/FormsRes";
 import { INDEX_0 } from "@/app/General/constants";
 
@@ -63,18 +65,21 @@ function TextSurveyForm({
             label: TEXT_PROMPT_LABEL,
             type: TEXT_PROMPTQ,
             stateHandler: promptChangeHandler,
+            tooltipText: TOOLTIP_TEXT.prompt,
         },
         {
             state: placeHolder,
             label: TEXT_PLACEHOLDER_LABEL,
             type: TEXT_PROMPTQ,
             stateHandler: placeHolderChangeHandler,
+            tooltipText: TOOLTIP_TEXT.placeholder,
         },
         {
             state: name,
             label: TEXT_NAME_LABEL,
             type: TEXT_NAMEQ,
             stateHandler: nameChangeHandler,
+            tooltipText: TOOLTIP_TEXT.name,
         },
     ];
     return (
@@ -85,20 +90,25 @@ function TextSurveyForm({
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{TEXT_FORM_LABEL}</FormLabel>
                 {inputArr.map((input, index) => (
-                    <InputTextField
-                        key={index}
-                        id={index}
-                        state={input.state}
-                        stateHandler={input.stateHandler}
-                        labelText={input.label}
-                        inputType={input.type}
-                    />
+                    <Fragment key={index}>
+                        <CustomTooltip title={input.tooltipText} />
+                        <InputTextField
+                            id={index}
+                            state={input.state}
+                            stateHandler={input.stateHandler}
+                            labelText={input.label}
+                            inputType={input.type}
+                        />
+                    </Fragment>
                 ))}
-                <SwitchLabel
-                    isState={required}
-                    stateHandler={requiredChangeHandler}
-                    labelText={TEXT_SWITCH_LABEL}
-                />
+                <Box sx={{ flex: 1 }}>
+                    <SwitchLabel
+                        isState={required}
+                        stateHandler={requiredChangeHandler}
+                        labelText={TEXT_SWITCH_LABEL}
+                    />
+                    <CustomTooltip title={TOOLTIP_TEXT.switchLabelRequired} />
+                </Box>
             </FormControl>
         </Box>
     );

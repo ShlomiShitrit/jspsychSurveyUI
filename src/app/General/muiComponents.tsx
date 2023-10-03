@@ -1,4 +1,6 @@
 import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from "@mui/icons-material/Info";
+
 export {
     AppBar,
     Toolbar,
@@ -29,7 +31,11 @@ export {
     ListItemText,
     Checkbox,
     IconButton,
+    Tooltip,
+    tooltipClasses,
 } from "@mui/material";
-export { DeleteIcon };
+export type { TooltipProps } from "@mui/material";
+export { styled } from "@mui/material/styles";
+export { DeleteIcon, InfoIcon };
 export { blue } from "@mui/material/colors";
 export { createTheme, ThemeProvider, useTheme } from "@mui/material/styles";
