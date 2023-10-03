@@ -22,7 +22,8 @@ function OptionsGrid({
     newErrors = [],
 }: OptionsGridProps) {
     return (
-        <Grid container spacing={GRID_CONT_SPAC_2}>
+        //  TODO: move to constants
+        <Grid container spacing={1}> 
             {optionsArray.map((optionIndex) => (
                 <Grid
                     item

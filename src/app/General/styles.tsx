@@ -18,6 +18,8 @@ import {
     STYLE_CENTER,
     STYLE_M_200PX,
     STYLE_M_50PX,
+    STYLE_POSITION_REL,
+    STYLE_POSITION_ABS,
 } from "@/app/General/Resources/OtherRes";
 
 import {
@@ -25,7 +27,11 @@ import {
     STYLE_PT_4,
     STYLE_PT_3,
     STYLE_PB_5,
-    STYLE_MAX_WIDTH,
+    STYLE_MAX_WIDTH_360,
+    STYLE_MAX_WIDTH_200,
+    STYLE_FONT_SIZE_15,
+    STYLE_TOP_0,
+    STYLE_RIGHT_65,
 } from "@/app/General/constants";
 
 export const darkTheme = createTheme({
@@ -39,7 +45,6 @@ export const darkTheme = createTheme({
         },
         success: {
             main: STYLES_SUCCESS_MAIN,
-            
         },
     },
 });
@@ -108,7 +113,7 @@ export const margin15Style = { margin: STYLE_M_15PX };
 
 export const surveysListStyle = {
     width: WIDTH_100_PRECENT,
-    maxWidth: STYLE_MAX_WIDTH,
+    maxWidth: STYLE_MAX_WIDTH_360,
     margin: M_AUTO,
     backgroundColor: darkNavyBlueTheme.palette.background.default,
 };
@@ -123,3 +128,15 @@ export const step3TypStyle = { mb: STYLE_M_20PX };
 export const step3TxtFieldStyle = { ml: STYLE_M_150PX };
 
 export const createPageBtnStyle = { ml: STYLE_M_200PX, mt: STYLE_M_50PX };
+
+export const customTooltipStyle = {
+    maxWidth: STYLE_MAX_WIDTH_200,
+    fontSize: STYLE_FONT_SIZE_15,
+};
+
+export const surveyListBox1Style = { position: STYLE_POSITION_REL };
+export const surveyListBox2Style = {
+    position: STYLE_POSITION_ABS,
+    top: STYLE_TOP_0,
+    right: STYLE_RIGHT_65,
+};

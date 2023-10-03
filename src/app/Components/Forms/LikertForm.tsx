@@ -11,6 +11,7 @@ import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
 import useInputError from "@/app/hooks/use-input-error";
+import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
     FORM_NUM_ARR_STATE_DEFAULT,
     FORM_COUNTER_STATE_DEFAULT_2,
@@ -28,6 +29,7 @@ import {
     INPUT_ERR_ID_1,
     INPUT_ERR_ID_2,
     LIKERT_STYPE,
+    TOOLTIP_TEXT,
 } from "@/app/General/Resources/FormsRes";
 
 function LikertForm<T extends QuestionType>({
@@ -47,17 +49,11 @@ function LikertForm<T extends QuestionType>({
         FORM_NUM_ARR_STATE_DEFAULT
     );
     const [promptsQ, setPromptsQ] = useState<string[]>([]);
-    const [promptsCount, setPromptsCount] = useState(
-        FORM_COUNTER_STATE_DEFAULT_1
-    );
-    const [promptsArray, setPromptsArray] = useState<number[]>(
-        FORM_ARRAY_STATE_DEFAULT_0
-    );
+    const [promptsCount, setPromptsCount] = useState(1);
+    const [promptsArray, setPromptsArray] = useState<number[]>([0]);
     const [namesQ, setNamesQ] = useState<string[]>([]);
-    const [nameCount, setNameCount] = useState(FORM_COUNTER_STATE_DEFAULT_1);
-    const [nameArray, setNameArray] = useState<number[]>(
-        FORM_ARRAY_STATE_DEFAULT_0
-    );
+    const [nameCount, setNameCount] = useState(1);
+    const [nameArray, setNameArray] = useState<number[]>([0]);
     const [randomQ, setRandomQ] = useState(false);
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -127,7 +123,7 @@ function LikertForm<T extends QuestionType>({
                     {FIRST_FORM_LABEL} {surveyType}
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{SECOND_FORM_LABEL}</FormLabel>
-
+                <CustomTooltip title={TOOLTIP_TEXT.labels} />
                 <OptionsGrid
                     newErrors={newErrors}
                     errorId={`${id}${INPUT_ERR_ID_2}`}
@@ -137,6 +133,8 @@ function LikertForm<T extends QuestionType>({
                     optionsArray={optionsArray}
                 />
                 <AddOptionBtn addOption={addInput} />
+                <br />
+                <CustomTooltip title={TOOLTIP_TEXT.promptName} />
                 <PromptGrid
                     newErrors={newErrors}
                     errorId={promptGridErrorIds}
@@ -148,11 +146,15 @@ function LikertForm<T extends QuestionType>({
                     nameArray={nameArray}
                 />
                 <AddOptionBtn addOption={() => addInput(false)} />
-                <SwitchLabel
-                    labelText={RANDOM_SWITCH_LABEL}
-                    isState={randomQ}
-                    stateHandler={randomChangeHandler}
-                />
+                {/*  TODO: move to constants */}
+                <Box sx={{ flex: 1 }}>
+                    <SwitchLabel
+                        labelText={RANDOM_SWITCH_LABEL}
+                        isState={randomQ}
+                        stateHandler={randomChangeHandler}
+                    />
+                    <CustomTooltip title={TOOLTIP_TEXT.random} />
+                </Box>
             </FormControl>
         </Box>
     );

@@ -1,4 +1,4 @@
-// general
+// General
 export const INPUT_ERR_MSG_REQ = "This field is required";
 export const INPUT_ERR_MSG_OPTIONS = "At least two options is required";
 export const INPUT_ERR_MSG_PROMPT = "At least one prompt is required";
@@ -7,6 +7,21 @@ export const INPUT_ERR_ID_0 = "0";
 export const INPUT_ERR_ID_1 = "1";
 export const INPUT_ERR_ID_2 = "2";
 export const EMPTY_STRING = "";
+export const TOOLTIP_TEXT = {
+    switchLabelRequired:
+        "If required, the user must answer the question before continuing.",
+    switchLabelHorizontal:
+        "If horizontal, the options will be displayed horizontally.",
+    prompt: "The prompt is the question that will be asked.",
+    name: "The name is the name of the question that will be used in the data.",
+    option: "The options is the answers for the prompt that will be displayed to the user.",
+    labels: "The labels are the options that will be displayed to the user.",
+    random: "If random, the order of the questions will be randomized.",
+    placeholder:
+        "The placeholder is the text that will be displayed in the input box.",
+    promptName:
+        "The prompt is the question that will be asked and the name is name of the question that will be used in the data.",
+};
 
 // DownLoadBtn.tsx
 export const BLOB_TYPE = "text/html;charset=utf-8";
@@ -21,7 +36,6 @@ export const STYPE_TEXT = "Text";
 export const ERR_MSG_STYPE = "Invalid survey type";
 export const TYPE_OF_SURVEY_MULTI_CHOICE = "jsPsychSurveyMultiChoice";
 export const TYPE_OF_SURVEY_MULTI_SELECT = "jsPsychSurveyMultiSelect";
-
 
 // DownloadDialog.tsx
 export const DIALOG_TITLE = "Download";
@@ -87,5 +101,3 @@ export const TEXT_NAMEQ = "nameQ";
 export const TEXT_FORM_TITLE = "Survey Type:";
 export const TEXT_FORM_LABEL = "Entet question parameters:";
 export const TEXT_SWITCH_LABEL = "Required";
-
-

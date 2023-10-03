@@ -1,5 +1,5 @@
 "use client";
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 
@@ -11,6 +11,7 @@ import { RootState } from "@/app/store/index";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
 import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import useInputError from "@/app/hooks/use-input-error";
+import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
     FORM_NUM_ARR_STATE_DEFAULT,
     FORM_COUNTER_STATE_DEFAULT_2,
@@ -30,6 +31,7 @@ import {
     LABEL_NAME,
     INPUT_ERR_ID_2,
     MULTI_CHOICE_STYPE,
+    TOOLTIP_TEXT,
 } from "@/app/General/Resources/FormsRes";
 
 function MultiChoiceForm<T extends QuestionType>({
@@ -115,11 +117,13 @@ function MultiChoiceForm<T extends QuestionType>({
             state: required,
             stateHandler: requiredSwitchChangeHandler,
             text: REQUIRED_SWITCH_LABEL,
+            tooltipText: TOOLTIP_TEXT.switchLabelRequired,
         },
         {
             state: horizontal,
             stateHandler: horizontalSwitchChangeHandler,
             text: HORIZONTAL_SWITCH_LABEL,
+            tooltipText: TOOLTIP_TEXT.switchLabelHorizontal,
         },
     ];
 
@@ -130,6 +134,7 @@ function MultiChoiceForm<T extends QuestionType>({
             stateHandler: promptQChangeHandler,
             labelText: LABEL_PROMPT,
             inputType: INPUT_TYPE_PROMPT,
+            tooltipText: TOOLTIP_TEXT.prompt,
         },
         {
             id: FORM_ID_PROP_DEFAULT_0,
@@ -137,6 +142,7 @@ function MultiChoiceForm<T extends QuestionType>({
             stateHandler: nameQChangeHandler,
             labelText: LABEL_NAME,
             inputType: INPUT_TYPE_NAME,
+            tooltipText: TOOLTIP_TEXT.name,
         },
     ];
 
@@ -148,17 +154,20 @@ function MultiChoiceForm<T extends QuestionType>({
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{SECOND_FORM_LABEL}</FormLabel>
                 {inputFieldArr.map((inputField, index) => (
-                    <InputTextField
-                        key={index}
-                        errorId={`${id}${index}`}
-                        id={inputField.id}
-                        state={inputField.state}
-                        stateHandler={inputField.stateHandler}
-                        labelText={inputField.labelText}
-                        newErrors={newErrors}
-                        inputType={inputField.inputType}
-                    />
+                    <Fragment key={index}>
+                        <CustomTooltip title={inputField.tooltipText} />
+                        <InputTextField
+                            id={inputField.id}
+                            errorId={`${id}${index}`}
+                            state={inputField.state}
+                            stateHandler={inputField.stateHandler}
+                            labelText={inputField.labelText}
+                            newErrors={newErrors}
+                            inputType={inputField.inputType}
+                        />
+                    </Fragment>
                 ))}
+                <CustomTooltip title={TOOLTIP_TEXT.option} />
                 <OptionsGrid
                     newErrors={newErrors}
                     errorId={`${id}${INPUT_ERR_ID_2}`}
@@ -167,14 +176,18 @@ function MultiChoiceForm<T extends QuestionType>({
                     optionsQChangeHandler={optionsQArrChangeHandler}
                     optionsArray={optionsArray}
                 />
+
                 <AddOptionBtn addOption={addOption} />
                 {switchLabelArr.map((switchLabel, index) => (
-                    <SwitchLabel
-                        key={index}
-                        isState={switchLabel.state}
-                        stateHandler={switchLabel.stateHandler}
-                        labelText={switchLabel.text}
-                    />
+                    // TODO: move to constants
+                    <Box key={index} sx={{ flex: 1 }}>
+                        <SwitchLabel
+                            isState={switchLabel.state}
+                            stateHandler={switchLabel.stateHandler}
+                            labelText={switchLabel.text}
+                        />
+                        <CustomTooltip title={switchLabel.tooltipText} />
+                    </Box>
                 ))}
             </FormControl>
         </Box>

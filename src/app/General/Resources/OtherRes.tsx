@@ -46,8 +46,11 @@ export const STYLE_NAVY_BLUE_THEME = {
     },
     typography: "Arial, sans-serif",
 };
-
 export const STYLE_CENTER = "center";
+export const STYLE_POSITION_REL = "relative";
+export const STYLE_POSITION_ABS = "absolute";
 
 // utils.tsx
 export const UTILS_EMPTY_STR = "";
+
+

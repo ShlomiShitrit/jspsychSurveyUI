@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, ChangeEvent, useEffect, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/index";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
@@ -7,6 +7,7 @@ import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import useInputError from "@/app/hooks/use-input-error";
+import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
     EMPTY_STR,
     TEXT_NAMEQ,
@@ -18,6 +19,7 @@ import {
     TEXT_FORM_LABEL,
     TEXT_SWITCH_LABEL,
     TEXT_STYPE,
+    TOOLTIP_TEXT,
 } from "@/app/General/Resources/FormsRes";
 import { FORM_ID_PROP_DEFAULT_0 } from "@/app/General/constants";
 
@@ -70,8 +72,8 @@ function TextSurveyForm<T extends QuestionType>({
         isInputErrorHandler,
         inputErrorsHandler,
         prompt,
-        name,
         placeHolder,
+        name,
         id,
         TEXT_STYPE
     );
@@ -82,18 +84,21 @@ function TextSurveyForm<T extends QuestionType>({
             label: TEXT_PROMPT_LABEL,
             type: TEXT_PROMPTQ,
             stateHandler: promptChangeHandler,
+            tooltipText: TOOLTIP_TEXT.prompt,
         },
         {
             state: placeHolder,
             label: TEXT_PLACEHOLDER_LABEL,
             type: TEXT_PROMPTQ,
             stateHandler: placeHolderChangeHandler,
+            tooltipText: TOOLTIP_TEXT.placeholder,
         },
         {
             state: name,
             label: TEXT_NAME_LABEL,
             type: TEXT_NAMEQ,
             stateHandler: nameChangeHandler,
+            tooltipText: TOOLTIP_TEXT.name,
         },
     ];
 
@@ -105,22 +110,27 @@ function TextSurveyForm<T extends QuestionType>({
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{TEXT_FORM_LABEL}</FormLabel>
                 {inputArr.map((input, index) => (
-                    <InputTextField
-                        errorId={`${id}${index}`}
-                        key={index}
-                        id={index}
-                        state={input.state}
-                        stateHandler={input.stateHandler}
-                        labelText={input.label}
-                        inputType={input.type}
-                        newErrors={newErrors}
-                    />
+                    <Fragment key={index}>
+                        <CustomTooltip title={input.tooltipText} />
+                        <InputTextField
+                            errorId={`${id}${index}`}
+                            id={index}
+                            state={input.state}
+                            stateHandler={input.stateHandler}
+                            labelText={input.label}
+                            inputType={input.type}
+                            newErrors={newErrors}
+                        />
+                    </Fragment>
                 ))}
-                <SwitchLabel
-                    isState={required}
-                    stateHandler={requiredChangeHandler}
-                    labelText={TEXT_SWITCH_LABEL}
-                />
+                <Box sx={{ flex: 1 }}>
+                    <SwitchLabel
+                        isState={required}
+                        stateHandler={requiredChangeHandler}
+                        labelText={TEXT_SWITCH_LABEL}
+                    />
+                    <CustomTooltip title={TOOLTIP_TEXT.switchLabelRequired} />
+                </Box>
             </FormControl>
         </Box>
     );

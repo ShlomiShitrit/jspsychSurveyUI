@@ -26,7 +26,8 @@ function PromptGrid({
     newErrors = [],
 }: PromptsGridProps) {
     return (
-        <Grid container spacing={GRID_CONT_SPAC_2}>
+        // TODO: move to constants
+        <Grid container spacing={1}>
             {optionsArray.map((promptIndex) => (
                 <Grid
                     item
