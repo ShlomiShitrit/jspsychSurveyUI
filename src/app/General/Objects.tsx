@@ -4,14 +4,11 @@ import {
     TextSurveyQuestion,
 } from "@/app/General/interfaces";
 
-import {
-    WIZRAD_DIALOG_INDEX_0,
-    OBJECTS_INDEX_0,
-} from "@/app/General/constants";
+import { OBJ_INDEX_0 } from "@/app/General/constants";
 import { EMPTY_STRING } from "@/app/General/Resources/OtherRes";
 
 export const mcParamsObj: MultiChoiceQuestion = {
-    index: WIZRAD_DIALOG_INDEX_0,
+    index: OBJ_INDEX_0,
     promptQ: EMPTY_STRING,
     nameQ: EMPTY_STRING,
     optionsQ: [],
@@ -19,7 +16,7 @@ export const mcParamsObj: MultiChoiceQuestion = {
     horizontal: false,
 };
 export const likertParamsObj: LikertQuestion = {
-    index: WIZRAD_DIALOG_INDEX_0,
+    index: OBJ_INDEX_0,
     promptQ: [],
     nameQ: [],
     optionsQ: [],
@@ -27,7 +24,7 @@ export const likertParamsObj: LikertQuestion = {
 };
 
 export const textParamsObj: TextSurveyQuestion = {
-    index: OBJECTS_INDEX_0,
+    index: OBJ_INDEX_0,
     promptQ: EMPTY_STRING,
     nameQ: EMPTY_STRING,
     required: false,
@@ -36,7 +33,7 @@ export const textParamsObj: TextSurveyQuestion = {
 
 export const initialMultiChoiceSurveyState = [
     {
-        index: OBJECTS_INDEX_0,
+        index: OBJ_INDEX_0,
         promptQ: EMPTY_STRING,
         nameQ: EMPTY_STRING,
         optionsQ: [],
@@ -47,7 +44,7 @@ export const initialMultiChoiceSurveyState = [
 
 export const initialLikertSurveyState = [
     {
-        index: OBJECTS_INDEX_0,
+        index: OBJ_INDEX_0,
         promptQ: [],
         nameQ: [],
         optionsQ: [],
@@ -57,7 +54,7 @@ export const initialLikertSurveyState = [
 
 export const initialTextSurveyState = [
     {
-        index: OBJECTS_INDEX_0,
+        index: OBJ_INDEX_0,
         promptQ: EMPTY_STRING,
         nameQ: EMPTY_STRING,
         required: false,

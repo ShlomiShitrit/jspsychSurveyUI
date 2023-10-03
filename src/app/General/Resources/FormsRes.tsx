@@ -1,4 +1,12 @@
 // General
+export const INPUT_ERR_MSG_REQ = "This field is required";
+export const INPUT_ERR_MSG_OPTIONS = "At least two options is required";
+export const INPUT_ERR_MSG_PROMPT = "At least one prompt is required";
+export const INPUT_ERR_MSG_NAME = "At least one name is required";
+export const INPUT_ERR_ID_0 = "0";
+export const INPUT_ERR_ID_1 = "1";
+export const INPUT_ERR_ID_2 = "2";
+export const EMPTY_STRING = "";
 export const TOOLTIP_TEXT = {
     switchLabelRequired:
         "If required, the user must answer the question before continuing.",
@@ -47,7 +55,6 @@ export const MULTI_CHOICE_STYPE = "Multi Choice";
 export const MULTI_SELECT_STYPE = "Multi Select";
 export const LIKERT_STYPE = "Likert";
 export const TEXT_STYPE = "Text";
-export const EMPTY_STRING = "";
 export const ERROR_SURVEY_TYPE_MSG = "Invalid Survey Type";
 export const TEXTFIELD_VARIANT = "outlined";
 export const INPUT_TYPE_OPTIONSQ = "optionsQ";
@@ -64,6 +71,7 @@ export const PROMPT_GRID_INPUT_TYPE_NAME = "nameQ";
 export const PROMPT_GRID_INPUT_TYPE_PROMPT = "promptQ";
 export const PROMPT_GRID_LABEL_PROMPT = "Prompt";
 export const PROMPT_GRID_LABEL_NAME = "Name";
+export const PROMPT_GRID_EMPTY_STR = "";
 
 // MultiChoiceForm.tsx
 export const FIRST_FORM_LABEL = "Survey Type:";

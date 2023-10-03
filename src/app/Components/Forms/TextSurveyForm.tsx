@@ -3,9 +3,10 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/index";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
-import { TextSurveyFormProps } from "@/app/General/interfaces";
+import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
+import useInputError from "@/app/hooks/use-input-error";
 import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
     EMPTY_STR,
@@ -17,14 +18,20 @@ import {
     TEXT_FORM_TITLE,
     TEXT_FORM_LABEL,
     TEXT_SWITCH_LABEL,
+    TEXT_STYPE,
     TOOLTIP_TEXT,
 } from "@/app/General/Resources/FormsRes";
-import { INDEX_0 } from "@/app/General/constants";
+import { FORM_ID_PROP_DEFAULT_0 } from "@/app/General/constants";
 
-function TextSurveyForm({
-    id = INDEX_0,
+function TextSurveyForm<T extends QuestionType>({
+    id = FORM_ID_PROP_DEFAULT_0,
     questionsChangeHandler = () => null,
-}: TextSurveyFormProps) {
+    inputErrorsHandler = () => null,
+    newErrors = [],
+    isInputErrorHandler = () => null,
+    emptyInputErrors = () => null,
+    emptyNewErrors = () => null,
+}: SurveyFormProps<T>) {
     const [prompt, setPrompt] = useState(EMPTY_STR);
     const [placeHolder, setPlaceHolder] = useState(EMPTY_STR);
     const [name, setName] = useState(EMPTY_STR);
@@ -56,8 +63,20 @@ function TextSurveyForm({
     };
 
     useEffect(() => {
-        questionsChangeHandler(id, QuestionData);
+        questionsChangeHandler(id, QuestionData as T);
     }, [QuestionData]);
+
+    useInputError(
+        emptyInputErrors,
+        emptyNewErrors,
+        isInputErrorHandler,
+        inputErrorsHandler,
+        prompt,
+        placeHolder,
+        name,
+        id,
+        TEXT_STYPE
+    );
 
     const inputArr = [
         {
@@ -82,6 +101,7 @@ function TextSurveyForm({
             tooltipText: TOOLTIP_TEXT.name,
         },
     ];
+
     return (
         <Box sx={matgin10Style}>
             <FormControl>
@@ -93,11 +113,13 @@ function TextSurveyForm({
                     <Fragment key={index}>
                         <CustomTooltip title={input.tooltipText} />
                         <InputTextField
+                            errorId={`${id}${index}`}
                             id={index}
                             state={input.state}
                             stateHandler={input.stateHandler}
                             labelText={input.label}
                             inputType={input.type}
+                            newErrors={newErrors}
                         />
                     </Fragment>
                 ))}

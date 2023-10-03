@@ -1,10 +1,8 @@
 "use client";
 import { useState, useEffect, Fragment } from "react";
 import { Grid, Button } from "@/app/General/muiComponents";
-import {
-    MultiChoiceProps,
-    MultiChoiceQuestion,
-} from "@/app/General/interfaces";
+import { SurveyTypeProps, MultiChoiceQuestion } from "@/app/General/interfaces";
+import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
 import MultiChoiceForm from "@/app/Components/Forms/MultiChoiceForm";
 import {
     ADD_BTN_TXT,
@@ -13,27 +11,29 @@ import {
 import {
     GRID_ITEM_12,
     GRID_CONT_SPAC_2,
-    COUNTER_PLUS_1,
-    COUNTER_1,
-    INDEX_0,
+    STYPE_COUNTER_PLUS_1,
+    STYPE_COUNTER_STATE_DEFAULT_1,
+    STYPE_ARRAY_STATE_DEFAULT_0,
 } from "@/app/General/constants";
 
-function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
-    const [questions, setQuestions] = useState<MultiChoiceQuestion[]>([]);
-    const [formsCount, setFormsCount] = useState(COUNTER_1);
-    const [formsArray, setFormsArray] = useState<number[]>([INDEX_0]);
+function MultiChoice({
+    onSurveyParams = () => null,
+    inputErrorsHandler = () => null,
+    newErrors = [],
+    isInputErrorHandler = () => null,
+    emptyInputErrors = () => null,
+    emptyNewErrors = () => null,
+}: SurveyTypeProps) {
+    const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
+    const [formsArray, setFormsArray] = useState<number[]>(
+        STYPE_ARRAY_STATE_DEFAULT_0
+    );
 
-    const questionsChangeHandler = (
-        index: number,
-        question: MultiChoiceQuestion
-    ) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index] = question;
-        setQuestions(updatedQuestions);
-    };
+    const { questions, questionsChangeHandler } =
+        useQuestionsChangeHandler<MultiChoiceQuestion>([]);
 
     const addForm = () => {
-        setFormsCount((prevState) => prevState + COUNTER_PLUS_1);
+        setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
         setFormsArray([...formsArray, formsCount]);
     };
 
@@ -52,9 +52,14 @@ function MultiChoice({ onSurveyParams = () => null }: MultiChoiceProps) {
                         md={GRID_ITEM_12}
                         key={optionIndex}
                     >
-                        <MultiChoiceForm
+                        <MultiChoiceForm<MultiChoiceQuestion>
+                            isInputErrorHandler={isInputErrorHandler}
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}
+                            inputErrorsHandler={inputErrorsHandler}
+                            newErrors={newErrors}
+                            emptyInputErrors={emptyInputErrors}
+                            emptyNewErrors={emptyNewErrors}
                         />
                     </Grid>
                 ))}

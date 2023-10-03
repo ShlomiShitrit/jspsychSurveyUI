@@ -1,7 +1,8 @@
 import { Fragment, useState, useEffect } from "react";
 import TextSurveyForm from "@/app/Components/Forms/TextSurveyForm";
 import { Grid, Button } from "@/app/General/muiComponents";
-import { TextSurveyQuestion, TextSurveyProps } from "@/app/General/interfaces";
+import { TextSurveyQuestion, SurveyTypeProps } from "@/app/General/interfaces";
+import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
 import {
     ADD_BTN_TXT,
     ADD_BTN_VARIANT,
@@ -9,27 +10,29 @@ import {
 import {
     GRID_ITEM_12,
     GRID_CONT_SPAC_2,
-    COUNTER_PLUS_1,
-    COUNTER_1,
-    INDEX_0,
+    STYPE_ARRAY_STATE_DEFAULT_0,
+    STYPE_COUNTER_STATE_DEFAULT_1,
+    STYPE_COUNTER_PLUS_1,
 } from "@/app/General/constants";
 
-function TextSurvey({ onSurveyParams = () => null }: TextSurveyProps) {
-    const [questions, setQuestions] = useState<TextSurveyQuestion[]>([]);
-    const [formsCount, setFormsCount] = useState(COUNTER_1);
-    const [formsArray, setFormsArray] = useState<number[]>([INDEX_0]);
+function TextSurvey({
+    onSurveyParams = () => null,
+    inputErrorsHandler = () => null,
+    newErrors = [],
+    isInputErrorHandler = () => null,
+    emptyInputErrors = () => null,
+    emptyNewErrors = () => null,
+}: SurveyTypeProps) {
+    const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
+    const [formsArray, setFormsArray] = useState<number[]>(
+        STYPE_ARRAY_STATE_DEFAULT_0
+    );
 
-    const questionsChangeHandler = (
-        index: number,
-        question: TextSurveyQuestion
-    ) => {
-        const updatedQuestions = [...questions];
-        updatedQuestions[index] = question;
-        setQuestions(updatedQuestions);
-    };
+    const { questions, questionsChangeHandler } =
+        useQuestionsChangeHandler<TextSurveyQuestion>([]);
 
     const addForm = () => {
-        setFormsCount((prevState) => prevState + COUNTER_PLUS_1);
+        setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
         setFormsArray([...formsArray, formsCount]);
     };
 
@@ -48,9 +51,14 @@ function TextSurvey({ onSurveyParams = () => null }: TextSurveyProps) {
                         md={GRID_ITEM_12}
                         key={optionIndex}
                     >
-                        <TextSurveyForm
+                        <TextSurveyForm<TextSurveyQuestion>
                             id={optionIndex}
                             questionsChangeHandler={questionsChangeHandler}
+                            inputErrorsHandler={inputErrorsHandler}
+                            newErrors={newErrors}
+                            isInputErrorHandler={isInputErrorHandler}
+                            emptyInputErrors={emptyInputErrors}
+                            emptyNewErrors={emptyNewErrors}
                         />
                     </Grid>
                 ))}

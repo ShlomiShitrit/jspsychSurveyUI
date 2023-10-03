@@ -18,6 +18,8 @@ function OptionsGrid({
     optionsQChangeHandler = () => () => null,
     optionsArray = [],
     labelText = OPTIONS_GRID_EMPTY_STR,
+    errorId = OPTIONS_GRID_EMPTY_STR,
+    newErrors = [],
 }: OptionsGridProps) {
     return (
         //  TODO: move to constants
@@ -31,7 +33,9 @@ function OptionsGrid({
                     key={optionIndex}
                 >
                     <InputTextField
+                        newErrors={newErrors}
                         labelText={labelText}
+                        errorId={errorId}
                         id={optionIndex}
                         state={optionsQ[optionIndex]}
                         stateHandler={optionsQChangeHandler(optionIndex)}

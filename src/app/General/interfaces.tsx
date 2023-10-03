@@ -17,35 +17,25 @@ export interface ErrorStepProps {
     error: string;
 }
 
-export interface MultiChoiceQuestion {
+interface Questions {
     index: number;
-    promptQ: string;
-    nameQ: string;
+    promptQ: string | string[];
+    nameQ: string | string[];
+}
+
+export interface MultiChoiceQuestion extends Questions {
     optionsQ: string[];
     required: boolean;
     horizontal: boolean;
 }
 
-export interface LikertQuestion {
-    index: number;
-    promptQ: string[];
-    nameQ: string[];
+export interface LikertQuestion extends Questions {
     optionsQ: string[];
     randomQ: boolean;
 }
-export interface TextSurveyQuestion {
-    index: number;
-    promptQ: string;
-    nameQ: string;
+export interface TextSurveyQuestion extends Questions {
     placeHolder: string;
     required: boolean;
-}
-
-export interface Step2Props {
-    onMCParams: (params: MultiChoiceQuestion[]) => void;
-    onLikertParams: (params: LikertQuestion[]) => void;
-    onMSParams: (params: MultiChoiceQuestion[]) => void;
-    onTextParams: (params: TextSurveyQuestion[]) => void;
 }
 
 export interface Step3Props {
@@ -61,66 +51,76 @@ export interface AddOptionBtnProps {
     addOption: () => void;
 }
 
-export interface InputTextFieldProps {
-    state?: string;
-    stateHandler: (e: ChangeEvent<HTMLInputElement>) => void;
-    inputType?: string;
-    id?: number;
-    labelText?: string;
-    isState?: boolean;
+interface FormProps {
+    newErrors: { [key: string]: string }[];
+    errorId: string;
+    labelText: string;
 }
 
-export interface OptionsGridProps {
+export interface InputTextFieldProps extends FormProps {
+    state: string;
+    stateHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+    inputType: string;
+    id: number;
+}
+export interface SwitchLabelProps {
+    isState: boolean;
+    stateHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+    labelText: string;
+}
+
+interface GridProps {
     optionsQ: string[];
     optionsQChangeHandler: (
         index: number
     ) => (e: ChangeEvent<HTMLInputElement>) => void;
     optionsArray: number[];
-    labelText: string;
 }
+export interface OptionsGridProps extends FormProps, GridProps {}
 
-export interface PromptsGridProps {
-    promptsQ: string[];
-    promptsQChangeHandler: (
-        index: number
-    ) => (e: ChangeEvent<HTMLInputElement>) => void;
-    promptsArray: number[];
+export interface PromptsGridProps extends GridProps {
     namesQ: string[];
     nameQChangeHandler: (
         index: number
     ) => (e: ChangeEvent<HTMLInputElement>) => void;
     nameArray: number[];
+    errorId: {
+        prompt: string;
+        name: string;
+    };
+    newErrors: { [key: string]: string }[];
 }
 
-export interface LikertProps {
-    onSurveyParams: (params: LikertQuestion[]) => void;
+interface SurveyProps {
+    newErrors: { [key: string]: string }[];
+    emptyInputErrors: () => void;
+    emptyNewErrors: () => void;
+    inputErrorsHandler: (key: string, value: string) => void;
+    isInputErrorHandler: (value: boolean) => void;
 }
 
-export interface LikertFormProps {
-    questionsChangeHandler: (index: number, question: LikertQuestion) => void;
-    id: number;
-}
+export type QuestionType =
+    | LikertQuestion
+    | MultiChoiceQuestion
+    | TextSurveyQuestion;
 
-export interface MultiChoiceProps {
-    onSurveyParams: (params: MultiChoiceQuestion[]) => void;
-}
-export interface TextSurveyProps {
-    onSurveyParams: (params: TextSurveyQuestion[]) => void;
-}
+export type QuestionTypeArr =
+    | LikertQuestion[]
+    | MultiChoiceQuestion[]
+    | TextSurveyQuestion[];
 
-export interface MultiChoiceFormProps {
+export interface SurveyFormProps<T extends QuestionType> extends SurveyProps {
     questionsChangeHandler: (
         index: number,
-        question: MultiChoiceQuestion
+        question: T,
     ) => void;
     id: number;
 }
-export interface TextSurveyFormProps {
-    questionsChangeHandler: (
-        index: number,
-        question: TextSurveyQuestion
+
+export interface SurveyTypeProps extends SurveyProps {
+    onSurveyParams: (
+        params: QuestionTypeArr
     ) => void;
-    id: number;
 }
 
 export interface AddSurveyBtnProps {
@@ -131,9 +131,13 @@ export interface ListItemObj {
     index: number;
     stype: string;
     name: string;
-    questions: MultiChoiceQuestion[] | LikertQuestion[] | TextSurveyQuestion[];
+    questions: QuestionTypeArr;
 }
 export interface DownloadDialogProps {
     open: boolean;
     closeDialogHandler: () => void;
+}
+
+export interface NewError {
+    [key: string]: string;
 }
