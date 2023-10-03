@@ -61,7 +61,8 @@ function DownloadBtn({
             trialsList.push(trial);
         } else if (survey.stype === STYPE_LIKERT) {
             const params = survey.questions as LikertQuestion[];
-            const questions = params[0].promptQ.map((prompt, index) => {
+            const promptQArr = params[0].promptQ as string[];
+            const questions = promptQArr.map((prompt, index) => {
                 return `{prompt: "${replaceFirstAndLast(
                     prompt,
                     DOWNLOAD_BTN_EMPTY_STR,

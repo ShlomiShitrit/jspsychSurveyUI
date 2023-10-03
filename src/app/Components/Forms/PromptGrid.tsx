@@ -7,6 +7,7 @@ import {
     PROMPT_GRID_INPUT_TYPE_PROMPT,
     PROMPT_GRID_LABEL_PROMPT,
     PROMPT_GRID_LABEL_NAME,
+    PROMPT_GRID_EMPTY_STR,
 } from "@/app/General/Resources/FormsRes";
 import {
     GRID_CONT_SPAC_2,
@@ -16,17 +17,18 @@ import {
 } from "@/app/General/constants";
 
 function PromptGrid({
-    promptsQ = [],
-    promptsQChangeHandler = () => () => null,
-    promptsArray = [],
+    optionsQ = [],
+    optionsQChangeHandler = () => () => null,
+    optionsArray = [],
     namesQ = [],
     nameQChangeHandler = () => () => null,
-    nameArray = [],
+    errorId = { prompt: PROMPT_GRID_EMPTY_STR, name: PROMPT_GRID_EMPTY_STR },
+    newErrors = [],
 }: PromptsGridProps) {
     return (
         // TODO: move to constants
-        <Grid container spacing={1}> 
-            {promptsArray.map((promptIndex) => (
+        <Grid container spacing={1}>
+            {optionsArray.map((promptIndex) => (
                 <Grid
                     item
                     xs={GRID_ITEM_12}
@@ -36,13 +38,17 @@ function PromptGrid({
                 >
                     <Box>
                         <InputTextField
+                            newErrors={newErrors}
+                            errorId={errorId.prompt}
                             id={promptIndex}
-                            state={promptsQ[promptIndex]}
-                            stateHandler={promptsQChangeHandler(promptIndex)}
+                            state={optionsQ[promptIndex]}
+                            stateHandler={optionsQChangeHandler(promptIndex)}
                             inputType={PROMPT_GRID_INPUT_TYPE_PROMPT}
                             labelText={PROMPT_GRID_LABEL_PROMPT}
                         />
                         <InputTextField
+                            newErrors={newErrors}
+                            errorId={errorId.name}
                             id={promptIndex}
                             state={namesQ[promptIndex]}
                             stateHandler={nameQChangeHandler(promptIndex)}

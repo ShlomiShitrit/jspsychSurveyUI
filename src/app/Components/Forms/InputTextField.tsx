@@ -12,7 +12,7 @@ import { formTxtFieldStyle } from "@/app/General/styles";
 import { RootState } from "@/app/store/index";
 
 import {
-    FORM_INPUT_ID_PROP,
+    FORM_ID_PROP_DEFAULT_0,
     FORM_INPUT_INDEX_0,
     FORM_INPUT_ID_PLUS_1,
 } from "@/app/General/constants";
@@ -29,10 +29,12 @@ import {
 
 function InputTextField({
     state = EMPTY_STRING,
-    id = FORM_INPUT_ID_PROP,
+    id = FORM_ID_PROP_DEFAULT_0,
     labelText = EMPTY_STRING,
     inputType = EMPTY_STRING,
     stateHandler = () => null,
+    newErrors = [],
+    errorId = EMPTY_STRING,
 }: InputTextFieldProps) {
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -81,6 +83,9 @@ function InputTextField({
         newState = replaceFirstAndLast(state, EMPTY_STRING, EMPTY_STRING);
     }
 
+    const hasKey = newErrors.some((error) => error.hasOwnProperty(errorId));
+
+    const errorMsg = newErrors.find((error) => error.hasOwnProperty(errorId));
     return (
         <TextField
             sx={formTxtFieldStyle}
@@ -89,7 +94,10 @@ function InputTextField({
             variant={TEXTFIELD_VARIANT}
             value={newState}
             onChange={stateHandler}
+            error={hasKey}
+            helperText={hasKey && errorMsg ? errorMsg[errorId] : EMPTY_STRING}
             fullWidth
+            required
         />
     );
 }
