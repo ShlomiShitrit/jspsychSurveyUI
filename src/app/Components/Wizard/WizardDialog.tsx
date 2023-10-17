@@ -268,7 +268,6 @@ function WizardDialog({
         closeForm();
     };
 
-    const test = () => console.log(inputErrors);
     return (
         <ThemeProvider theme={darkTheme}>
             <Dialog
@@ -291,7 +290,6 @@ function WizardDialog({
                 {activeStep <= WIZRAD_STEP_2 && (
                     <DialogActions>
                         <Button onClick={closeWizard}>{CLOSE_BTN_TEXT}</Button>
-                        <Button onClick={test}>{TEST_BTN_TEXT}</Button>
                         <Button
                             onClick={handleBack}
                             disabled={activeStep === WIZRAD_STEP_0}

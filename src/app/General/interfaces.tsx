@@ -48,7 +48,8 @@ export interface CreateWizardProps {
 }
 
 export interface AddOptionBtnProps {
-    addOption: () => void;
+    optionHandler: () => void;
+    isAdd: boolean;
 }
 
 interface FormProps {
@@ -110,17 +111,12 @@ export type QuestionTypeArr =
     | TextSurveyQuestion[];
 
 export interface SurveyFormProps<T extends QuestionType> extends SurveyProps {
-    questionsChangeHandler: (
-        index: number,
-        question: T,
-    ) => void;
+    questionsChangeHandler: (index: number, question: T) => void;
     id: number;
 }
 
 export interface SurveyTypeProps extends SurveyProps {
-    onSurveyParams: (
-        params: QuestionTypeArr
-    ) => void;
+    onSurveyParams: (params: QuestionTypeArr) => void;
 }
 
 export interface AddSurveyBtnProps {

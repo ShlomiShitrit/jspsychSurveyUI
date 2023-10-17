@@ -4,7 +4,7 @@ import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 import { useSelector } from "react-redux";
 
 import OptionsGrid from "@/app/Components/Forms/OptionsGrid";
-import AddOptionBtn from "@/app/Components/Forms/AddOptionBtn";
+import OptionBtn from "@/app/Components/Forms/OptionBtn";
 import PromptGrid from "@/app/Components/Forms/PromptGrid";
 import { RootState } from "@/app/store/index";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
@@ -83,6 +83,35 @@ function LikertForm<T extends QuestionType>({
         }
     };
 
+    const removeInput = (option: boolean = true) => {
+        if (option) {
+            if (optionsCount === FORM_COUNTER_STATE_DEFAULT_2) return;
+            const updatedOptions = [...optionsQ];
+            updatedOptions.pop();
+            setOptionsQ(updatedOptions);
+            const updatedOptionsArray = [...optionsArray];
+            updatedOptionsArray.pop();
+            setOptionsArray(updatedOptionsArray);
+            setOptionsCount(optionsCount - FORM_COUNTER_PLUS_1);
+        } else {
+            if (promptsCount === FORM_COUNTER_STATE_DEFAULT_1) return;
+            const updatedPrompts = [...promptsQ];
+            updatedPrompts.pop();
+            setPromptsQ(updatedPrompts);
+            const updatedPromptsArray = [...promptsArray];
+            updatedPromptsArray.pop();
+            setPromptsArray(updatedPromptsArray);
+            setPromptsCount(promptsCount - FORM_COUNTER_PLUS_1);
+            const updatedNames = [...namesQ];
+            updatedNames.pop();
+            setNamesQ(updatedNames);
+            const updatedNamesArray = [...nameArray];
+            updatedNamesArray.pop();
+            setNameArray(updatedNamesArray);
+            setNameCount(nameCount - FORM_COUNTER_PLUS_1);
+        }
+    };
+
     const randomChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setRandomQ(e.target.checked);
     };
@@ -132,7 +161,12 @@ function LikertForm<T extends QuestionType>({
                     optionsQChangeHandler={stateQHandler(optionsQ, setOptionsQ)}
                     optionsArray={optionsArray}
                 />
-                <AddOptionBtn addOption={addInput} />
+                <Box
+                    sx={{ display: "flex", flexDirection: "row", gap: "10px" }}
+                >
+                    <OptionBtn optionHandler={addInput} isAdd={true} />
+                    <OptionBtn optionHandler={removeInput} isAdd={false} />
+                </Box>
                 <br />
                 <CustomTooltip title={TOOLTIP_TEXT.promptName} />
                 <PromptGrid
@@ -145,7 +179,18 @@ function LikertForm<T extends QuestionType>({
                     nameQChangeHandler={stateQHandler(namesQ, setNamesQ)}
                     nameArray={nameArray}
                 />
-                <AddOptionBtn addOption={() => addInput(false)} />
+                <Box
+                    sx={{ display: "flex", flexDirection: "row", gap: "10px" }}
+                >
+                    <OptionBtn
+                        optionHandler={() => addInput(false)}
+                        isAdd={true}
+                    />
+                    <OptionBtn
+                        optionHandler={() => removeInput(false)}
+                        isAdd={false}
+                    />
+                </Box>
                 {/*  TODO: move to constants */}
                 <Box sx={{ flex: 1 }}>
                     <SwitchLabel
