@@ -20,7 +20,6 @@ export const STYPE_COUNTER_STATE_DEFAULT_1 = 1;
 export const STYPE_COUNTER_PLUS_1 = 1;
 
 // UI
-export const UI_ARRAY_STATE_DEFAULT_0 = [0];
 export const UI_INDEX_MINUS_1 = -1;
 export const UI_INDEX_1 = 1;
 export const UI_ARR_LEN_1 = 1;
@@ -45,7 +44,9 @@ export const STYLE_MAX_WIDTH_360 = 360;
 export const STYLE_MAX_WIDTH_200 = 200;
 export const STYLE_FONT_SIZE_15 = 15;
 export const STYLE_TOP_0 = 0;
+export const STYLE_BOTTOM_0 = 0;
 export const STYLE_RIGHT_65 = 65;
+export const STYLE_LEFT_65 = 65;
 
 export const HOOKS_ARR_LEN_0 = 0;
 export const HOOKS_ARR_LEN_2 = 2;
