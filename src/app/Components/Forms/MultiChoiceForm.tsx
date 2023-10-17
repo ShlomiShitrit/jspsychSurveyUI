@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 
 import OptionsGrid from "@/app/Components/Forms/OptionsGrid";
-import AddOptionBtn from "@/app/Components/Forms/AddOptionBtn";
+import OptionBtn from "@/app/Components/Forms/OptionBtn";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { RootState } from "@/app/store/index";
@@ -75,6 +75,17 @@ function MultiChoiceForm<T extends QuestionType>({
     const addOption = () => {
         setOptionsCount(optionsCount + FORM_COUNTER_PLUS_1);
         setOptionsArray([...optionsArray, optionsCount]);
+    };
+
+    const removeOption = () => {
+        if (optionsCount === FORM_COUNTER_STATE_DEFAULT_2) return;
+        const updatedOptions = [...optionsArrQ];
+        updatedOptions.pop();
+        setOptionsArrQ(updatedOptions);
+        const updatedOptionsArray = [...optionsArray];
+        updatedOptionsArray.pop();
+        setOptionsArray(updatedOptionsArray);
+        setOptionsCount(optionsCount - FORM_COUNTER_PLUS_1);
     };
 
     const requiredSwitchChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -176,8 +187,12 @@ function MultiChoiceForm<T extends QuestionType>({
                     optionsQChangeHandler={optionsQArrChangeHandler}
                     optionsArray={optionsArray}
                 />
-
-                <AddOptionBtn addOption={addOption} />
+                <Box
+                    sx={{ display: "flex", flexDirection: "row", gap: "10px" }}
+                >
+                    <OptionBtn optionHandler={addOption} isAdd={true} />
+                    <OptionBtn optionHandler={removeOption} isAdd={false} />
+                </Box>
                 {switchLabelArr.map((switchLabel, index) => (
                     // TODO: move to constants
                     <Box key={index} sx={{ flex: 1 }}>
