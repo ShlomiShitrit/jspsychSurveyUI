@@ -83,6 +83,11 @@ function InputTextField({
         newState = replaceFirstAndLast(state, EMPTY_STRING, EMPTY_STRING);
     }
 
+    const labelId =
+        inputType === INPUT_TYPE_OPTIONSQ || surveyType === LIKERT_STYPE
+            ? `${labelText} ${id + FORM_INPUT_ID_PLUS_1}`
+            : `${labelText}`;
+
     const hasKey = newErrors.some((error) => error.hasOwnProperty(errorId));
 
     const errorMsg = newErrors.find((error) => error.hasOwnProperty(errorId));
@@ -90,7 +95,7 @@ function InputTextField({
         <TextField
             sx={formTxtFieldStyle}
             id={id.toString()}
-            label={`${labelText} ${id + FORM_INPUT_ID_PLUS_1}`}
+            label={labelId}
             variant={TEXTFIELD_VARIANT}
             value={newState}
             onChange={stateHandler}
