@@ -30,6 +30,9 @@ function DownloadBtn({
     fileName = DOWNLOAD_BTN_EMPTY_STR,
     errorHandler = () => null,
 }: DownloadBtnProps) {
+    const jspsychVersion = useSelector(
+        (state: RootState) => state.version.version
+    );
     const surveysList = useSelector((state: RootState) => state.surveyList);
 
     const trialsList: string[] = [];
@@ -39,9 +42,15 @@ function DownloadBtn({
             survey.stype === STYPE_MULTI_CHOICE ||
             survey.stype === STYPE_MULTI_SELECT
         ) {
-            let typeOfSurvey: string = TYPE_OF_SURVEY_MULTI_CHOICE;
+            let typeOfSurvey: string =
+                jspsychVersion === "7.3"
+                    ? TYPE_OF_SURVEY_MULTI_CHOICE
+                    : "survey-multi-choice";
             if (survey.stype === STYPE_MULTI_SELECT) {
-                typeOfSurvey = TYPE_OF_SURVEY_MULTI_SELECT;
+                typeOfSurvey =
+                    jspsychVersion === "7.3"
+                        ? TYPE_OF_SURVEY_MULTI_SELECT
+                        : "survey-multi-select";
             }
             const params = survey.questions as MultiChoiceQuestion[];
 
@@ -49,7 +58,9 @@ function DownloadBtn({
                 return `{prompt: "${question.promptQ}", name: "${question.nameQ}", options: [${question.optionsQ}], required: ${question.required}, horizontal: ${question.horizontal}}`;
             });
 
-            trial = `
+            trial =
+                jspsychVersion === "7.3"
+                    ? `
       const trial${index} = {
           type: ${typeOfSurvey},
           questions: [
@@ -57,7 +68,15 @@ function DownloadBtn({
           ],
         };
         timeline.push(trial${index});
-      `;
+      `
+                    : `
+      var trial${index} = {
+          type: "${typeOfSurvey}",
+          questions: [
+            ${questions}
+          ],
+        };
+        timeline.push(trial${index});`;
             trialsList.push(trial);
         } else if (survey.stype === STYPE_LIKERT) {
             const params = survey.questions as LikertQuestion[];
@@ -83,7 +102,9 @@ function DownloadBtn({
                 return `'<p style="margin:30px">${replacedOption}</p>'`;
             });
 
-            trial = `
+            trial =
+                jspsychVersion === "7.3"
+                    ? `
         const labels = [${replacedLabels}];
       const trial${index} = {
           type: jsPsychSurveyLikert,
@@ -93,7 +114,18 @@ function DownloadBtn({
           randomize_question_order: ${params[0].randomQ},
         };
         timeline.push(trial${index});
-      `;
+      `
+                    : `
+      var labels = [${replacedLabels}];
+    var trial${index} = {
+        type: "survey-likert",
+        questions: [
+          ${questions} 
+        ],
+        randomize_question_order: ${params[0].randomQ},
+      };
+      timeline.push(trial${index});
+    `;
             trialsList.push(trial);
         } else if (survey.stype === STYPE_TEXT) {
             const params = survey.questions as TextSurveyQuestion[];
@@ -101,7 +133,9 @@ function DownloadBtn({
                 return `{prompt: "${question.promptQ}", name: "${question.nameQ}", placeholder: "${question.placeHolder}", required: ${question.required}}`;
             });
 
-            trial = `
+            trial =
+                jspsychVersion === "7.3"
+                    ? `
         const trial${index} = {
             type: jsPsychSurveyText,
             questions: [
@@ -109,13 +143,24 @@ function DownloadBtn({
             ],
             };
             timeline.push(trial${index});
-            `;
+            `
+                    : `
+            var trial${index} = {
+                type: "survey-text",
+                questions: [
+                  ${questions}
+                ],
+                };
+                timeline.push(trial${index});
+                `;
             trialsList.push(trial);
         } else {
             errorHandler(ERR_MSG_STYPE);
         }
     });
-    const fileContents = `
+    const fileContents =
+        jspsychVersion === "7.3"
+            ? `
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -142,6 +187,33 @@ function DownloadBtn({
         </script>
     </html>
 
+        `
+            : `
+        <!DOCTYPE html>
+<html>
+    <head>
+        <title>My experiment</title>
+        <script src="jspsych-6.3.1/jspsych.js"></script>
+        <script src="jspsych-6.3.1/plugins/jspsych-survey-likert.js"></script>
+        <script src="jspsych-6.3.1/plugins/jspsych-survey-multi-choice.js"></script>
+        <script src="jspsych-6.3.1/plugins/jspsych-survey-multi-select.js"></script>
+        <script src="jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+        <link href="jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
+    </head>
+    <body></body>
+    <script>
+    
+    var timeline = [];
+        
+
+    ${trialsList.join("\n")}
+
+    jsPsych.init({
+        timeline: timeline
+    })
+
+    </script>
+</html>
         `;
 
     const downloadFile = () => {
