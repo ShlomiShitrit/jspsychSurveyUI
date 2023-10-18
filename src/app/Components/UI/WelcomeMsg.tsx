@@ -8,6 +8,7 @@ import {
 
 import { welcomeMsgStackStyle, darkNavyBlueTheme } from "@/app/General/styles";
 import { WelcomeMessageProps } from "@/app/General/interfaces";
+import styles from "@/app/landingPage.module.css";
 
 import {
     CONTAINER_MAX_WIDTH,
@@ -56,6 +57,7 @@ function WelcomeMessage({
                     justifyContent={STACK_JUSTIFY_CENTER}
                 >
                     <Button
+                        className={styles.button}
                         variant={BTN_VARIANT_CONTAINED}
                         color={COLOR_SUCCESS}
                         onClick={clickHandler}
