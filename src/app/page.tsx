@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Container, Grid, Typography, Button } from "@mui/material";
-import styles from "@/app/LandingPage.module.css";
+import styles from "@/app/landingPage.module.css";
 import store from "@/app/store/index";
 import {
     FIRST_WELCOME_MSG,

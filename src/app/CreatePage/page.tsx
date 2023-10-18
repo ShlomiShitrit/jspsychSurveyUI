@@ -18,7 +18,7 @@ import WelcomeMessage from "@/app/Components/UI/WelcomeMsg";
 import DownloadDialog from "@/app/Components/Forms/DownloadDialog";
 import store from "@/app/store/index";
 import VersionSelect from "@/app/Components/Forms/VersionSelect";
-import styles from "@/app/LandingPage.module.css";
+import styles from "@/app/landingPage.module.css";
 import {
     CREATE_TXT1,
     CREATE_TXT2,
