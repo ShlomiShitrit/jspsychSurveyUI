@@ -86,13 +86,13 @@ function CreatePage() {
                             spacing={2}
                             justifyContent={"center"}
                         >
-                            <Button
+                            <button
                                 className={styles.button}
-                                sx={createPageBtnStyle}
+                                // sx={createPageBtnStyle}
                                 onClick={openDownloadDialog}
                             >
                                 {CREATE_DOWNLOAF_BTN_TXT}
-                            </Button>
+                            </button>
                         </Stack>
                     </Container>
                 </Fragment>

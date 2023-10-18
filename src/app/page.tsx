@@ -29,13 +29,13 @@ function LandingPage() {
                         <Typography variant="h5" className={styles.description}>
                             {SEC_WELCOME_MSG}
                         </Typography>
-                        <Button
-                            size="large"
+                        <button
+                            // size="large"
                             className={styles.button}
                             onClick={changeRouteToCreate}
                         >
                             {BTN_TXT}
-                        </Button>
+                        </button>
                     </Grid>
                 </Grid>
             </Container>

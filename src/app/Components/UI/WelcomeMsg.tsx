@@ -56,9 +56,9 @@ function WelcomeMessage({
                     spacing={2}
                     justifyContent={STACK_JUSTIFY_CENTER}
                 >
-                    <Button className={styles.button} onClick={clickHandler}>
+                    <button className={styles.button} onClick={clickHandler}>
                         {btnText}
-                    </Button>
+                    </button>
                 </Stack>
             </Container>
         </ThemeProvider>
