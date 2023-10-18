@@ -1,0 +1,111 @@
+/* LandingPage.module.css */
+.gradientContainer {
+    background: linear-gradient(45deg, #2196f3 0%, #f50057 33%, #1976d2 67%);
+    color: white;
+    text-align: center;
+    padding: 4rem 0;
+}
+.root {
+    background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
+    color: white;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.header {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+}
+
+.description {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.button {
+    padding: 1.5rem 3rem;
+    text-decoration: none;
+    background-color: #f50057;
+    color: white;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.button:hover {
+    background-color: #ff4081;
+}
+
+/* New sections */
+.features {
+    background-color: #f50057;
+
+    padding: 4rem 0;
+    color: white;
+    text-align: center;
+    justify-content: center;
+}
+
+.featureIcon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.featureTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.featureDescription {
+    font-size: 1.2rem;
+    margin-bottom: 3rem;
+}
+
+.testimonials {
+    background: #fff;
+    padding: 4rem 0;
+}
+
+.testimonialText {
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+}
+
+.testimonialAuthor {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* New sections */
+.contact {
+    background: #1976d2;
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.contactHeader {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+}
+
+.contactDescription {
+    font-size: 1.5rem;
+    margin-bottom: 4rem;
+}
+
+.contactButton {
+    padding: 1.5rem 3rem;
+    text-decoration: none;
+    background-color: #f50057;
+    color: white;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.contactButton:hover {
+    background-color: #ff4081;
+}
