@@ -8,7 +8,7 @@ import {
 
 import { welcomeMsgStackStyle, darkNavyBlueTheme } from "@/app/General/styles";
 import { WelcomeMessageProps } from "@/app/General/interfaces";
-import styles from "@/app/LandingPage.module.css";
+import styles from "@/app/landingPage.module.css";
 
 import {
     CONTAINER_MAX_WIDTH,
