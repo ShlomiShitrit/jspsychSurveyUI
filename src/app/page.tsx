@@ -29,6 +29,7 @@ function LandingPage() {
                         <Typography variant="h5" className={styles.description}>
                             {SEC_WELCOME_MSG}
                         </Typography>
+                        <br />
                         <button
                             // size="large"
                             className={styles.button}
