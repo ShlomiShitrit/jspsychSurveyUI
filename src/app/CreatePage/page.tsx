@@ -8,6 +8,7 @@ import WizardDialog from "@/app/Components/Wizard/WizardDialog";
 import WelcomeMessage from "@/app/Components/UI/WelcomeMsg";
 import DownloadDialog from "@/app/Components/Forms/DownloadDialog";
 import store from "@/app/store/index";
+import VersionSelect from "@/app/Components/Forms/VersionSelect";
 import {
     CREATE_TXT1,
     CREATE_TXT2,
@@ -59,6 +60,7 @@ function CreatePage() {
                         />
                         <br />
                         <br />
+                        <VersionSelect />
                         <SurveysList />
                         <Button
                             sx={createPageBtnStyle}
