@@ -89,8 +89,6 @@ function CreatePage() {
                             <Button
                                 className={styles.button}
                                 sx={createPageBtnStyle}
-                                variant={CREATE_BTN_VARIANT}
-                                color={CREATE_BTN_COLOR}
                                 onClick={openDownloadDialog}
                             >
                                 {CREATE_DOWNLOAF_BTN_TXT}

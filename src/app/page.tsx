@@ -30,7 +30,6 @@ function LandingPage() {
                             {SEC_WELCOME_MSG}
                         </Typography>
                         <Button
-                            variant="contained"
                             size="large"
                             className={styles.button}
                             onClick={changeRouteToCreate}

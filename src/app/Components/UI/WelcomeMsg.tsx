@@ -56,12 +56,7 @@ function WelcomeMessage({
                     spacing={2}
                     justifyContent={STACK_JUSTIFY_CENTER}
                 >
-                    <Button
-                        className={styles.button}
-                        variant={BTN_VARIANT_CONTAINED}
-                        color={COLOR_SUCCESS}
-                        onClick={clickHandler}
-                    >
+                    <Button className={styles.button} onClick={clickHandler}>
                         {btnText}
                     </Button>
                 </Stack>
