@@ -9,6 +9,7 @@ import {
     BTN_TXT,
     CREATE_ROUTE,
 } from "@/app/General/Resources/PagesRes";
+import { pageButtonStyle } from "@/app/General/styles";pageButtonStyle
 import { useRouter } from "next/navigation";
 import { Provider } from "react-redux";
 import StarIcon from "@mui/icons-material/Star";
@@ -31,19 +32,7 @@ function LandingPage() {
                         </Typography>
                         <br />
                         <Button
-                            sx={{
-                                padding: "1.5rem 3rem",
-                                textDecoration: "none",
-                                backgroundColor: "#35b397",
-                                color: "black",
-                                borderRadius: "30px",
-                                fontSize: "1.2rem",
-                                transition: "backgroundColor 0.3s",
-                                "&:hover": {
-                                    backgroundColor: "#25c09e",
-                                },
-                            }}
-                            // className={styles.button}
+                            sx={pageButtonStyle}
                             onClick={changeRouteToCreate}
                         >
                             {BTN_TXT}

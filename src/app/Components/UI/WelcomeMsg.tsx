@@ -6,9 +6,12 @@ import {
     ThemeProvider,
 } from "@/app/General/muiComponents";
 
-import { welcomeMsgStackStyle, darkNavyBlueTheme } from "@/app/General/styles";
+import {
+    welcomeMsgStackStyle,
+    darkNavyBlueTheme,
+    pageButtonStyle,
+} from "@/app/General/styles";
 import { WelcomeMessageProps } from "@/app/General/interfaces";
-import styles from "@/app/landingPage.module.css";
 
 import {
     CONTAINER_MAX_WIDTH,
@@ -25,8 +28,8 @@ import {
 } from "@/app/General/Resources/UIRes";
 
 function WelcomeMessage({
-    clickHandler = () => null,
     text1 = EMPTY_STR,
+    clickHandler = () => null,
     text2 = EMPTY_STR,
     btnText = EMPTY_STR,
 }: WelcomeMessageProps) {
@@ -56,7 +59,7 @@ function WelcomeMessage({
                     spacing={2}
                     justifyContent={STACK_JUSTIFY_CENTER}
                 >
-                    <Button className={styles.button} onClick={clickHandler}>
+                    <Button sx={pageButtonStyle} onClick={clickHandler}>
                         {btnText}
                     </Button>
                 </Stack>
