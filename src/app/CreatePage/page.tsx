@@ -19,6 +19,7 @@ import DownloadDialog from "@/app/Components/Forms/DownloadDialog";
 import store from "@/app/store/index";
 import VersionSelect from "@/app/Components/Forms/VersionSelect";
 import styles from "@/app/landingPage.module.css";
+import { pageButtonStyle } from "@/app/General/styles";
 import {
     CREATE_TXT1,
     CREATE_TXT2,
@@ -83,7 +84,7 @@ function CreatePage() {
                         justifyContent={"center"}
                     >
                         <Button
-                            className={styles.button}
+                            sx={pageButtonStyle}
                             onClick={openDownloadDialog}
                         >
                             {CREATE_DOWNLOAF_BTN_TXT}

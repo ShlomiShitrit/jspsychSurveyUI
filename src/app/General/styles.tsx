@@ -147,3 +147,18 @@ export const surveyListBox3Style = {
     bottom: STYLE_BOTTOM_0,
     left: STYLE_LEFT_65,
 };
+
+// TODO: move to resources
+
+export const pageButtonStyle = {
+    padding: "1.5rem 3rem",
+    textDecoration: "none",
+    backgroundColor: "#35b397",
+    color: "black",
+    borderRadius: "30px",
+    fontSize: "1.2rem",
+    transition: "backgroundColor 0.3s",
+    "&:hover": {
+        backgroundColor: "#25c09e",
+    },
+};
