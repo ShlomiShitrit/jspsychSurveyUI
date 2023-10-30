@@ -20,7 +20,7 @@ function LandingPage() {
     };
     return (
         <Provider store={store}>
-            <Container className={styles.root}>
+            <Container maxWidth={false} className={styles.root}>
                 <Grid container spacing={2} justifyContent="center">
                     <Grid item xs={12}>
                         <Typography variant="h2" className={styles.header}>
@@ -30,97 +30,89 @@ function LandingPage() {
                             {SEC_WELCOME_MSG}
                         </Typography>
                         <br />
-                        <button
-                            // size="large"
+                        <Button
                             className={styles.button}
                             onClick={changeRouteToCreate}
                         >
                             {BTN_TXT}
-                        </button>
+                        </Button>
                     </Grid>
                 </Grid>
             </Container>
 
-            <div>
-                <Container className={styles.features}>
-                    <Grid container spacing={3} justifyContent="center">
-                        <Grid item xs={12}>
-                            <Typography variant="h3" className={styles.header}>
-                                {"All kind of features"}
-                            </Typography>
-                        </Grid>
-
-                        <Grid item xs={12} sm={4}>
-                            <i className="material-icons-round feature-icon">
-                                <StarIcon />
-                            </i>
-                            <Typography
-                                variant="h4"
-                                className={styles.featureTitle}
-                            >
-                                {"Multi types of surveys"}
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.featureDescription}
-                            >
-                                Multi Choice, Likert, Multi Select, Text and
-                                many more to come
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <i className="material-icons-round feature-icon">
-                                <StarIcon />
-                            </i>
-                            <Typography
-                                variant="h4"
-                                className={styles.featureTitle}
-                            >
-                                Custom trial
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.featureDescription}
-                            >
-                                Add questions blocks to a list and make your own
-                                trial
-                            </Typography>
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <i className="material-icons-round feature-icon">
-                                <StarIcon />
-                            </i>
-                            <Typography
-                                variant="h4"
-                                className={styles.featureTitle}
-                            >
-                                Versions support
-                            </Typography>
-                            <Typography
-                                variant="body1"
-                                className={styles.featureDescription}
-                            >
-                                Support for both 7.3 and 6.3 version of jsPsych
-                            </Typography>
-                        </Grid>
+            <Container maxWidth={false} className={styles.features}>
+                <Grid container spacing={3} justifyContent="center">
+                    <Grid item xs={12}>
+                        <Typography variant="h3" className={styles.header}>
+                            {"All kind of features"}
+                        </Typography>
                     </Grid>
-                </Container>
-            </div>
 
-            <div>
-                <Container className={styles.contact}>
-                    <Typography variant="h3" className={styles.contactHeader}>
-                        We are still working on it
-                    </Typography>
-                    <Typography
-                        variant="h5"
-                        className={styles.contactDescription}
-                    >
-                        The website is still under development, there are a lot
-                        more features to come!
-                    </Typography>
-                </Container>
-            </div>
+                    <Grid item xs={12} sm={4}>
+                        <i className="material-icons-round feature-icon">
+                            <StarIcon />
+                        </i>
+                        <Typography
+                            variant="h4"
+                            className={styles.featureTitle}
+                        >
+                            {"Multi types of surveys"}
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            className={styles.featureDescription}
+                        >
+                            Multi Choice, Likert, Multi Select, Text and many
+                            more to come
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <i className="material-icons-round feature-icon">
+                            <StarIcon />
+                        </i>
+                        <Typography
+                            variant="h4"
+                            className={styles.featureTitle}
+                        >
+                            Custom trial
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            className={styles.featureDescription}
+                        >
+                            Add questions blocks to a list and make your own
+                            trial
+                        </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                        <i className="material-icons-round feature-icon">
+                            <StarIcon />
+                        </i>
+                        <Typography
+                            variant="h4"
+                            className={styles.featureTitle}
+                        >
+                            Versions support
+                        </Typography>
+                        <Typography
+                            variant="body1"
+                            className={styles.featureDescription}
+                        >
+                            Support for both 7.3 and 6.3 version of jsPsych
+                        </Typography>
+                    </Grid>
+                </Grid>
+            </Container>
+
+            <Container maxWidth={false} className={styles.contact}>
+                <Typography variant="h3" className={styles.contactHeader}>
+                    We are still working on it
+                </Typography>
+                <Typography variant="h5" className={styles.contactDescription}>
+                    The website is still under development, there are a lot more
+                    features to come!
+                </Typography>
+            </Container>
         </Provider>
     );
 }

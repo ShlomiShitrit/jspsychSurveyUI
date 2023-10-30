@@ -1,6 +1,6 @@
 /* LandingPage.module.css */
-.gradientContainer {
-    background: linear-gradient(45deg, #2196f3 0%, #f50057 33%, #1976d2 67%);
+.container {
+    width: 100%;
     color: white;
     text-align: center;
     padding: 4rem 0;
@@ -26,21 +26,20 @@
 .button {
     padding: 1.5rem 3rem;
     text-decoration: none;
-    background-color: #f50057;
-    color: white;
+    background-color: #35b397;
+    color: black;
     border-radius: 30px;
     font-size: 1.2rem;
     transition: background-color 0.3s;
 }
 
 .button:hover {
-    background-color: #ff4081;
+    background-color: #25c09e;
 }
 
 /* New sections */
 .features {
-    background-color: #f50057;
-
+    background-color: #1976d2;
     padding: 4rem 0;
     color: white;
     text-align: center;
@@ -79,7 +78,7 @@
 
 /* New sections */
 .contact {
-    background: #1976d2;
+    background: #290f66;
     color: white;
     padding: 4rem 0;
     text-align: center;
