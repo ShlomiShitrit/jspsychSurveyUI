@@ -52,50 +52,44 @@ function CreatePage() {
     return (
         <Provider store={store}>
             <ThemeProvider theme={darkNavyBlueTheme}>
-                <Fragment>
-                    <Container className={styles.root}>
-                        <WizardDialog
-                            open={openWizrad}
-                            closeWizard={closeWizard}
-                        />
-                        <DownloadDialog
-                            open={openDownload}
-                            closeDialogHandler={closeDownloadDialog}
-                        />
-                        <WelcomeMessage
-                            clickHandler={openWizard}
-                            text1={CREATE_TXT1}
-                            text2={CREATE_TXT2}
-                            btnText={CREATE_BTN_TXT}
-                        />
+                <Container maxWidth={false} className={styles.root}>
+                    <WizardDialog open={openWizrad} closeWizard={closeWizard} />
+                    <DownloadDialog
+                        open={openDownload}
+                        closeDialogHandler={closeDownloadDialog}
+                    />
+                    <WelcomeMessage
+                        clickHandler={openWizard}
+                        text1={CREATE_TXT1}
+                        text2={CREATE_TXT2}
+                        btnText={CREATE_BTN_TXT}
+                    />
 
-                        <br />
-                        <Stack
-                            sx={welcomeMsgStackStyle}
-                            direction={"row"}
-                            spacing={2}
-                            justifyContent={"center"}
-                        >
-                            <VersionSelect />
-                        </Stack>
+                    <br />
+                    <Stack
+                        sx={welcomeMsgStackStyle}
+                        direction={"row"}
+                        spacing={2}
+                        justifyContent={"center"}
+                    >
+                        <VersionSelect />
+                    </Stack>
 
-                        <SurveysList />
-                        <Stack
-                            sx={welcomeMsgStackStyle}
-                            direction={"row"}
-                            spacing={2}
-                            justifyContent={"center"}
+                    <SurveysList />
+                    <Stack
+                        sx={welcomeMsgStackStyle}
+                        direction={"row"}
+                        spacing={2}
+                        justifyContent={"center"}
+                    >
+                        <Button
+                            className={styles.button}
+                            onClick={openDownloadDialog}
                         >
-                            <button
-                                className={styles.button}
-                                // sx={createPageBtnStyle}
-                                onClick={openDownloadDialog}
-                            >
-                                {CREATE_DOWNLOAF_BTN_TXT}
-                            </button>
-                        </Stack>
-                    </Container>
-                </Fragment>
+                            {CREATE_DOWNLOAF_BTN_TXT}
+                        </Button>
+                    </Stack>
+                </Container>
             </ThemeProvider>
         </Provider>
     );
