@@ -31,7 +31,19 @@ function LandingPage() {
                         </Typography>
                         <br />
                         <Button
-                            className={styles.button}
+                            sx={{
+                                padding: "1.5rem 3rem",
+                                textDecoration: "none",
+                                backgroundColor: "#35b397",
+                                color: "black",
+                                borderRadius: "30px",
+                                fontSize: "1.2rem",
+                                transition: "backgroundColor 0.3s",
+                                "&:hover": {
+                                    backgroundColor: "#25c09e",
+                                },
+                            }}
+                            // className={styles.button}
                             onClick={changeRouteToCreate}
                         >
                             {BTN_TXT}
