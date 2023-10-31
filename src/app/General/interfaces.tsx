@@ -36,6 +36,12 @@ export interface LikertQuestion extends Questions {
 export interface TextSurveyQuestion extends Questions {
     placeHolder: string;
     required: boolean;
+    preamble: string;
+}
+
+export interface TextSurveyState {
+    preamble: string;
+    textQuestions: TextSurveyQuestion[];
 }
 
 export interface Step3Props {
@@ -119,6 +125,10 @@ export interface SurveyTypeProps extends SurveyProps {
     onSurveyParams: (params: QuestionTypeArr) => void;
 }
 
+export interface Step2AndTextSurveyProps extends SurveyTypeProps {
+    textPreambleHandler: (value: string) => void;
+}
+
 export interface AddSurveyBtnProps {
     addSurveyHandler: () => void;
 }
@@ -127,7 +137,7 @@ export interface ListItemObj {
     index: number;
     stype: string;
     name: string;
-    questions: QuestionTypeArr;
+    questions: LikertQuestion[] | MultiChoiceQuestion[] | TextSurveyState;
 }
 export interface DownloadDialogProps {
     open: boolean;
@@ -136,4 +146,12 @@ export interface DownloadDialogProps {
 
 export interface NewError {
     [key: string]: string;
+}
+
+export interface PreambleProps {
+    id: number;
+    preambleState: string;
+    imageState: boolean;
+    preambleHandler: (e: ChangeEvent<HTMLInputElement>) => void;
+    isImageHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }

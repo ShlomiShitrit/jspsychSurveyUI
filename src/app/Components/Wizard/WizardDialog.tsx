@@ -36,6 +36,7 @@ import {
     LikertQuestion,
     CreateWizardProps,
     TextSurveyQuestion,
+    TextSurveyState,
 } from "@/app/General/interfaces";
 import {
     WIZRAD_STEP_0,
@@ -91,6 +92,7 @@ function WizardDialog({
     );
 
     const [newErrors, setNewErrors] = useState<{ [key: string]: string }[]>([]);
+    const [preamble, setPreamble] = useState(EMPTY_STRING);
 
     const dispatch = useDispatch();
     const addMultiChoiceQuestion = (question: MultiChoiceQuestion) => {
@@ -197,6 +199,9 @@ function WizardDialog({
                         isInputErrorHandler={isInputErrorHanlder}
                         emptyInputErrors={setInputErrorsToEmpty}
                         emptyNewErrors={setNewErrorsToEmpty}
+                        textPreambleHandler={(value: string) =>
+                            setPreamble(value)
+                        }
                     />
                 );
             case WIZRAD_STEP_2:
@@ -228,6 +233,7 @@ function WizardDialog({
                     textParams.forEach((question) => {
                         dispatch(textActions.addQuestion(question));
                     });
+                    dispatch(textActions.addPreamble(preamble));
                     break;
                 default:
                     errorHandler(ERR_MSG_STYPE);
@@ -247,7 +253,7 @@ function WizardDialog({
         let questions:
             | LikertQuestion[]
             | MultiChoiceQuestion[]
-            | TextSurveyQuestion[] = [];
+            | TextSurveyState = [];
         if (surveyType === STYPE_MULTI_CHOICE) {
             questions = multiChoiceParams;
         } else if (surveyType === STYPE_LIKERT) {
@@ -255,7 +261,7 @@ function WizardDialog({
         } else if (surveyType === STYPE_MS) {
             questions = multiSelectParams;
         } else if (surveyType === STYPE_TEXT) {
-            questions = textParams;
+            questions = { textQuestions: textParams, preamble };
         }
         dispatch(
             surveyListActions.addSurvey({

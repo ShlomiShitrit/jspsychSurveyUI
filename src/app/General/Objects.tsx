@@ -2,6 +2,7 @@ import {
     MultiChoiceQuestion,
     LikertQuestion,
     TextSurveyQuestion,
+    TextSurveyState,
 } from "@/app/General/interfaces";
 
 import { OBJ_INDEX_0 } from "@/app/General/constants";
@@ -29,6 +30,7 @@ export const textParamsObj: TextSurveyQuestion = {
     nameQ: EMPTY_STRING,
     required: false,
     placeHolder: EMPTY_STRING,
+    preamble: EMPTY_STRING,
 };
 
 export const initialMultiChoiceSurveyState = [
@@ -52,12 +54,15 @@ export const initialLikertSurveyState = [
     },
 ] as LikertQuestion[];
 
-export const initialTextSurveyState = [
-    {
-        index: OBJ_INDEX_0,
-        promptQ: EMPTY_STRING,
-        nameQ: EMPTY_STRING,
-        required: false,
-        placeHolder: EMPTY_STRING,
-    },
-] as TextSurveyQuestion[];
+export const initialTextSurveyState = {
+    preamble: EMPTY_STRING,
+    textQuestions: [
+        {
+            index: OBJ_INDEX_0,
+            promptQ: EMPTY_STRING,
+            nameQ: EMPTY_STRING,
+            required: false,
+            placeHolder: EMPTY_STRING,
+        },
+    ] as TextSurveyQuestion[],
+} as TextSurveyState;

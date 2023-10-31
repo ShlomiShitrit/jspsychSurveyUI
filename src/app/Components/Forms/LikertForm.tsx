@@ -152,6 +152,7 @@ function LikertForm<T extends QuestionType>({
                     {FIRST_FORM_LABEL} {surveyType}
                 </FormLabel>
                 <FormLabel sx={matgin10Style}>{SECOND_FORM_LABEL}</FormLabel>
+
                 <CustomTooltip title={TOOLTIP_TEXT.labels} />
                 <OptionsGrid
                     newErrors={newErrors}
@@ -161,6 +162,7 @@ function LikertForm<T extends QuestionType>({
                     optionsQChangeHandler={stateQHandler(optionsQ, setOptionsQ)}
                     optionsArray={optionsArray}
                 />
+                {/* TODO: move to styles */}
                 <Box
                     sx={{ display: "flex", flexDirection: "row", gap: "10px" }}
                 >
@@ -179,6 +181,7 @@ function LikertForm<T extends QuestionType>({
                     nameQChangeHandler={stateQHandler(namesQ, setNamesQ)}
                     nameArray={nameArray}
                 />
+                {/* TODO: move to styles */}
                 <Box
                     sx={{ display: "flex", flexDirection: "row", gap: "10px" }}
                 >
