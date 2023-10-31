@@ -1,7 +1,12 @@
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, ChangeEvent } from "react";
 import TextSurveyForm from "@/app/Components/Forms/TextSurveyForm";
-import { Grid, Button } from "@/app/General/muiComponents";
-import { TextSurveyQuestion, SurveyTypeProps } from "@/app/General/interfaces";
+import { Grid, Button, Typography } from "@/app/General/muiComponents";
+import CustomTooltip from "@/app/Components/UI/CustomTooltip";
+import Preamble from "@/app/Components/Forms/Preamble";
+import {
+    TextSurveyQuestion,
+    Step2AndTextSurveyProps,
+} from "@/app/General/interfaces";
 import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
 import {
     ADD_BTN_TXT,
@@ -16,17 +21,31 @@ import {
 } from "@/app/General/constants";
 
 function TextSurvey({
-    onSurveyParams = () => null,
-    inputErrorsHandler = () => null,
-    newErrors = [],
-    isInputErrorHandler = () => null,
-    emptyInputErrors = () => null,
-    emptyNewErrors = () => null,
-}: SurveyTypeProps) {
+    onSurveyParams,
+    inputErrorsHandler,
+    newErrors,
+    isInputErrorHandler,
+    emptyInputErrors,
+    emptyNewErrors,
+    textPreambleHandler,
+}: Step2AndTextSurveyProps) {
     const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
     const [formsArray, setFormsArray] = useState<number[]>(
         STYPE_ARRAY_STATE_DEFAULT_0
     );
+    const [preamble, setPreamble] = useState("");
+    const [isImage, setIsImage] = useState(false);
+    const [finalPreamble, setFinalPreamble] = useState("");
+
+    const preambleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setPreamble(value);
+    };
+
+    useEffect(() => {
+        const newValue = isImage ? `<img src="${preamble}"></img>` : preamble;
+        setFinalPreamble(newValue);
+    }, [isImage, preamble]);
 
     const { questions, questionsChangeHandler } =
         useQuestionsChangeHandler<TextSurveyQuestion>([]);
@@ -38,11 +57,31 @@ function TextSurvey({
 
     useEffect(() => {
         onSurveyParams(questions);
-    }, [questions]);
+        textPreambleHandler(finalPreamble);
+    }, [questions, finalPreamble]);
 
     return (
         <Fragment>
+            <br />
+            <Typography variant="body1" component="h6">
+                {"Choose preamble (optional):"}
+            </Typography>
+            <br />
             <Grid container spacing={GRID_CONT_SPAC_2}>
+                <CustomTooltip
+                    title={`The preamble is the text or the image
+                 that will be displayed to the user before the question.
+                 This field is not required`}
+                />
+                <Preamble
+                    id={111}
+                    preambleState={preamble}
+                    imageState={isImage}
+                    preambleHandler={preambleChangeHandler}
+                    isImageHandler={(e: ChangeEvent<HTMLInputElement>) =>
+                        setIsImage(e.target.checked)
+                    }
+                />
                 {formsArray.map((optionIndex) => (
                     <Grid
                         item

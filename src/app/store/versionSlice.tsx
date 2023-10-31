@@ -1,12 +1,12 @@
 "use client";
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const versionSlice = createSlice({
     name: "version",
-    initialState: { version: "" },
+    initialState: { version: "7.3" },
     reducers: {
         changeVersion(state, action) {
-            state = action.payload;
+            state.version = action.payload;
         },
     },
 });

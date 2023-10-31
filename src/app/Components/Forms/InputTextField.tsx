@@ -28,60 +28,21 @@ import {
 } from "@/app/General/Resources/FormsRes";
 
 function InputTextField({
-    state = EMPTY_STRING,
-    id = FORM_ID_PROP_DEFAULT_0,
-    labelText = EMPTY_STRING,
-    inputType = EMPTY_STRING,
-    stateHandler = () => null,
-    newErrors = [],
-    errorId = EMPTY_STRING,
+    state,
+    id,
+    labelText,
+    inputType,
+    stateHandler,
+    newErrors,
+    errorId,
 }: InputTextFieldProps) {
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
-
-    let stateQ: string;
-    switch (surveyType) {
-        case MULTI_CHOICE_STYPE:
-            stateQ = useSelector(
-                (state: RootState) =>
-                    state.multiChoice[FORM_INPUT_INDEX_0][
-                        inputType as keyof MultiChoiceQuestion
-                    ] as string
-            );
-            break;
-        case LIKERT_STYPE:
-            stateQ = useSelector((state: RootState) => {
-                const stateArr = state.likert[FORM_INPUT_INDEX_0][
-                    inputType as keyof LikertQuestion
-                ] as string[];
-                return stateArr[id];
-            });
-            break;
-        case MULTI_SELECT_STYPE:
-            stateQ = useSelector(
-                (state: RootState) =>
-                    state.multiSelect[FORM_INPUT_INDEX_0][
-                        inputType as keyof MultiChoiceQuestion
-                    ] as string
-            );
-            break;
-        case TEXT_STYPE:
-            stateQ = useSelector(
-                (state: RootState) =>
-                    state.text[FORM_INPUT_INDEX_0][
-                        inputType as keyof TextSurveyQuestion
-                    ] as string
-            );
-            break;
-        default:
-            throw new Error(ERROR_SURVEY_TYPE_MSG);
-    }
-
-    let newState = state;
-    if (inputType === INPUT_TYPE_OPTIONSQ || surveyType === LIKERT_STYPE) {
-        newState = replaceFirstAndLast(state, EMPTY_STRING, EMPTY_STRING);
-    }
+    const newState =
+        inputType === INPUT_TYPE_OPTIONSQ || surveyType === LIKERT_STYPE
+            ? replaceFirstAndLast(state, EMPTY_STRING, EMPTY_STRING)
+            : state;
 
     const labelId =
         inputType === INPUT_TYPE_OPTIONSQ || surveyType === LIKERT_STYPE
@@ -89,8 +50,9 @@ function InputTextField({
             : `${labelText}`;
 
     const hasKey = newErrors.some((error) => error.hasOwnProperty(errorId));
-
     const errorMsg = newErrors.find((error) => error.hasOwnProperty(errorId));
+    const isRequired = inputType === "preamble" ? false : true;
+
     return (
         <TextField
             sx={formTxtFieldStyle}
@@ -102,7 +64,7 @@ function InputTextField({
             error={hasKey}
             helperText={hasKey && errorMsg ? errorMsg[errorId] : EMPTY_STRING}
             fullWidth
-            required
+            required={isRequired}
         />
     );
 }

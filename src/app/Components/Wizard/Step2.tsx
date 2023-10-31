@@ -6,7 +6,7 @@ import MultiChoice from "@/app/Components/SurveyTypes/MultiChoice";
 import TextSurvey from "@/app/Components/SurveyTypes/TextSurvey";
 import Likert from "@/app/Components/SurveyTypes/Likert";
 import MultiSelect from "@/app/Components/SurveyTypes/MultiSelect";
-import { SurveyTypeProps, MultiChoiceQuestion } from "@/app/General/interfaces";
+import { Step2AndTextSurveyProps, MultiChoiceQuestion } from "@/app/General/interfaces";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import {
     MULTI_CHOICE_SURVEY_TYPE,
@@ -17,13 +17,14 @@ import {
 } from "@/app/General/Resources/WizardRes";
 
 function Step2({
-    onSurveyParams = () => null,
-    inputErrorsHandler = () => null,
-    newErrors = [],
-    isInputErrorHandler = () => null,
-    emptyInputErrors = () => null,
-    emptyNewErrors = () => null,
-}: SurveyTypeProps) {
+    onSurveyParams,
+    inputErrorsHandler,
+    newErrors,
+    isInputErrorHandler,
+    emptyInputErrors,
+    emptyNewErrors,
+    textPreambleHandler,
+}: Step2AndTextSurveyProps) {
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
@@ -48,6 +49,7 @@ function Step2({
                     isInputErrorHandler={isInputErrorHandler}
                     emptyInputErrors={emptyInputErrors}
                     emptyNewErrors={emptyNewErrors}
+                    textPreambleHandler={textPreambleHandler}
                 />
             );
         case LIKERT_SURVEY_TYPE:

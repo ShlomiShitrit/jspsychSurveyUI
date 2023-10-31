@@ -9,7 +9,10 @@ export const textSlice = createSlice({
     initialState: initialTextSurveyState,
     reducers: {
         addQuestion(state, action: PayloadAction<TextSurveyQuestion>) {
-            state[action.payload.index] = action.payload;
+            state.textQuestions[action.payload.index] = action.payload;
+        },
+        addPreamble(state, action: PayloadAction<string>) {
+            state.preamble = action.payload;
         },
     },
 });

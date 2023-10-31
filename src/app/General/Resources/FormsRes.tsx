@@ -21,6 +21,8 @@ export const TOOLTIP_TEXT = {
         "The placeholder is the text that will be displayed in the input box.",
     promptName:
         "The prompt is the question that will be asked and the name is name of the question that will be used in the data.",
+    preamble:
+        "The preamble is the text or the image that will be displayed to the user before the quesation.",
 };
 
 // DownLoadBtn.tsx

@@ -10,6 +10,7 @@ import {
     MultiChoiceQuestion,
     LikertQuestion,
     TextSurveyQuestion,
+    TextSurveyState,
 } from "@/app/General/interfaces";
 import {
     BLOB_TYPE,
@@ -33,6 +34,7 @@ function DownloadBtn({
     const jspsychVersion = useSelector(
         (state: RootState) => state.version.version
     );
+
     const surveysList = useSelector((state: RootState) => state.surveyList);
 
     const trialsList: string[] = [];
@@ -128,9 +130,15 @@ function DownloadBtn({
     `;
             trialsList.push(trial);
         } else if (survey.stype === STYPE_TEXT) {
-            const params = survey.questions as TextSurveyQuestion[];
+            const allParams = survey.questions as TextSurveyState;
+            const params = allParams.textQuestions as TextSurveyQuestion[];
+            const preamble = allParams.preamble as string;
             const questions = params.map((question) => {
-                return `{prompt: "${question.promptQ}", name: "${question.nameQ}", placeholder: "${question.placeHolder}", required: ${question.required}}`;
+                return `{prompt: "${question.promptQ}", 
+                    name: "${question.nameQ}",
+                    placeholder: "${question.placeHolder}",
+                    required: ${question.required},
+                } `;
             });
 
             trial =
@@ -138,6 +146,7 @@ function DownloadBtn({
                     ? `
         const trial${index} = {
             type: jsPsychSurveyText,
+            preamble: '${preamble}',
             questions: [
               ${questions}
             ],
@@ -147,6 +156,7 @@ function DownloadBtn({
                     : `
             var trial${index} = {
                 type: "survey-text",
+                preamble: '${preamble}',
                 questions: [
                   ${questions}
                 ],
