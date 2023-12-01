@@ -1,16 +1,15 @@
 "use client";
-import { Fragment, useState } from "react";
+import { useState } from "react";
 import {
     ThemeProvider,
     Button,
     Container,
     Stack,
+    Chip,
+    Typography,
 } from "@/app/General/muiComponents";
-import {
-    darkNavyBlueTheme,
-    createPageBtnStyle,
-    welcomeMsgStackStyle,
-} from "@/app/General/styles";
+import { useRouter } from "next/navigation";
+import { darkNavyBlueTheme, welcomeMsgStackStyle } from "@/app/General/styles";
 import { Provider } from "react-redux";
 import SurveysList from "@/app/Components/UI/SurveysList";
 import WizardDialog from "@/app/Components/Wizard/WizardDialog";
@@ -24,43 +23,29 @@ import {
     CREATE_TXT1,
     CREATE_TXT2,
     CREATE_BTN_TXT,
-    CONTAINER_MAX_WIDTH,
     CREATE_DOWNLOAF_BTN_TXT,
-    CREATE_BTN_COLOR,
-    CREATE_BTN_VARIANT,
 } from "@/app/General/Resources/PagesRes";
 
 function CreatePage() {
     const [openWizrad, setOpenWizrad] = useState(false);
     const [openDownload, setOpenDownload] = useState(false);
 
-    const openWizard = () => {
-        setOpenWizrad(true);
-    };
-
-    const closeWizard = () => {
-        setOpenWizrad(false);
-    };
-
-    const openDownloadDialog = () => {
-        setOpenDownload(true);
-    };
-
-    const closeDownloadDialog = () => {
-        setOpenDownload(false);
-    };
+    const router = useRouter();
 
     return (
         <Provider store={store}>
             <ThemeProvider theme={darkNavyBlueTheme}>
                 <Container maxWidth={false} className={styles.root}>
-                    <WizardDialog open={openWizrad} closeWizard={closeWizard} />
+                    <WizardDialog
+                        open={openWizrad}
+                        closeWizard={() => setOpenWizrad(false)}
+                    />
                     <DownloadDialog
                         open={openDownload}
-                        closeDialogHandler={closeDownloadDialog}
+                        closeDialogHandler={() => setOpenDownload(false)}
                     />
                     <WelcomeMessage
-                        clickHandler={openWizard}
+                        clickHandler={() => setOpenWizrad(true)}
                         text1={CREATE_TXT1}
                         text2={CREATE_TXT2}
                         btnText={CREATE_BTN_TXT}
@@ -76,6 +61,35 @@ function CreatePage() {
                         <VersionSelect />
                     </Stack>
 
+                    <Stack
+                        sx={welcomeMsgStackStyle}
+                        direction={"row"}
+                        spacing={2}
+                        alignItems={"center"}
+                        justifyContent={"center"}
+                        alignContent={"center"}
+                    >
+                        <Chip label="Warning" color="error" />
+
+                        <Typography
+                            variant="body1"
+                            sx={{
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Using jspsych 6.3 verion? Click Here for the
+                            required steps
+                        </Typography>
+                        <Button
+                            variant="contained"
+                            onClick={() =>
+                                router.replace("Version6SupportSteps")
+                            }
+                        >
+                            jsPsych 6.3 support
+                        </Button>
+                    </Stack>
+
                     <SurveysList />
                     <Stack
                         sx={welcomeMsgStackStyle}
@@ -85,7 +99,7 @@ function CreatePage() {
                     >
                         <Button
                             sx={pageButtonStyle}
-                            onClick={openDownloadDialog}
+                            onClick={() => setOpenDownload(true)}
                         >
                             {CREATE_DOWNLOAF_BTN_TXT}
                         </Button>
