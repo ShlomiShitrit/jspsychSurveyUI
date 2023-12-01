@@ -32,6 +32,8 @@ export {
     Checkbox,
     IconButton,
     Tooltip,
+    Chip,
+    Link,
     tooltipClasses,
 } from "@mui/material";
 export type { TooltipProps } from "@mui/material";
