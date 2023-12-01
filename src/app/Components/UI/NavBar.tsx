@@ -17,16 +17,12 @@ import {
     APP_BAR_POSITION,
     BTN_HREF,
     HOME_BTN_TEXT,
-    DOCS_BTN_TEXT,
-    EXTRA_BTN_TEXT,
     CREATE_SURVEY_TEXT,
 } from "@/app/General/Resources/UIRes";
 
 function NavBar() {
     const btnArr = [
         { href: BTN_HREF.default, text: HOME_BTN_TEXT },
-        { href: BTN_HREF.docs, text: DOCS_BTN_TEXT },
-        { href: BTN_HREF.extra, text: EXTRA_BTN_TEXT },
         { href: BTN_HREF.create, text: CREATE_SURVEY_TEXT },
     ];
     return (
