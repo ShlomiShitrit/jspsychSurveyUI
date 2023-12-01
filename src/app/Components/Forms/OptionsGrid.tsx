@@ -3,27 +3,23 @@ import { Grid } from "@/app/General/muiComponents";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import { OptionsGridProps } from "@/app/General/interfaces";
 import {
-    GRID_CONT_SPAC_2,
     GRID_ITEM_12,
     GRID_ITEM_6,
     GRID_ITEM_4,
 } from "@/app/General/constants";
-import {
-    OPTIONS_GRID_EMPTY_STR,
-    OPTIONS_GRID_INPUT_TYPE,
-} from "@/app/General/Resources/FormsRes";
+import { OPTIONS_GRID_INPUT_TYPE } from "@/app/General/Resources/FormsRes";
 
 function OptionsGrid({
-    optionsQ = [],
-    optionsQChangeHandler = () => () => null,
-    optionsArray = [],
-    labelText = OPTIONS_GRID_EMPTY_STR,
-    errorId = OPTIONS_GRID_EMPTY_STR,
-    newErrors = [],
+    optionsQ,
+    optionsQChangeHandler,
+    optionsArray,
+    labelText,
+    errorId,
+    newErrors,
 }: OptionsGridProps) {
     return (
         //  TODO: move to constants
-        <Grid container spacing={1}> 
+        <Grid container spacing={1}>
             {optionsArray.map((optionIndex) => (
                 <Grid
                     item

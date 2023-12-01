@@ -2,29 +2,15 @@
 import { useSelector } from "react-redux";
 import { TextField } from "@/app/General/muiComponents";
 import { replaceFirstAndLast } from "@/app/General/utils";
-import {
-    InputTextFieldProps,
-    MultiChoiceQuestion,
-    LikertQuestion,
-    TextSurveyQuestion,
-} from "@/app/General/interfaces";
+import { InputTextFieldProps } from "@/app/General/interfaces";
 import { formTxtFieldStyle } from "@/app/General/styles";
 import { RootState } from "@/app/store/index";
-
-import {
-    FORM_ID_PROP_DEFAULT_0,
-    FORM_INPUT_INDEX_0,
-    FORM_INPUT_ID_PLUS_1,
-} from "@/app/General/constants";
+import { FORM_INPUT_ID_PLUS_1 } from "@/app/General/constants";
 import {
     EMPTY_STRING,
-    MULTI_CHOICE_STYPE,
     LIKERT_STYPE,
-    ERROR_SURVEY_TYPE_MSG,
     TEXTFIELD_VARIANT,
     INPUT_TYPE_OPTIONSQ,
-    MULTI_SELECT_STYPE,
-    TEXT_STYPE,
 } from "@/app/General/Resources/FormsRes";
 
 function InputTextField({
@@ -40,8 +26,9 @@ function InputTextField({
         (state: RootState) => state.stype.surveyType
     );
     const newState =
-        inputType === INPUT_TYPE_OPTIONSQ || surveyType === LIKERT_STYPE
-            ? replaceFirstAndLast(state, EMPTY_STRING, EMPTY_STRING)
+        (state && inputType === INPUT_TYPE_OPTIONSQ) ||
+        surveyType === LIKERT_STYPE
+            ? replaceFirstAndLast(state || EMPTY_STRING)
             : state;
 
     const labelId =
