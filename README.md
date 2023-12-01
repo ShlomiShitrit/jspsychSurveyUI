@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# jspsychSurveyUI
 
-## Getting Started
+![Project Image](https://i.ibb.co/sP4D9jK/survey.png)
 
-First, run the development server:
+A UI for generating surveys using the jsPsych library, implemented with Next.js. The backend, built with C# in ASP.NET, will be incorporated in the future for creating users and saving progress.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun run dev
-```
+## Table of Contents
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [Description](#description)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Backend Integration (Future)](#backend-integration-future)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Description
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+jspsychSurveyUI is a front-end application developed with Next.js to create surveys using the jsPsych library. While the current version doesn't have a functional backend, plans include integrating a backend developed in C# using ASP.NET to manage user authentication and survey progress saving.
 
-## Learn More
+## Features
 
-To learn more about Next.js, take a look at the following resources:
+- **Survey Generation:** Utilizes the jsPsych library to create dynamic surveys.
+- **Next.js Framework:** Utilizes the benefits of Next.js for efficient rendering and routing.
+- **Planned Backend Integration:** Future implementation to handle user creation and progress saving.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies Used
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Next.js:** React framework for the front-end application.
+- **jsPsych:** Library for creating behavioral experiments in a web browser.
+- **Future Backend (C# in ASP.NET):** Planned backend for user management and data storage.
 
-## Deploy on Vercel
+## Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Clone the repository: `git clone https://github.com/ShlomiShitrit/jspsychSurveyUI.git`
+2. Navigate to the project directory: `cd jspsychSurveyUI`
+3. Install dependencies: `npm install`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Usage
+
+1. Run the application locally: `npm run dev`
+2. Access the application in your browser at `http://localhost:3000`
+
+## Backend Integration (Future)
+
+Future plans involve integrating a backend built with C# in ASP.NET for user authentication, user creation, and progress saving.
+
