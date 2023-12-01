@@ -1,15 +1,13 @@
-import { useState, ChangeEvent, useEffect, Fragment } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "@/app/store/index";
+import { ChangeEvent, Fragment } from "react";
+import useSurveyForm from "@/app/hooks/useSurveyForm";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
 import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
-import useInputError from "@/app/hooks/use-input-error";
+import useInputError from "@/app/hooks/useInputError";
 import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import {
-    EMPTY_STR,
     TEXT_NAMEQ,
     TEXT_PROMPTQ,
     TEXT_PROMPT_LABEL,
@@ -21,50 +19,29 @@ import {
     TEXT_STYPE,
     TOOLTIP_TEXT,
 } from "@/app/General/Resources/FormsRes";
-import { FORM_ID_PROP_DEFAULT_0 } from "@/app/General/constants";
 
 function TextSurveyForm<T extends QuestionType>({
-    id = FORM_ID_PROP_DEFAULT_0,
-    questionsChangeHandler = () => null,
-    inputErrorsHandler = () => null,
-    newErrors = [],
-    isInputErrorHandler = () => null,
-    emptyInputErrors = () => null,
-    emptyNewErrors = () => null,
+    id,
+    questionsChangeHandler,
+    inputErrorsHandler,
+    newErrors,
+    isInputErrorHandler,
+    emptyInputErrors,
+    emptyNewErrors,
 }: SurveyFormProps<T>) {
-    const [prompt, setPrompt] = useState(EMPTY_STR);
-    const [placeHolder, setPlaceHolder] = useState(EMPTY_STR);
-    const [name, setName] = useState(EMPTY_STR);
-    const [required, setRequired] = useState(false);
+    const { textValues } = useSurveyForm<T>(id, questionsChangeHandler);
 
-    const surveyType = useSelector(
-        (state: RootState) => state.stype.surveyType
-    );
-
-    const promptChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPrompt(e.target.value);
-    };
-    const placeHolderChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPlaceHolder(e.target.value);
-    };
-    const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-    };
-    const requiredChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setRequired(e.target.checked);
-    };
-
-    const QuestionData = {
-        index: id,
-        promptQ: prompt,
-        nameQ: name,
-        required: required,
-        placeHolder: placeHolder,
-    };
-
-    useEffect(() => {
-        questionsChangeHandler(id, QuestionData as T);
-    }, [QuestionData]);
+    const {
+        prompt,
+        placeHolder,
+        name,
+        surveyType,
+        required,
+        setPrompt,
+        setName,
+        setPlaceHolder,
+        setRequired,
+    } = textValues;
 
     useInputError(
         emptyInputErrors,
@@ -83,21 +60,24 @@ function TextSurveyForm<T extends QuestionType>({
             state: prompt,
             label: TEXT_PROMPT_LABEL,
             type: TEXT_PROMPTQ,
-            stateHandler: promptChangeHandler,
+            stateHandler: (e: ChangeEvent<HTMLInputElement>) =>
+                setPrompt(e.target.value),
             tooltipText: TOOLTIP_TEXT.prompt,
         },
         {
             state: placeHolder,
             label: TEXT_PLACEHOLDER_LABEL,
             type: TEXT_PROMPTQ,
-            stateHandler: placeHolderChangeHandler,
+            stateHandler: (e: ChangeEvent<HTMLInputElement>) =>
+                setPlaceHolder(e.target.value),
             tooltipText: TOOLTIP_TEXT.placeholder,
         },
         {
             state: name,
             label: TEXT_NAME_LABEL,
             type: TEXT_NAMEQ,
-            stateHandler: nameChangeHandler,
+            stateHandler: (e: ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value),
             tooltipText: TOOLTIP_TEXT.name,
         },
     ];
@@ -126,7 +106,9 @@ function TextSurveyForm<T extends QuestionType>({
                 <Box sx={{ flex: 1 }}>
                     <SwitchLabel
                         isState={required}
-                        stateHandler={requiredChangeHandler}
+                        stateHandler={(e: ChangeEvent<HTMLInputElement>) =>
+                            setRequired(e.target.checked)
+                        }
                         labelText={TEXT_SWITCH_LABEL}
                     />
                     <CustomTooltip title={TOOLTIP_TEXT.switchLabelRequired} />
