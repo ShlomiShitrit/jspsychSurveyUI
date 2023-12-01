@@ -7,23 +7,21 @@ import {
     PROMPT_GRID_INPUT_TYPE_PROMPT,
     PROMPT_GRID_LABEL_PROMPT,
     PROMPT_GRID_LABEL_NAME,
-    PROMPT_GRID_EMPTY_STR,
 } from "@/app/General/Resources/FormsRes";
 import {
-    GRID_CONT_SPAC_2,
     GRID_ITEM_12,
     GRID_ITEM_6,
     GRID_ITEM_4,
 } from "@/app/General/constants";
 
 function PromptGrid({
-    optionsQ = [],
-    optionsQChangeHandler = () => () => null,
-    optionsArray = [],
-    namesQ = [],
-    nameQChangeHandler = () => () => null,
-    errorId = { prompt: PROMPT_GRID_EMPTY_STR, name: PROMPT_GRID_EMPTY_STR },
-    newErrors = [],
+    optionsQ,
+    optionsQChangeHandler,
+    optionsArray,
+    namesQ,
+    nameQChangeHandler,
+    errorId,
+    newErrors,
 }: PromptsGridProps) {
     return (
         // TODO: move to constants

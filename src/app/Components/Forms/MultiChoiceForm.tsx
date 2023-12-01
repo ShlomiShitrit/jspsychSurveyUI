@@ -1,27 +1,19 @@
 "use client";
-import { useState, ChangeEvent, useEffect, Fragment } from "react";
-import { useSelector } from "react-redux";
+import { ChangeEvent, Fragment } from "react";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
-
+import useSurveyForm from "@/app/hooks/useSurveyForm";
 import OptionsGrid from "@/app/Components/Forms/OptionsGrid";
 import OptionBtn from "@/app/Components/Forms/OptionBtn";
 import InputTextField from "@/app/Components/Forms/InputTextField";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
-import { RootState } from "@/app/store/index";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
 import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
-import useInputError from "@/app/hooks/use-input-error";
+import useInputError from "@/app/hooks/useInputError";
 import CustomTooltip from "@/app/Components/UI/CustomTooltip";
-import {
-    FORM_NUM_ARR_STATE_DEFAULT,
-    FORM_COUNTER_STATE_DEFAULT_2,
-    FORM_COUNTER_PLUS_1,
-    FORM_ID_PROP_DEFAULT_0,
-} from "@/app/General/constants";
+import { FORM_ID_PROP_DEFAULT_0 } from "@/app/General/constants";
 import {
     FIRST_FORM_LABEL,
     SECOND_FORM_LABEL,
-    MC_EMPTY_STRING,
     OPTION_OPTION_GRID_LABEL,
     REQUIRED_SWITCH_LABEL,
     HORIZONTAL_SWITCH_LABEL,
@@ -35,90 +27,42 @@ import {
 } from "@/app/General/Resources/FormsRes";
 
 function MultiChoiceForm<T extends QuestionType>({
-    questionsChangeHandler = () => null,
-    id = FORM_ID_PROP_DEFAULT_0,
-    inputErrorsHandler = () => null,
-    newErrors = [],
-    isInputErrorHandler = () => null,
-    emptyInputErrors = () => null,
-    emptyNewErrors = () => null,
+    questionsChangeHandler,
+    id,
+    inputErrorsHandler,
+    newErrors,
+    isInputErrorHandler,
+    emptyInputErrors,
+    emptyNewErrors,
 }: SurveyFormProps<T>) {
-    const [promptQ, setPromptQ] = useState(MC_EMPTY_STRING);
-    const [nameQ, setNameQ] = useState(MC_EMPTY_STRING);
-    const [optionsArrQ, setOptionsArrQ] = useState<string[]>([]);
-    const [optionsCount, setOptionsCount] = useState(
-        FORM_COUNTER_STATE_DEFAULT_2
-    );
-    const [optionsArray, setOptionsArray] = useState<number[]>(
-        FORM_NUM_ARR_STATE_DEFAULT
-    );
-    const [required, setRequired] = useState(true);
-    const [horizontal, setHorizontal] = useState(false);
-    const surveyType = useSelector(
-        (state: RootState) => state.stype.surveyType
-    );
+    const { multiChoiceValues } = useSurveyForm<T>(id, questionsChangeHandler);
 
-    const promptQChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setPromptQ(e.target.value);
-    };
-    const nameQChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNameQ(e.target.value);
-    };
-
-    const optionsQArrChangeHandler =
-        (index: number) => (e: ChangeEvent<HTMLInputElement>) => {
-            const updatedOptions = [...optionsArrQ];
-            updatedOptions[index] = `'${e.target.value}'`;
-            setOptionsArrQ(updatedOptions);
-        };
-
-    const addOption = () => {
-        setOptionsCount(optionsCount + FORM_COUNTER_PLUS_1);
-        setOptionsArray([...optionsArray, optionsCount]);
-    };
-
-    const removeOption = () => {
-        if (optionsCount === FORM_COUNTER_STATE_DEFAULT_2) return;
-        const updatedOptions = [...optionsArrQ];
-        updatedOptions.pop();
-        setOptionsArrQ(updatedOptions);
-        const updatedOptionsArray = [...optionsArray];
-        updatedOptionsArray.pop();
-        setOptionsArray(updatedOptionsArray);
-        setOptionsCount(optionsCount - FORM_COUNTER_PLUS_1);
-    };
-
-    const requiredSwitchChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setRequired(e.target.checked);
-    };
-
-    const horizontalSwitchChangeHandler = (
-        e: ChangeEvent<HTMLInputElement>
-    ) => {
-        setHorizontal(e.target.checked);
-    };
-
-    const QuestionData = {
-        index: id,
-        promptQ: promptQ,
-        nameQ: nameQ,
-        optionsQ: optionsArrQ,
-        required: required,
-        horizontal: horizontal,
-    };
-
-    useEffect(() => {
-        questionsChangeHandler(id, QuestionData as T);
-    }, [QuestionData]);
+    const {
+        name,
+        optionsArray,
+        required,
+        horizontal,
+        prompt,
+        options,
+        surveyType,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompt,
+        setOptions,
+        setName,
+        setRequired,
+        setHorizontal,
+    } = multiChoiceValues;
 
     useInputError(
         emptyInputErrors,
         emptyNewErrors,
         isInputErrorHandler,
         inputErrorsHandler,
-        promptQ,
-        nameQ,
-        optionsArrQ,
+        prompt,
+        name,
+        options,
         id,
         MULTI_CHOICE_STYPE
     );
@@ -126,13 +70,15 @@ function MultiChoiceForm<T extends QuestionType>({
     const switchLabelArr = [
         {
             state: required,
-            stateHandler: requiredSwitchChangeHandler,
+            stateHandler: (e: ChangeEvent<HTMLInputElement>) =>
+                setRequired(e.target.checked),
             text: REQUIRED_SWITCH_LABEL,
             tooltipText: TOOLTIP_TEXT.switchLabelRequired,
         },
         {
             state: horizontal,
-            stateHandler: horizontalSwitchChangeHandler,
+            stateHandler: (e: ChangeEvent<HTMLInputElement>) =>
+                setHorizontal(e.target.checked),
             text: HORIZONTAL_SWITCH_LABEL,
             tooltipText: TOOLTIP_TEXT.switchLabelHorizontal,
         },
@@ -141,16 +87,18 @@ function MultiChoiceForm<T extends QuestionType>({
     const inputFieldArr = [
         {
             id: FORM_ID_PROP_DEFAULT_0,
-            state: promptQ,
-            stateHandler: promptQChangeHandler,
+            state: prompt,
+            stateHandler: (e: ChangeEvent<HTMLInputElement>) =>
+                setPrompt(e.target.value),
             labelText: LABEL_PROMPT,
             inputType: INPUT_TYPE_PROMPT,
             tooltipText: TOOLTIP_TEXT.prompt,
         },
         {
             id: FORM_ID_PROP_DEFAULT_0,
-            state: nameQ,
-            stateHandler: nameQChangeHandler,
+            state: name,
+            stateHandler: (e: ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value),
             labelText: LABEL_NAME,
             inputType: INPUT_TYPE_NAME,
             tooltipText: TOOLTIP_TEXT.name,
@@ -183,15 +131,15 @@ function MultiChoiceForm<T extends QuestionType>({
                     newErrors={newErrors}
                     errorId={`${id}${INPUT_ERR_ID_2}`}
                     labelText={OPTION_OPTION_GRID_LABEL}
-                    optionsQ={optionsArrQ}
-                    optionsQChangeHandler={optionsQArrChangeHandler}
+                    optionsQ={options}
+                    optionsQChangeHandler={stateHandler(options, setOptions)}
                     optionsArray={optionsArray}
                 />
                 <Box
                     sx={{ display: "flex", flexDirection: "row", gap: "10px" }}
                 >
-                    <OptionBtn optionHandler={addOption} isAdd={true} />
-                    <OptionBtn optionHandler={removeOption} isAdd={false} />
+                    <OptionBtn optionHandler={addInput} isAdd={true} />
+                    <OptionBtn optionHandler={removeInput} isAdd={false} />
                 </Box>
                 {switchLabelArr.map((switchLabel, index) => (
                     // TODO: move to constants

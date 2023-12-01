@@ -1,52 +1,27 @@
 "use client";
-import { useState, useEffect, Fragment } from "react";
 import { Grid, Button } from "@/app/General/muiComponents";
-import {
-    STYPE_COUNTER_STATE_DEFAULT_1,
-    STYPE_ARRAY_STATE_DEFAULT_0,
-    STYPE_COUNTER_PLUS_1,
-    GRID_CONT_SPAC_2,
-    GRID_ITEM_12,
-} from "@/app/General/constants";
+import useSurveyType from "@/app/hooks/useSurveyType";
+import LikertForm from "@/app/Components/Forms/LikertForm";
+import { GRID_CONT_SPAC_2, GRID_ITEM_12 } from "@/app/General/constants";
 import {
     ADD_BTN_VARIANT,
     ADD_BTN_TXT,
 } from "@/app/General/Resources/SurveyTypesRes";
-import {
-    SurveyTypeProps,
-    LikertQuestion,
-    QuestionTypeArr,
-} from "@/app/General/interfaces";
-import LikertForm from "@/app/Components/Forms/LikertForm";
-import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
+import { SurveyTypeProps, LikertQuestion } from "@/app/General/interfaces";
 
 function Likert({
-    onSurveyParams = () => null,
-    inputErrorsHandler = () => null,
-    newErrors = [],
-    isInputErrorHandler = () => null,
-    emptyInputErrors = () => null,
-    emptyNewErrors = () => null,
+    onSurveyParams,
+    inputErrorsHandler,
+    newErrors,
+    isInputErrorHandler,
+    emptyInputErrors,
+    emptyNewErrors,
 }: SurveyTypeProps) {
-    const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
-    const [formsArray, setFormsArray] = useState<number[]>(
-        STYPE_ARRAY_STATE_DEFAULT_0
-    );
-
-    const { questions, questionsChangeHandler } =
-        useQuestionsChangeHandler<LikertQuestion>([]);
-
-    const addForm = () => {
-        setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
-        setFormsArray([...formsArray, formsCount]);
-    };
-
-    useEffect(() => {
-        onSurveyParams(questions);
-    }, [questions]);
+    const { questionsChangeHandler, formsArray, addForm } =
+        useSurveyType<LikertQuestion>(onSurveyParams);
 
     return (
-        <Fragment>
+        <>
             <Grid container spacing={GRID_CONT_SPAC_2}>
                 {formsArray.map((optionIndex) => (
                     <Grid
@@ -71,7 +46,7 @@ function Likert({
             <Button variant={ADD_BTN_VARIANT} onClick={addForm}>
                 {ADD_BTN_TXT}
             </Button>
-        </Fragment>
+        </>
     );
 }
 

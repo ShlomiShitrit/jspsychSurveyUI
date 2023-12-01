@@ -1,25 +1,15 @@
 "use client";
-import React, { useState, ChangeEvent, useEffect } from "react";
+import React, { ChangeEvent } from "react";
 import { FormControl, FormLabel, Box } from "@/app/General/muiComponents";
-import { useSelector } from "react-redux";
-
+import useSurveyForm from "@/app/hooks/useSurveyForm";
 import OptionsGrid from "@/app/Components/Forms/OptionsGrid";
 import OptionBtn from "@/app/Components/Forms/OptionBtn";
 import PromptGrid from "@/app/Components/Forms/PromptGrid";
-import { RootState } from "@/app/store/index";
 import SwitchLabel from "@/app/Components/Forms/SwitchLabel";
 import { SurveyFormProps, QuestionType } from "@/app/General/interfaces";
 import { matgin10Style, margin15Style } from "@/app/General/styles";
-import useInputError from "@/app/hooks/use-input-error";
+import useInputError from "@/app/hooks/useInputError";
 import CustomTooltip from "@/app/Components/UI/CustomTooltip";
-import {
-    FORM_NUM_ARR_STATE_DEFAULT,
-    FORM_COUNTER_STATE_DEFAULT_2,
-    FORM_COUNTER_PLUS_1,
-    FORM_COUNTER_STATE_DEFAULT_1,
-    FORM_ARRAY_STATE_DEFAULT_0,
-    FORM_ID_PROP_DEFAULT_0,
-} from "@/app/General/constants";
 import {
     FIRST_FORM_LABEL,
     SECOND_FORM_LABEL,
@@ -33,109 +23,42 @@ import {
 } from "@/app/General/Resources/FormsRes";
 
 function LikertForm<T extends QuestionType>({
-    questionsChangeHandler = () => null,
-    id = FORM_ID_PROP_DEFAULT_0,
-    inputErrorsHandler = () => null,
-    newErrors = [],
-    isInputErrorHandler = () => null,
-    emptyInputErrors = () => null,
-    emptyNewErrors = () => null,
+    questionsChangeHandler,
+    id,
+    inputErrorsHandler,
+    newErrors,
+    isInputErrorHandler,
+    emptyInputErrors,
+    emptyNewErrors,
 }: SurveyFormProps<T>) {
-    const [optionsQ, setOptionsQ] = useState<string[]>([]);
-    const [optionsCount, setOptionsCount] = useState(
-        FORM_COUNTER_STATE_DEFAULT_2
-    );
-    const [optionsArray, setOptionsArray] = useState<number[]>(
-        FORM_NUM_ARR_STATE_DEFAULT
-    );
-    const [promptsQ, setPromptsQ] = useState<string[]>([]);
-    const [promptsCount, setPromptsCount] = useState(1);
-    const [promptsArray, setPromptsArray] = useState<number[]>([0]);
-    const [namesQ, setNamesQ] = useState<string[]>([]);
-    const [nameCount, setNameCount] = useState(1);
-    const [nameArray, setNameArray] = useState<number[]>([0]);
-    const [randomQ, setRandomQ] = useState(false);
-    const surveyType = useSelector(
-        (state: RootState) => state.stype.surveyType
-    );
+    const { likertValues } = useSurveyForm<T>(id, questionsChangeHandler);
 
-    const stateQHandler =
-        (
-            arrayQ: string[],
-            setArrayQ: (value: React.SetStateAction<string[]>) => void
-        ) =>
-        (index: number) =>
-        (e: ChangeEvent<HTMLInputElement>) => {
-            const updatedArray = [...arrayQ];
-            updatedArray[index] = `'${e.target.value}'`;
-            setArrayQ(updatedArray);
-        };
-
-    const addInput = (option: boolean = true) => {
-        if (option) {
-            setOptionsCount(optionsCount + FORM_COUNTER_PLUS_1);
-            setOptionsArray([...optionsArray, optionsCount]);
-        } else {
-            setPromptsCount(promptsCount + FORM_COUNTER_PLUS_1);
-            setPromptsArray([...promptsArray, promptsCount]);
-            setNameCount(nameCount + FORM_COUNTER_PLUS_1);
-            setNameArray([...nameArray, nameCount]);
-        }
-    };
-
-    const removeInput = (option: boolean = true) => {
-        if (option) {
-            if (optionsCount === FORM_COUNTER_STATE_DEFAULT_2) return;
-            const updatedOptions = [...optionsQ];
-            updatedOptions.pop();
-            setOptionsQ(updatedOptions);
-            const updatedOptionsArray = [...optionsArray];
-            updatedOptionsArray.pop();
-            setOptionsArray(updatedOptionsArray);
-            setOptionsCount(optionsCount - FORM_COUNTER_PLUS_1);
-        } else {
-            if (promptsCount === FORM_COUNTER_STATE_DEFAULT_1) return;
-            const updatedPrompts = [...promptsQ];
-            updatedPrompts.pop();
-            setPromptsQ(updatedPrompts);
-            const updatedPromptsArray = [...promptsArray];
-            updatedPromptsArray.pop();
-            setPromptsArray(updatedPromptsArray);
-            setPromptsCount(promptsCount - FORM_COUNTER_PLUS_1);
-            const updatedNames = [...namesQ];
-            updatedNames.pop();
-            setNamesQ(updatedNames);
-            const updatedNamesArray = [...nameArray];
-            updatedNamesArray.pop();
-            setNameArray(updatedNamesArray);
-            setNameCount(nameCount - FORM_COUNTER_PLUS_1);
-        }
-    };
-
-    const randomChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setRandomQ(e.target.checked);
-    };
-
-    const QuestionData = {
-        index: id,
-        promptQ: promptsQ,
-        nameQ: namesQ,
-        optionsQ: optionsQ,
-        randomQ: randomQ,
-    };
-
-    useEffect(() => {
-        questionsChangeHandler(id, QuestionData as T);
-    }, [QuestionData]);
+    const {
+        prompts,
+        names,
+        options,
+        surveyType,
+        optionsArray,
+        promptsArray,
+        nameArray,
+        random,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompts,
+        setRandom,
+        setOptions,
+        setNames,
+    } = likertValues;
 
     useInputError(
         emptyInputErrors,
         emptyNewErrors,
         isInputErrorHandler,
         inputErrorsHandler,
-        promptsQ,
-        namesQ,
-        optionsQ,
+        prompts,
+        names,
+        options,
         id,
         LIKERT_STYPE
     );
@@ -158,8 +81,8 @@ function LikertForm<T extends QuestionType>({
                     newErrors={newErrors}
                     errorId={`${id}${INPUT_ERR_ID_2}`}
                     labelText={LABEL_OPTION_GRID_LABEL}
-                    optionsQ={optionsQ}
-                    optionsQChangeHandler={stateQHandler(optionsQ, setOptionsQ)}
+                    optionsQ={options}
+                    optionsQChangeHandler={stateHandler(options, setOptions)}
                     optionsArray={optionsArray}
                 />
                 {/* TODO: move to styles */}
@@ -174,11 +97,11 @@ function LikertForm<T extends QuestionType>({
                 <PromptGrid
                     newErrors={newErrors}
                     errorId={promptGridErrorIds}
-                    optionsQ={promptsQ}
-                    optionsQChangeHandler={stateQHandler(promptsQ, setPromptsQ)}
+                    optionsQ={prompts}
+                    optionsQChangeHandler={stateHandler(prompts, setPrompts)}
                     optionsArray={promptsArray}
-                    namesQ={namesQ}
-                    nameQChangeHandler={stateQHandler(namesQ, setNamesQ)}
+                    namesQ={names}
+                    nameQChangeHandler={stateHandler(names, setNames)}
                     nameArray={nameArray}
                 />
                 {/* TODO: move to styles */}
@@ -198,8 +121,10 @@ function LikertForm<T extends QuestionType>({
                 <Box sx={{ flex: 1 }}>
                     <SwitchLabel
                         labelText={RANDOM_SWITCH_LABEL}
-                        isState={randomQ}
-                        stateHandler={randomChangeHandler}
+                        isState={random}
+                        stateHandler={(e: ChangeEvent<HTMLInputElement>) =>
+                            setRandom(e.target.checked)
+                        }
                     />
                     <CustomTooltip title={TOOLTIP_TEXT.random} />
                 </Box>

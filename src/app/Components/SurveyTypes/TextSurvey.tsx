@@ -1,24 +1,19 @@
-import { Fragment, useState, useEffect, ChangeEvent } from "react";
+"use client";
+import { useState, useEffect, ChangeEvent } from "react";
 import TextSurveyForm from "@/app/Components/Forms/TextSurveyForm";
 import { Grid, Button, Typography } from "@/app/General/muiComponents";
 import CustomTooltip from "@/app/Components/UI/CustomTooltip";
 import Preamble from "@/app/Components/Forms/Preamble";
+import useSurveyType from "@/app/hooks/useSurveyType";
 import {
     TextSurveyQuestion,
     Step2AndTextSurveyProps,
 } from "@/app/General/interfaces";
-import useQuestionsChangeHandler from "@/app/hooks/use-questions-change-handler";
 import {
     ADD_BTN_TXT,
     ADD_BTN_VARIANT,
 } from "@/app/General/Resources/SurveyTypesRes";
-import {
-    GRID_ITEM_12,
-    GRID_CONT_SPAC_2,
-    STYPE_ARRAY_STATE_DEFAULT_0,
-    STYPE_COUNTER_STATE_DEFAULT_1,
-    STYPE_COUNTER_PLUS_1,
-} from "@/app/General/constants";
+import { GRID_ITEM_12, GRID_CONT_SPAC_2 } from "@/app/General/constants";
 
 function TextSurvey({
     onSurveyParams,
@@ -29,10 +24,9 @@ function TextSurvey({
     emptyNewErrors,
     textPreambleHandler,
 }: Step2AndTextSurveyProps) {
-    const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
-    const [formsArray, setFormsArray] = useState<number[]>(
-        STYPE_ARRAY_STATE_DEFAULT_0
-    );
+    const { questionsChangeHandler, formsArray, addForm } =
+        useSurveyType<TextSurveyQuestion>(onSurveyParams);
+
     const [preamble, setPreamble] = useState("");
     const [isImage, setIsImage] = useState(false);
     const [finalPreamble, setFinalPreamble] = useState("");
@@ -47,21 +41,12 @@ function TextSurvey({
         setFinalPreamble(newValue);
     }, [isImage, preamble]);
 
-    const { questions, questionsChangeHandler } =
-        useQuestionsChangeHandler<TextSurveyQuestion>([]);
-
-    const addForm = () => {
-        setFormsCount((prevState) => prevState + STYPE_COUNTER_PLUS_1);
-        setFormsArray([...formsArray, formsCount]);
-    };
-
     useEffect(() => {
-        onSurveyParams(questions);
         textPreambleHandler(finalPreamble);
-    }, [questions, finalPreamble]);
+    }, [finalPreamble]);
 
     return (
-        <Fragment>
+        <>
             <br />
             <Typography variant="body1" component="h6">
                 {"Choose preamble (optional):"}
@@ -105,7 +90,7 @@ function TextSurvey({
             <Button variant={ADD_BTN_VARIANT} onClick={addForm}>
                 {ADD_BTN_TXT}
             </Button>
-        </Fragment>
+        </>
     );
 }
 
