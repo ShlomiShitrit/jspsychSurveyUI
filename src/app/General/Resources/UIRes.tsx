@@ -10,8 +10,6 @@ export const BTN_HREF = {
     create: "CreatePage",
 };
 export const HOME_BTN_TEXT = "Home";
-export const DOCS_BTN_TEXT = "Docs";
-export const EXTRA_BTN_TEXT = "Extra";
 export const CREATE_SURVEY_TEXT = "Create Survey";
 
 // WelcomeMsg.tsx
