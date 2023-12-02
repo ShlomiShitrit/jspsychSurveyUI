@@ -12,12 +12,6 @@
     padding: 4rem 0;
 }
 
-.steps {
-    background: linear-gradient(45deg, #2196f3 30%, #21cbf3 90%);
-    color: white;
-    padding: 4rem 20rem;
-}
-
 .header {
     font-size: 3rem;
     margin-bottom: 1.5rem;
