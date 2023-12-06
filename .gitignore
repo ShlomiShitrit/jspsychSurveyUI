@@ -35,3 +35,50 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Visual Studio files
+.vs/
+*.vscode/
+*.sln
+*.suo
+*.cache
+*.user
+*.userprefs
+*.log
+
+# Build results
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.log
+*.config
+
+# Package files
+packages/
+*.nupkg
+*.paket.restore.log
+*.paket.references
+paket-files/
+
+# NuGet
+*.nuget.props
+*.nuget.targets
+
+# User-specific files
+*.DS_Store
+thumbs.db
+*.user
+
+# OS generated files
+.DS_Store
+ehthumbs.db
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+desktop.ini
+
+# Visual Studio Code settings
+.vscode/
