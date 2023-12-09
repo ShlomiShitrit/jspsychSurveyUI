@@ -6,7 +6,8 @@ import MultiChoice from "@/app/Components/SurveyTypes/MultiChoice";
 import TextSurvey from "@/app/Components/SurveyTypes/TextSurvey";
 import Likert from "@/app/Components/SurveyTypes/Likert";
 import MultiSelect from "@/app/Components/SurveyTypes/MultiSelect";
-import { Step2AndTextSurveyProps, MultiChoiceQuestion } from "@/app/General/interfaces";
+import HtmlSurvey from "@/app/Components/SurveyTypes/HtmlSurvey";
+import { Step2AndTextSurveyProps } from "@/app/General/interfaces";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import {
     MULTI_CHOICE_SURVEY_TYPE,
@@ -66,6 +67,17 @@ function Step2({
         case MULTI_SELECT_SURVEY_TYPE:
             return (
                 <MultiSelect
+                    onSurveyParams={onSurveyParams}
+                    inputErrorsHandler={inputErrorsHandler}
+                    newErrors={newErrors}
+                    isInputErrorHandler={isInputErrorHandler}
+                    emptyInputErrors={emptyInputErrors}
+                    emptyNewErrors={emptyNewErrors}
+                />
+            );
+        case "html":
+            return (
+                <HtmlSurvey
                     onSurveyParams={onSurveyParams}
                     inputErrorsHandler={inputErrorsHandler}
                     newErrors={newErrors}

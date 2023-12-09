@@ -1,5 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store/index";
 import useQuestionsChangeHandler from "@/app/hooks/useQuestionsChangeHandler";
 import { QuestionType } from "@/app/General/interfaces";
 import {
@@ -11,6 +13,10 @@ import {
 export default function useSurveyType<T extends QuestionType>(
     onSurveyParams: (params: T[]) => void
 ) {
+    const surveyType = useSelector(
+        (state: RootState) => state.stype.surveyType
+    );
+
     const [formsCount, setFormsCount] = useState(STYPE_COUNTER_STATE_DEFAULT_1);
     const [formsArray, setFormsArray] = useState<number[]>(
         STYPE_ARRAY_STATE_DEFAULT_0

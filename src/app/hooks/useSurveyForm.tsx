@@ -40,6 +40,10 @@ export default function useSurveyForm<T extends QuestionType>(
     const [horizontal, setHorizontal] = useState<boolean>(false);
     const [placeHolder, setPlaceHolder] = useState("");
 
+    const [html, setHtml] = useState<string>("");
+    const [preamble, setPreamble] = useState<string>("");
+    const [buttonLabel, setButtonLabel] = useState<string>("");
+
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
@@ -134,6 +138,14 @@ export default function useSurveyForm<T extends QuestionType>(
                 randomQ: random,
             } as T;
             break;
+        case "html":
+            QuestionData = {
+                index: id,
+                html: html,
+                preamble: preamble,
+                buttonLabel: buttonLabel,
+            } as T;
+            break;
     }
 
     useEffect(() => {
@@ -188,5 +200,15 @@ export default function useSurveyForm<T extends QuestionType>(
         setRequired,
     };
 
-    return { multiChoiceValues, likertValues, textValues };
+    const htmlValues = {
+        html,
+        preamble,
+        buttonLabel,
+        surveyType,
+        setHtml,
+        setPreamble,
+        setButtonLabel,
+    };
+
+    return { multiChoiceValues, likertValues, textValues, htmlValues };
 }
