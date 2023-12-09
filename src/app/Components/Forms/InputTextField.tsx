@@ -28,7 +28,7 @@ function InputTextField({
     const newState =
         (state && inputType === INPUT_TYPE_OPTIONSQ) ||
         surveyType === LIKERT_STYPE
-            ? replaceFirstAndLast(state || EMPTY_STRING)
+            ? replaceFirstAndLast((state as string) || EMPTY_STRING)
             : state;
 
     const labelId =
@@ -50,6 +50,7 @@ function InputTextField({
             value={newState}
             onChange={stateHandler}
             error={hasKey}
+            type={inputType === "number" ? "number" : "text"}
             helperText={hasKey && errorMsg ? errorMsg[errorId] : EMPTY_STRING}
             fullWidth
             required={isRequired}
