@@ -23,6 +23,11 @@ export const TOOLTIP_TEXT = {
         "The prompt is the question that will be asked and the name is name of the question that will be used in the data.",
     preamble:
         "The preamble is the text or the image that will be displayed to the user before the quesation.",
+    html: "The html is the HTML code that will be displayed to the user You need to enter a valid HTML code.",
+    preambleHtml:
+        "The preamble is the text or the image that will be displayed to the user before the quesation. You need to enter a valid HTML code.",
+    buttonLabel:
+        "The button label is the text that will be displayed on the button.",
 };
 
 // DownLoadBtn.tsx

@@ -44,6 +44,7 @@ function InputTextField({
         <TextField
             sx={formTxtFieldStyle}
             id={id.toString()}
+            multiline={inputType === "html"}
             label={labelId}
             variant={TEXTFIELD_VARIANT}
             value={newState}

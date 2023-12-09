@@ -11,6 +11,7 @@ import {
     LikertQuestion,
     TextSurveyQuestion,
     TextSurveyState,
+    HtmlSurveyQuestion,
 } from "@/app/General/interfaces";
 import {
     BLOB_TYPE,
@@ -164,6 +165,31 @@ function DownloadBtn({
                 timeline.push(trial${index});
                 `;
             trialsList.push(trial);
+        } else if (survey.stype === "html") {
+            const params = survey.questions as HtmlSurveyQuestion[];
+            params.forEach((question, ind) => {
+                trial =
+                    jspsychVersion === "7.3"
+                        ? `
+        const trial${index + ind} = {
+            type: jsPsychSurveyHtmlForm,
+            preamble: '${question.preamble}',
+            html: '${question.html}',
+            button_label: '${question.buttonLabel}',
+            };
+            timeline.push(trial${index + ind});
+            `
+                        : `
+            var trial${index + ind} = {
+                type: "survey-html-form",
+                preamble: '${question.preamble}',
+                html: '${question.html}',
+                button_label: '${question.buttonLabel}',
+                };
+                timeline.push(trial${index});
+                `;
+                trialsList.push(trial);
+            });
         } else {
             errorHandler(ERR_MSG_STYPE);
         }
@@ -182,6 +208,7 @@ function DownloadBtn({
             <script src="https://unpkg.com/@jspsych/plugin-survey-likert@1.1.2"></script>
             <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.2"></script>
             <script src="https://unpkg.com/@jspsych/plugin-survey-multi-select@1.1.2"></script>
+            <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@1.0.3"></script>
             <link href="https://unpkg.com/jspsych@7.3.3/css/jspsych.css" rel="stylesheet" type="text/css" />
           </head>
         </head>
@@ -208,6 +235,7 @@ function DownloadBtn({
         <script src="jspsych-6.3.1/plugins/jspsych-survey-multi-choice.js"></script>
         <script src="jspsych-6.3.1/plugins/jspsych-survey-multi-select.js"></script>
         <script src="jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+        <script src="jspsych-6.3.1/plugins/jspsych-survey-html-form.js"></script>
         <link href="jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css">
     </head>
     <body></body>
