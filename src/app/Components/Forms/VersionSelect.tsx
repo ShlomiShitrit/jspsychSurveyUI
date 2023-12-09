@@ -23,9 +23,8 @@ export default function VersionSelect() {
             </Typography>
 
             <Select
+                sx={{ mt: "10px" }}
                 variant="filled"
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
                 value={version}
                 onChange={(e) => setVersion(e.target.value as string)}
             >

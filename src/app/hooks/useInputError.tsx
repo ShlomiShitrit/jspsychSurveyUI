@@ -95,6 +95,28 @@ function useInputError(
                     [`${id}${INPUT_ERR_ID_2}`]: INPUT_ERR_MSG_REQ,
                 };
                 break;
+            case "html":
+                isState1Empty = state1S.trim() === EMPTY_STRING;
+                isState2Empty = state2S.trim() === EMPTY_STRING;
+                isState3Empty = state3S.trim() === EMPTY_STRING;
+
+                errorObj = {
+                    [`${id}${INPUT_ERR_ID_0}`]: INPUT_ERR_MSG_REQ,
+                    [`${id}${INPUT_ERR_ID_1}`]: INPUT_ERR_MSG_REQ,
+                    [`${id}${INPUT_ERR_ID_2}`]: INPUT_ERR_MSG_REQ,
+                };
+                break;
+            case "Likert Scale":
+                isState1Empty = state1S.trim() === EMPTY_STRING;
+                isState2Empty = state2S.trim() === EMPTY_STRING;
+                isState3Empty = state3S.trim() === EMPTY_STRING;
+
+                errorObj = {
+                    [`${id}${INPUT_ERR_ID_0}`]: INPUT_ERR_MSG_PROMPT,
+                    [`${id}${INPUT_ERR_ID_1}`]: INPUT_ERR_MSG_REQ,
+                    [`${id}${INPUT_ERR_ID_2}`]: INPUT_ERR_MSG_REQ,
+                };
+                break;
             default:
                 break;
         }

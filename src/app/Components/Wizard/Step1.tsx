@@ -65,6 +65,16 @@ function Step1() {
                         control={<Radio />}
                         label={LIKERT_CONTROL_LABEL}
                     />
+                    <FormControlLabel
+                        value={"html"}
+                        control={<Radio />}
+                        label={"HTML"}
+                    />
+                    <FormControlLabel
+                        value={"Likert Scale"}
+                        control={<Radio />}
+                        label={"Likert Scale"}
+                    />
                 </RadioGroup>
             </FormControl>
         </Box>

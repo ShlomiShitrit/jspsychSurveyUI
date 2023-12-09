@@ -2,7 +2,7 @@ import { useState } from "react";
 import { QuestionType } from "@/app/General/interfaces";
 
 function useQuestionsChangeHandler<T extends QuestionType>(
-    initialQuestions: T[] = []
+    initialQuestions: T[]
 ) {
     const [questions, setQuestions] = useState<T[]>(initialQuestions);
 
