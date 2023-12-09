@@ -28,6 +28,11 @@ export const TOOLTIP_TEXT = {
         "The preamble is the text or the image that will be displayed to the user before the quesation. You need to enter a valid HTML code.",
     buttonLabel:
         "The button label is the text that will be displayed on the button.",
+    minLabel:
+        "The minimum label is the label that will be the minimum value of the scale.",
+    maxLabel:
+        "The maximum label is the label that will be the maximum value of the scale.",
+    values: "The values are the number of options of the scale.",
 };
 
 // DownLoadBtn.tsx

@@ -9,6 +9,7 @@ import { surveyListSlice } from "@/app/store/surveyListSlice";
 import { textSlice } from "@/app/store/textSlice";
 import { versionSlice } from "@/app/store/versionSlice";
 import { htmlSlice } from "@/app/store/htmlSlice";
+import { likertScaleSlice } from "@/app/store/likertScaleSlice";
 
 const store = configureStore({
     reducer: {
@@ -20,6 +21,7 @@ const store = configureStore({
         text: textSlice.reducer,
         version: versionSlice.reducer,
         html: htmlSlice.reducer,
+        likertScale: likertScaleSlice.reducer,
     },
 });
 

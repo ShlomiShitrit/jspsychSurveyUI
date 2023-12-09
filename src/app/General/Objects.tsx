@@ -4,6 +4,7 @@ import {
     TextSurveyQuestion,
     TextSurveyState,
     HtmlSurveyQuestion,
+    LikertScaleQuestion,
 } from "@/app/General/interfaces";
 
 import { OBJ_INDEX_0 } from "@/app/General/constants";
@@ -39,6 +40,14 @@ export const htmlParamsObj: HtmlSurveyQuestion = {
     html: EMPTY_STRING,
     preamble: EMPTY_STRING,
     buttonLabel: EMPTY_STRING,
+};
+
+export const likertScaleParamsObj: LikertScaleQuestion = {
+    index: OBJ_INDEX_0,
+    prompt: EMPTY_STRING,
+    minLabel: EMPTY_STRING,
+    maxLabel: EMPTY_STRING,
+    values: [],
 };
 
 export const initialMultiChoiceSurveyState = [
@@ -83,3 +92,13 @@ export const initialHtmlSurveyState = [
         buttonLabel: EMPTY_STRING,
     },
 ] as HtmlSurveyQuestion[];
+
+export const initialLikertScaleSurveyState = [
+    {
+        index: OBJ_INDEX_0,
+        prompt: EMPTY_STRING,
+        minLabel: EMPTY_STRING,
+        maxLabel: EMPTY_STRING,
+        values: [],
+    },
+] as LikertScaleQuestion[];

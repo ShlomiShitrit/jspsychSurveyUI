@@ -12,6 +12,7 @@ import {
     TextSurveyQuestion,
     TextSurveyState,
     HtmlSurveyQuestion,
+    LikertScaleQuestion,
 } from "@/app/General/interfaces";
 import {
     BLOB_TYPE,
@@ -190,6 +191,36 @@ function DownloadBtn({
                 `;
                 trialsList.push(trial);
             });
+        } else if (survey.stype === "Likert Scale") {
+            const params = survey.questions as LikertScaleQuestion[];
+            const questions = params.map((question) => {
+                const valuesObj = question.values.map(
+                    (value) => `{value: ${value}}`
+                );
+
+                return `{
+                    type: "likert",
+                    prompt: "${question.prompt}", 
+                    likert_scale_min_label: "${question.minLabel}",
+                    likert_scale_max_label: "${question.maxLabel}", 
+                    likert_scale_values: [
+                        ${valuesObj}
+                    ],
+                    }`;
+            });
+            trial =
+                jspsychVersion === "7.3"
+                    ? `
+        const trial${index} = {
+            type: jsPsychSurvey,
+            pages: [[
+                ${questions}
+            ]]
+        }
+            timeline.push(trial${index})
+            `
+                    : "jspsych 6.3 does not support Likert Scale";
+            trialsList.push(trial);
         } else {
             errorHandler(ERR_MSG_STYPE);
         }
@@ -209,7 +240,9 @@ function DownloadBtn({
             <script src="https://unpkg.com/@jspsych/plugin-survey-text@1.1.2"></script>
             <script src="https://unpkg.com/@jspsych/plugin-survey-multi-select@1.1.2"></script>
             <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@1.0.3"></script>
+            <script src="https://unpkg.com/@jspsych/plugin-survey@0.2.2"></script>
             <link href="https://unpkg.com/jspsych@7.3.3/css/jspsych.css" rel="stylesheet" type="text/css" />
+            <link rel="stylesheet" href="https://unpkg.com/@jspsych/plugin-survey@0.2.2/css/survey.css">
           </head>
         </head>
         <body></body>

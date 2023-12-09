@@ -44,6 +44,10 @@ export default function useSurveyForm<T extends QuestionType>(
     const [preamble, setPreamble] = useState<string>("");
     const [buttonLabel, setButtonLabel] = useState<string>("");
 
+    const [minLabel, setMinLabel] = useState<string>("");
+    const [maxLabel, setMaxLabel] = useState<string>("");
+    const [valuesNumber, setValuesNumber] = useState<number>(2);
+
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
@@ -146,6 +150,18 @@ export default function useSurveyForm<T extends QuestionType>(
                 buttonLabel: buttonLabel,
             } as T;
             break;
+        case "Likert Scale":
+            const values = Array(valuesNumber)
+                .fill(null)
+                .map((_, i) => i + 1);
+            QuestionData = {
+                index: id,
+                prompt: prompt,
+                minLabel: minLabel,
+                maxLabel: maxLabel,
+                values: values,
+            } as T;
+            break;
     }
 
     useEffect(() => {
@@ -210,5 +226,23 @@ export default function useSurveyForm<T extends QuestionType>(
         setButtonLabel,
     };
 
-    return { multiChoiceValues, likertValues, textValues, htmlValues };
+    const likertScaleValues = {
+        prompt,
+        minLabel,
+        maxLabel,
+        surveyType,
+        valuesNumber,
+        setPrompt,
+        setMinLabel,
+        setMaxLabel,
+        setValuesNumber,
+    };
+
+    return {
+        multiChoiceValues,
+        likertValues,
+        textValues,
+        htmlValues,
+        likertScaleValues,
+    };
 }
