@@ -53,6 +53,7 @@ export const likertScaleParamsObj: LikertScaleQuestion = {
 
 export const dropdownParamsObj = {
     index: OBJ_INDEX_0,
+    prompt: "",
     options: [],
     optionsReorder: "",
     correctResponse: "",
@@ -114,6 +115,7 @@ export const initialLikertScaleSurveyState = [
 export const initialDropdownSurveyState = [
     {
         index: OBJ_INDEX_0,
+        prompt: "",
         options: [],
         optionsReorder: "",
         correctResponse: "",
