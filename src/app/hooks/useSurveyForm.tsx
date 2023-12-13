@@ -6,7 +6,8 @@ import {
     SetStateAction,
     ChangeEvent,
 } from "react";
-import { QuestionType } from "../General/interfaces";
+import { QuestionType } from "@/app/General/interfaces";
+import { reorder } from "@/app/General/types";
 import { RootState } from "@/app/store/index";
 import { useSelector } from "react-redux";
 import {
@@ -47,6 +48,10 @@ export default function useSurveyForm<T extends QuestionType>(
     const [minLabel, setMinLabel] = useState<string>("");
     const [maxLabel, setMaxLabel] = useState<string>("");
     const [valuesNumber, setValuesNumber] = useState<number>(2);
+
+    const [optionsReorder, setOptionsReorder] = useState<reorder>("none");
+    const [isCorrectResponse, setIsCorrectResponse] = useState<boolean>(false);
+    const [correctResponse, setCorrectResponse] = useState<string | null>(null);
 
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -162,6 +167,18 @@ export default function useSurveyForm<T extends QuestionType>(
                 values: values,
             } as T;
             break;
+        case "Dropdown":
+            QuestionData = {
+                index: id,
+                prompt: prompt,
+                options: options,
+                optionsReorder: optionsReorder,
+                correctResponse: correctResponse,
+            } as T;
+            break;
+
+        default:
+            throw new Error("Invalid Survey Type");
     }
 
     useEffect(() => {
@@ -238,11 +255,30 @@ export default function useSurveyForm<T extends QuestionType>(
         setValuesNumber,
     };
 
+    const dropdownValues = {
+        prompt,
+        options,
+        optionsArray,
+        optionsReorder,
+        isCorrectResponse,
+        correctResponse,
+        surveyType,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompt,
+        setOptions,
+        setOptionsReorder,
+        setIsCorrectResponse,
+        setCorrectResponse,
+    };
+
     return {
         multiChoiceValues,
         likertValues,
         textValues,
         htmlValues,
         likertScaleValues,
+        dropdownValues,
     };
 }

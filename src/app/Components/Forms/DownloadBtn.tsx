@@ -13,6 +13,7 @@ import {
     TextSurveyState,
     HtmlSurveyQuestion,
     LikertScaleQuestion,
+    DropdownSurveyQuestion,
 } from "@/app/General/interfaces";
 import {
     BLOB_TYPE,
@@ -220,6 +221,37 @@ function DownloadBtn({
             timeline.push(trial${index})
             `
                     : "jspsych 6.3 does not support Likert Scale";
+            trialsList.push(trial);
+        } else if (survey.stype === "Dropdown") {
+            const params = survey.questions as DropdownSurveyQuestion[];
+            const questions = params.map((question) => {
+                return `{
+                    type: "drop-down",
+                    prompt: "${question.prompt}",
+                    options: [${question.options}], 
+                    option_reorder: "${question.optionsReorder}", 
+                    correct_response: 
+                        ${
+                            question.correctResponse
+                                ? `"${question.correctResponse}"`
+                                : "null"
+                        }
+                    ,
+                    }`;
+            });
+
+            trial =
+                jspsychVersion === "7.3"
+                    ? `
+            const trial${index} = {
+                type: jsPsychSurvey,
+                pages: [[
+                    ${questions}
+                ]]
+            }
+                timeline.push(trial${index})
+            `
+                    : `jspsych 6.3 does not support Dropdown`;
             trialsList.push(trial);
         } else {
             errorHandler(ERR_MSG_STYPE);
