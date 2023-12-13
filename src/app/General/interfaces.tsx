@@ -54,6 +54,14 @@ export interface LikertScaleQuestion {
     values: number[];
 }
 
+export interface DropdownSurveyQuestion {
+    index: number;
+    prompt: string;
+    options: string[];
+    optionsReorder: string;
+    correctResponse: string;
+}
+
 export interface TextSurveyState {
     preamble: string;
     textQuestions: TextSurveyQuestion[];
@@ -126,14 +134,16 @@ export type QuestionType =
     | MultiChoiceQuestion
     | TextSurveyQuestion
     | HtmlSurveyQuestion
-    | LikertScaleQuestion;
+    | LikertScaleQuestion
+    | DropdownSurveyQuestion;
 
 export type QuestionTypeArr =
     | LikertQuestion[]
     | MultiChoiceQuestion[]
     | TextSurveyQuestion[]
     | HtmlSurveyQuestion[]
-    | LikertScaleQuestion[];
+    | LikertScaleQuestion[]
+    | DropdownSurveyQuestion[];
 
 export interface SurveyFormProps<T extends QuestionType> extends SurveyProps {
     questionsChangeHandler: (index: number, question: T) => void;
@@ -161,7 +171,8 @@ export interface ListItemObj {
         | MultiChoiceQuestion[]
         | TextSurveyState
         | HtmlSurveyQuestion[]
-        | LikertScaleQuestion[];
+        | LikertScaleQuestion[]
+        | DropdownSurveyQuestion[];
 }
 export interface DownloadDialogProps {
     open: boolean;
