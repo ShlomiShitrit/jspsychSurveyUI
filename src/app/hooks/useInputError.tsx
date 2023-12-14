@@ -132,6 +132,20 @@ function useInputError(
                     [`${id}${INPUT_ERR_ID_2}`]: INPUT_ERR_MSG_OPTIONS,
                 };
                 break;
+            case "Likert Table":
+                isState1Empty = state1S.trim() === EMPTY_STRING;
+                isState2Empty = state2S.trim() === EMPTY_STRING;
+                isState3Empty =
+                    state3L.length < HOOKS_ARR_LEN_2 ||
+                    replaceFirstAndLast(state3L[HOOKS_INDEX_0]) ===
+                        EMPTY_STRING ||
+                    replaceFirstAndLast(state3L[HOOKS_INDEX_1]) ===
+                        EMPTY_STRING;
+                errorObj = {
+                    [`${id}${INPUT_ERR_ID_0}`]: INPUT_ERR_MSG_REQ,
+                    [`${id}${INPUT_ERR_ID_1}`]: INPUT_ERR_MSG_REQ,
+                    [`${id}${INPUT_ERR_ID_2}`]: INPUT_ERR_MSG_OPTIONS,
+                };
             default:
                 break;
         }

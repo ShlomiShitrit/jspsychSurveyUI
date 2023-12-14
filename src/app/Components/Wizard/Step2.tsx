@@ -10,6 +10,7 @@ import LikertScale from "@/app/Components/SurveyTypes/LikertScale";
 import HtmlSurvey from "@/app/Components/SurveyTypes/HtmlSurvey";
 import DropdownSurvey from "@/app/Components/SurveyTypes/DropdownSurvey";
 import RankingSurvey from "@/app/Components/SurveyTypes/RankingSurvey";
+import LikertTable from "@/app/Components/SurveyTypes/LikertTable";
 import { Step2AndTextSurveyProps } from "@/app/General/interfaces";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import {
@@ -122,6 +123,18 @@ function Step2({
                     emptyNewErrors={emptyNewErrors}
                 />
             );
+        case "Likert Table":
+            return (
+                <LikertTable
+                    onSurveyParams={onSurveyParams}
+                    inputErrorsHandler={inputErrorsHandler}
+                    newErrors={newErrors}
+                    isInputErrorHandler={isInputErrorHandler}
+                    emptyInputErrors={emptyInputErrors}
+                    emptyNewErrors={emptyNewErrors}
+                />
+            );
+
         default:
             return <ErrorStep error={ERROR_STEP_MSG} />;
     }

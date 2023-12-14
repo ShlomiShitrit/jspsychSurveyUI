@@ -6,7 +6,7 @@ import {
     SetStateAction,
     ChangeEvent,
 } from "react";
-import { QuestionType } from "@/app/General/interfaces";
+import { QuestionType, LikertTableStatements } from "@/app/General/interfaces";
 import { reorder } from "@/app/General/types";
 import { RootState } from "@/app/store/index";
 import { useSelector } from "react-redux";
@@ -56,6 +56,8 @@ export default function useSurveyForm<T extends QuestionType>(
     const [correctResponseRanking, setCorrectResponseRanking] = useState<
         string[] | null
     >(null);
+
+    const [statememts, setStatements] = useState<LikertTableStatements[]>([]);
 
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -191,6 +193,16 @@ export default function useSurveyForm<T extends QuestionType>(
                 required: required,
             } as T;
             break;
+        case "Likert Table":
+            QuestionData = {
+                index: id,
+                prompt: prompt,
+                name: name,
+                options: options,
+                statements: statememts,
+                required: required,
+            } as T;
+            break;
         default:
             throw new Error("Invalid Survey Type");
     }
@@ -309,6 +321,29 @@ export default function useSurveyForm<T extends QuestionType>(
         setRequired,
     };
 
+    const likertTableValues = {
+        prompt,
+        name,
+        prompts,
+        names,
+        options,
+        optionsArray,
+        required,
+        promptsArray,
+        nameArray,
+        surveyType,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompt,
+        setName,
+        setOptions,
+        setRequired,
+        setPrompts,
+        setNames,
+        setStatements,
+    };
+
     return {
         multiChoiceValues,
         likertValues,
@@ -317,5 +352,6 @@ export default function useSurveyForm<T extends QuestionType>(
         likertScaleValues,
         dropdownValues,
         rankingValues,
+        likertTableValues,
     };
 }
