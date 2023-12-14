@@ -80,6 +80,11 @@ function Step1() {
                         control={<Radio />}
                         label={"Dropdown"}
                     />
+                    <FormControlLabel
+                        value={"Ranking"}
+                        control={<Radio />}
+                        label={"Ranking"}
+                    />
                 </RadioGroup>
             </FormControl>
         </Box>

@@ -11,6 +11,7 @@ import { versionSlice } from "@/app/store/versionSlice";
 import { htmlSlice } from "@/app/store/htmlSlice";
 import { likertScaleSlice } from "@/app/store/likertScaleSlice";
 import { dropdownSlice } from "@/app/store/dropdownSurveySlice";
+import { rankingSlice } from "@/app/store/rankingSurveySlice";
 
 const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
         html: htmlSlice.reducer,
         likertScale: likertScaleSlice.reducer,
         dropdown: dropdownSlice.reducer,
+        ranking: rankingSlice.reducer,
     },
 });
 
