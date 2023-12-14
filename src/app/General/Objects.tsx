@@ -7,6 +7,7 @@ import {
     LikertScaleQuestion,
     DropdownSurveyQuestion,
     RankingSurveyQuestion,
+    LikertTableQuestion,
 } from "@/app/General/interfaces";
 
 import { OBJ_INDEX_0 } from "@/app/General/constants";
@@ -69,6 +70,15 @@ export const rankingParamsObj: RankingSurveyQuestion = {
     correctResponse: [],
     required: false,
 };
+
+export const likertTableParamsObj: LikertTableQuestion = {
+    index: OBJ_INDEX_0,
+    prompt: "",
+    name: "",
+    options: [],
+    statements: [],
+    required: false,
+}; 
 
 export const initialMultiChoiceSurveyState = [
     {
@@ -144,3 +154,14 @@ export const initialRankingSurveyState = [
         required: false,
     },
 ] as RankingSurveyQuestion[];
+
+export const initialLikertTableSurveyState = [
+    {
+        index: OBJ_INDEX_0,
+        prompt: "",
+        name: "",
+        options: [],
+        statements: [],
+        required: false,
+    },
+] as LikertTableQuestion[];

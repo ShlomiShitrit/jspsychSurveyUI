@@ -15,6 +15,7 @@ import {
     LikertScaleQuestion,
     DropdownSurveyQuestion,
     RankingSurveyQuestion,
+    LikertTableQuestion,
 } from "@/app/General/interfaces";
 import {
     BLOB_TYPE,
@@ -286,6 +287,38 @@ function DownloadBtn({
                 timeline.push(trial${index})
             `
                     : `jspsych 6.3 does not support Ranking`;
+            trialsList.push(trial);
+        } else if (survey.stype === "Likert Table") {
+            const params = survey.questions as LikertTableQuestion[];
+            const questions = params.map((question) => {
+                const statementsArray = question.statements.map(
+                    (statement) =>
+                        `{prompt: "${replaceFirstAndLast(
+                            statement.prompt
+                        )}", name: "${replaceFirstAndLast(statement.name)}"}`
+                );
+
+                return `{
+                    type: "likert-table",
+                    prompt: "${question.prompt}",
+                    name: "${question.name}",
+                    options: [${question.options}], 
+                    statements: [${statementsArray}], 
+                    required: ${question.required},
+                    }`;
+            });
+            trial =
+                jspsychVersion === "7.3"
+                    ? `
+        const trial${index} = {
+            type: jsPsychSurvey,
+            pages: [[
+                ${questions}
+            ]]
+        }
+            timeline.push(trial${index})
+        `
+                    : `jspsych 6.3 does not support likert table`;
             trialsList.push(trial);
         } else {
             errorHandler(ERR_MSG_STYPE);

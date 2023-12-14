@@ -71,6 +71,20 @@ export interface RankingSurveyQuestion extends RankingAndDropdownQuestions {
     name: string;
 }
 
+export interface LikertTableStatements {
+    prompt: string;
+    name: string;
+}
+
+export interface LikertTableQuestion {
+    index: number;
+    prompt: string;
+    name: string;
+    options: string[];
+    statements: LikertTableStatements[];
+    required: boolean;
+}
+
 export interface TextSurveyState {
     preamble: string;
     textQuestions: TextSurveyQuestion[];
@@ -145,7 +159,8 @@ export type QuestionType =
     | HtmlSurveyQuestion
     | LikertScaleQuestion
     | DropdownSurveyQuestion
-    | RankingSurveyQuestion;
+    | RankingSurveyQuestion
+    | LikertTableQuestion;
 
 export type QuestionTypeArr =
     | LikertQuestion[]
@@ -154,7 +169,8 @@ export type QuestionTypeArr =
     | HtmlSurveyQuestion[]
     | LikertScaleQuestion[]
     | DropdownSurveyQuestion[]
-    | RankingSurveyQuestion[];
+    | RankingSurveyQuestion[]
+    | LikertTableQuestion[];
 
 export interface SurveyFormProps<T extends QuestionType> extends SurveyProps {
     questionsChangeHandler: (index: number, question: T) => void;
@@ -184,7 +200,8 @@ export interface ListItemObj {
         | HtmlSurveyQuestion[]
         | LikertScaleQuestion[]
         | DropdownSurveyQuestion[]
-        | RankingSurveyQuestion[];
+        | RankingSurveyQuestion[]
+        | LikertTableQuestion[];
 }
 export interface DownloadDialogProps {
     open: boolean;
