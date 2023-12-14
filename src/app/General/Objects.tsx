@@ -66,7 +66,7 @@ export const rankingParamsObj: RankingSurveyQuestion = {
     name: "",
     options: [],
     optionsReorder: "",
-    correctResponse: "",
+    correctResponse: [],
     required: false,
 };
 
@@ -140,7 +140,7 @@ export const initialRankingSurveyState = [
         name: "",
         options: [],
         optionsReorder: "",
-        correctResponse: "",
+        correctResponse: [],
         required: false,
     },
 ] as RankingSurveyQuestion[];
