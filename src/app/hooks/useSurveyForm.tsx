@@ -53,6 +53,10 @@ export default function useSurveyForm<T extends QuestionType>(
     const [isCorrectResponse, setIsCorrectResponse] = useState<boolean>(false);
     const [correctResponse, setCorrectResponse] = useState<string | null>(null);
 
+    const [correctResponseRanking, setCorrectResponseRanking] = useState<
+        string[] | null
+    >(null);
+
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
     );
@@ -176,7 +180,17 @@ export default function useSurveyForm<T extends QuestionType>(
                 correctResponse: correctResponse,
             } as T;
             break;
-
+        case "Ranking":
+            QuestionData = {
+                index: id,
+                prompt: prompt,
+                name: name,
+                options: options,
+                optionsReorder: optionsReorder,
+                correctResponse: correctResponseRanking,
+                required: required,
+            } as T;
+            break;
         default:
             throw new Error("Invalid Survey Type");
     }
@@ -273,6 +287,28 @@ export default function useSurveyForm<T extends QuestionType>(
         setCorrectResponse,
     };
 
+    const rankingValues = {
+        prompt,
+        name,
+        options,
+        optionsArray,
+        optionsReorder,
+        isCorrectResponse,
+        correctResponseRanking,
+        required,
+        surveyType,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompt,
+        setName,
+        setOptions,
+        setOptionsReorder,
+        setIsCorrectResponse,
+        setCorrectResponseRanking,
+        setRequired,
+    };
+
     return {
         multiChoiceValues,
         likertValues,
@@ -280,5 +316,6 @@ export default function useSurveyForm<T extends QuestionType>(
         htmlValues,
         likertScaleValues,
         dropdownValues,
+        rankingValues,
     };
 }

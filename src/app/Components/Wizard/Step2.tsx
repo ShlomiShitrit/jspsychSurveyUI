@@ -9,6 +9,7 @@ import MultiSelect from "@/app/Components/SurveyTypes/MultiSelect";
 import LikertScale from "@/app/Components/SurveyTypes/LikertScale";
 import HtmlSurvey from "@/app/Components/SurveyTypes/HtmlSurvey";
 import DropdownSurvey from "@/app/Components/SurveyTypes/DropdownSurvey";
+import RankingSurvey from "@/app/Components/SurveyTypes/RankingSurvey";
 import { Step2AndTextSurveyProps } from "@/app/General/interfaces";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import {
@@ -102,6 +103,17 @@ function Step2({
         case "Dropdown":
             return (
                 <DropdownSurvey
+                    onSurveyParams={onSurveyParams}
+                    inputErrorsHandler={inputErrorsHandler}
+                    newErrors={newErrors}
+                    isInputErrorHandler={isInputErrorHandler}
+                    emptyInputErrors={emptyInputErrors}
+                    emptyNewErrors={emptyNewErrors}
+                />
+            );
+        case "Ranking":
+            return (
+                <RankingSurvey
                     onSurveyParams={onSurveyParams}
                     inputErrorsHandler={inputErrorsHandler}
                     newErrors={newErrors}

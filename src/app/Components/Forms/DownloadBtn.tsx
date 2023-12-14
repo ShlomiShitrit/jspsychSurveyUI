@@ -14,6 +14,7 @@ import {
     HtmlSurveyQuestion,
     LikertScaleQuestion,
     DropdownSurveyQuestion,
+    RankingSurveyQuestion,
 } from "@/app/General/interfaces";
 import {
     BLOB_TYPE,
@@ -252,6 +253,39 @@ function DownloadBtn({
                 timeline.push(trial${index})
             `
                     : `jspsych 6.3 does not support Dropdown`;
+            trialsList.push(trial);
+        } else if (survey.stype === "Ranking") {
+            const params = survey.questions as RankingSurveyQuestion[];
+            const questions = params.map((question) => {
+                return `{
+                    type: "ranking",
+                    prompt: "${question.prompt}",
+                    name: "${question.name}",
+                    options: [${question.options}], 
+                    option_reorder: "${question.optionsReorder}", 
+                    correct_response: 
+                        ${
+                            question.correctResponse
+                                ? `[${question.correctResponse}]`
+                                : "null"
+                        }
+                    ,
+                    required: ${question.required},
+                    }`;
+            });
+
+            trial =
+                jspsychVersion === "7.3"
+                    ? `
+            const trial${index} = {
+                type: jsPsychSurvey,
+                pages: [[
+                    ${questions}
+                ]]
+            }
+                timeline.push(trial${index})
+            `
+                    : `jspsych 6.3 does not support Ranking`;
             trialsList.push(trial);
         } else {
             errorHandler(ERR_MSG_STYPE);
