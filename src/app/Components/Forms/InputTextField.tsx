@@ -27,12 +27,19 @@ function InputTextField({
     );
     const newState =
         (state && inputType === INPUT_TYPE_OPTIONSQ) ||
-        surveyType === LIKERT_STYPE
+        surveyType === LIKERT_STYPE ||
+        (surveyType === "Likert Table" &&
+            inputType !== "prompt" &&
+            inputType !== "name")
             ? replaceFirstAndLast((state as string) || EMPTY_STRING)
             : state;
 
     const labelId =
-        inputType === INPUT_TYPE_OPTIONSQ || surveyType === LIKERT_STYPE
+        inputType === INPUT_TYPE_OPTIONSQ ||
+        surveyType === LIKERT_STYPE ||
+        (surveyType === "Likert Table" &&
+            inputType !== "prompt" &&
+            inputType !== "name")
             ? `${labelText} ${id + FORM_INPUT_ID_PLUS_1}`
             : `${labelText}`;
 

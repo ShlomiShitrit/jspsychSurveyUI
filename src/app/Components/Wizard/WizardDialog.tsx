@@ -24,6 +24,9 @@ import { surveyListActions } from "@/app/store/surveyListSlice";
 import { textActions } from "@/app/store/textSlice";
 import { htmlActions } from "@/app/store/htmlSlice";
 import { likertScaleActions } from "@/app/store/likertScaleSlice";
+import { dropdownActions } from "@/app/store/dropdownSurveySlice";
+import { rankingActions } from "@/app/store/rankingSurveySlice";
+import { likertTableActions } from "@/app/store/likertTableSlice";
 import AddSurveyBtn from "@/app/Components/Wizard/AddSurveyBtn";
 import ErrorStep from "@/app/Components/Wizard/ErrorStep";
 import { RootState } from "@/app/store/index";
@@ -34,6 +37,9 @@ import {
     textParamsObj,
     htmlParamsObj,
     likertScaleParamsObj,
+    dropdownParamsObj,
+    rankingParamsObj,
+    likertTableParamsObj,
 } from "@/app/General/Objects";
 import {
     MultiChoiceQuestion,
@@ -43,6 +49,9 @@ import {
     TextSurveyState,
     HtmlSurveyQuestion,
     LikertScaleQuestion,
+    DropdownSurveyQuestion,
+    RankingSurveyQuestion,
+    LikertTableQuestion,
 } from "@/app/General/interfaces";
 import {
     WIZRAD_STEP_0,
@@ -92,6 +101,16 @@ function WizardDialog({
     const [likertScaleParams, setLikertScaleParams] = useState<
         LikertScaleQuestion[]
     >([likertScaleParamsObj]);
+
+    const [dropdownParams, setDropdownParams] = useState<
+        DropdownSurveyQuestion[]
+    >([dropdownParamsObj]);
+    const [rankingParams, setRankingParams] = useState<RankingSurveyQuestion[]>(
+        [rankingParamsObj]
+    );
+    const [likertTableParams, setLikertTableParams] = useState<
+        LikertTableQuestion[]
+    >([likertTableParamsObj]);
     const [surveyName, setSurveyName] = useState(EMPTY_STRING);
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -129,6 +148,9 @@ function WizardDialog({
             | TextSurveyQuestion[]
             | HtmlSurveyQuestion[]
             | LikertScaleQuestion[]
+            | DropdownSurveyQuestion[]
+            | RankingSurveyQuestion[]
+            | LikertTableQuestion[]
     ) => {
         if (surveyType === STYPE_MULTI_CHOICE) {
             setMultiChoiceParams(params as MultiChoiceQuestion[]);
@@ -142,6 +164,12 @@ function WizardDialog({
             setHtmlParams(params as HtmlSurveyQuestion[]);
         } else if (surveyType === "Likert Scale") {
             setLikertScaleParams(params as LikertScaleQuestion[]);
+        } else if (surveyType === "Dropdown") {
+            setDropdownParams(params as DropdownSurveyQuestion[]);
+        } else if (surveyType === "Ranking") {
+            setRankingParams(params as RankingSurveyQuestion[]);
+        } else if (surveyType === "Likert Table") {
+            setLikertTableParams(params as LikertTableQuestion[]);
         }
     };
 
@@ -254,6 +282,21 @@ function WizardDialog({
                         dispatch(likertScaleActions.addQuestion(question));
                     });
                     break;
+                case "Dropdown":
+                    dropdownParams.forEach((question) => {
+                        dispatch(dropdownActions.addQuestion(question));
+                    });
+                    break;
+                case "Ranking":
+                    rankingParams.forEach((question) => {
+                        dispatch(rankingActions.addQuestion(question));
+                    });
+                    break;
+                case "Likert Table":
+                    likertTableParams.forEach((question) => {
+                        dispatch(likertTableActions.addQuestion(question));
+                    });
+                    break;
                 default:
                     errorHandler(ERR_MSG_STYPE);
                     break;
@@ -274,7 +317,10 @@ function WizardDialog({
             | MultiChoiceQuestion[]
             | TextSurveyState
             | HtmlSurveyQuestion[]
-            | LikertScaleQuestion[] = [];
+            | LikertScaleQuestion[]
+            | DropdownSurveyQuestion[]
+            | RankingSurveyQuestion[]
+            | LikertTableQuestion[] = [];
         if (surveyType === STYPE_MULTI_CHOICE) {
             questions = multiChoiceParams;
         } else if (surveyType === STYPE_LIKERT) {
@@ -287,6 +333,12 @@ function WizardDialog({
             questions = htmlParams;
         } else if (surveyType === "Likert Scale") {
             questions = likertScaleParams;
+        } else if (surveyType === "Dropdown") {
+            questions = dropdownParams;
+        } else if (surveyType === "Ranking") {
+            questions = rankingParams;
+        } else if (surveyType === "Likert Table") {
+            questions = likertTableParams;
         }
         dispatch(
             surveyListActions.addSurvey({

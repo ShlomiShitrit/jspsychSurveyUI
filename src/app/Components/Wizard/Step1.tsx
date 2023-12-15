@@ -75,6 +75,21 @@ function Step1() {
                         control={<Radio />}
                         label={"Likert Scale"}
                     />
+                    <FormControlLabel
+                        value={"Dropdown"}
+                        control={<Radio />}
+                        label={"Dropdown"}
+                    />
+                    <FormControlLabel
+                        value={"Ranking"}
+                        control={<Radio />}
+                        label={"Ranking"}
+                    />
+                    <FormControlLabel
+                        value={"Likert Table"}
+                        control={<Radio />}
+                        label={"Likert Table"}
+                    />
                 </RadioGroup>
             </FormControl>
         </Box>

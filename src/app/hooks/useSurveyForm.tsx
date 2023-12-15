@@ -6,7 +6,8 @@ import {
     SetStateAction,
     ChangeEvent,
 } from "react";
-import { QuestionType } from "../General/interfaces";
+import { QuestionType, LikertTableStatements } from "@/app/General/interfaces";
+import { reorder } from "@/app/General/types";
 import { RootState } from "@/app/store/index";
 import { useSelector } from "react-redux";
 import {
@@ -47,6 +48,16 @@ export default function useSurveyForm<T extends QuestionType>(
     const [minLabel, setMinLabel] = useState<string>("");
     const [maxLabel, setMaxLabel] = useState<string>("");
     const [valuesNumber, setValuesNumber] = useState<number>(2);
+
+    const [optionsReorder, setOptionsReorder] = useState<reorder>("none");
+    const [isCorrectResponse, setIsCorrectResponse] = useState<boolean>(false);
+    const [correctResponse, setCorrectResponse] = useState<string | null>(null);
+
+    const [correctResponseRanking, setCorrectResponseRanking] = useState<
+        string[] | null
+    >(null);
+
+    const [statememts, setStatements] = useState<LikertTableStatements[]>([]);
 
     const surveyType = useSelector(
         (state: RootState) => state.stype.surveyType
@@ -162,6 +173,38 @@ export default function useSurveyForm<T extends QuestionType>(
                 values: values,
             } as T;
             break;
+        case "Dropdown":
+            QuestionData = {
+                index: id,
+                prompt: prompt,
+                options: options,
+                optionsReorder: optionsReorder,
+                correctResponse: correctResponse,
+            } as T;
+            break;
+        case "Ranking":
+            QuestionData = {
+                index: id,
+                prompt: prompt,
+                name: name,
+                options: options,
+                optionsReorder: optionsReorder,
+                correctResponse: correctResponseRanking,
+                required: required,
+            } as T;
+            break;
+        case "Likert Table":
+            QuestionData = {
+                index: id,
+                prompt: prompt,
+                name: name,
+                options: options,
+                statements: statememts,
+                required: required,
+            } as T;
+            break;
+        default:
+            throw new Error("Invalid Survey Type");
     }
 
     useEffect(() => {
@@ -238,11 +281,77 @@ export default function useSurveyForm<T extends QuestionType>(
         setValuesNumber,
     };
 
+    const dropdownValues = {
+        prompt,
+        options,
+        optionsArray,
+        optionsReorder,
+        isCorrectResponse,
+        correctResponse,
+        surveyType,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompt,
+        setOptions,
+        setOptionsReorder,
+        setIsCorrectResponse,
+        setCorrectResponse,
+    };
+
+    const rankingValues = {
+        prompt,
+        name,
+        options,
+        optionsArray,
+        optionsReorder,
+        isCorrectResponse,
+        correctResponseRanking,
+        required,
+        surveyType,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompt,
+        setName,
+        setOptions,
+        setOptionsReorder,
+        setIsCorrectResponse,
+        setCorrectResponseRanking,
+        setRequired,
+    };
+
+    const likertTableValues = {
+        prompt,
+        name,
+        prompts,
+        names,
+        options,
+        optionsArray,
+        required,
+        promptsArray,
+        nameArray,
+        surveyType,
+        addInput,
+        removeInput,
+        stateHandler,
+        setPrompt,
+        setName,
+        setOptions,
+        setRequired,
+        setPrompts,
+        setNames,
+        setStatements,
+    };
+
     return {
         multiChoiceValues,
         likertValues,
         textValues,
         htmlValues,
         likertScaleValues,
+        dropdownValues,
+        rankingValues,
+        likertTableValues,
     };
 }

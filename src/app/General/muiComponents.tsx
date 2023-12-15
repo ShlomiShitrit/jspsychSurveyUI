@@ -34,9 +34,13 @@ export {
     Tooltip,
     Chip,
     Link,
+    Select,
+    MenuItem,
     tooltipClasses,
+    InputLabel,
 } from "@mui/material";
 export type { TooltipProps } from "@mui/material";
+export type { SelectChangeEvent } from "@mui/material/Select";
 export { styled } from "@mui/material/styles";
 export { DeleteIcon, InfoIcon };
 export { blue } from "@mui/material/colors";

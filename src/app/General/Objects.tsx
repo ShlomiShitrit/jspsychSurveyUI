@@ -5,6 +5,9 @@ import {
     TextSurveyState,
     HtmlSurveyQuestion,
     LikertScaleQuestion,
+    DropdownSurveyQuestion,
+    RankingSurveyQuestion,
+    LikertTableQuestion,
 } from "@/app/General/interfaces";
 
 import { OBJ_INDEX_0 } from "@/app/General/constants";
@@ -49,6 +52,33 @@ export const likertScaleParamsObj: LikertScaleQuestion = {
     maxLabel: EMPTY_STRING,
     values: [],
 };
+
+export const dropdownParamsObj = {
+    index: OBJ_INDEX_0,
+    prompt: "",
+    options: [],
+    optionsReorder: "",
+    correctResponse: "",
+};
+
+export const rankingParamsObj: RankingSurveyQuestion = {
+    index: OBJ_INDEX_0,
+    prompt: "",
+    name: "",
+    options: [],
+    optionsReorder: "",
+    correctResponse: [],
+    required: false,
+};
+
+export const likertTableParamsObj: LikertTableQuestion = {
+    index: OBJ_INDEX_0,
+    prompt: "",
+    name: "",
+    options: [],
+    statements: [],
+    required: false,
+}; 
 
 export const initialMultiChoiceSurveyState = [
     {
@@ -102,3 +132,36 @@ export const initialLikertScaleSurveyState = [
         values: [],
     },
 ] as LikertScaleQuestion[];
+
+export const initialDropdownSurveyState = [
+    {
+        index: OBJ_INDEX_0,
+        prompt: "",
+        options: [],
+        optionsReorder: "",
+        correctResponse: "",
+    },
+] as DropdownSurveyQuestion[];
+
+export const initialRankingSurveyState = [
+    {
+        index: OBJ_INDEX_0,
+        prompt: "",
+        name: "",
+        options: [],
+        optionsReorder: "",
+        correctResponse: [],
+        required: false,
+    },
+] as RankingSurveyQuestion[];
+
+export const initialLikertTableSurveyState = [
+    {
+        index: OBJ_INDEX_0,
+        prompt: "",
+        name: "",
+        options: [],
+        statements: [],
+        required: false,
+    },
+] as LikertTableQuestion[];
